@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "373247113494",
+    "project_id": "uanaproject",
+    "storage_bucket": "uanaproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373247113494:android:60c6d0281cc8015818f837",
+        "android_client_info": {
+          "package_name": "com.joowhan.uana_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373247113494-be0cehsa0tpu6d39jqegatf1jk0gbgil.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.joowhan.uana_project",
+            "certificate_hash": "9d3ecd3ebbb500dbe69bc61353ed122152d5c2ca"
+          }
+        },
+        {
+          "client_id": "373247113494-0aflm4c4hkgk9aisil0k2th1037m20tt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjTT9GuoNA0EJTeiHp0MbGtYB8_5XZ4ZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373247113494-0aflm4c4hkgk9aisil0k2th1037m20tt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
