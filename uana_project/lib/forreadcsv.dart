@@ -92,50 +92,84 @@ class HomeState extends State<Home> {
           .transform(new CsvToListConverter())
           .toList();
       final confirmlist = List.generate(0, (index) => 0); // 레시피 코드를 저장한다.
-      for(int i =0; i < 2; i++){
-        print(confirmlist);
+      for(int i =0; i < fields.length; i++){
+        print(i);
         if(fields[i][0] is! String){ //각 csv 파일 맨 위는 사용하지 않는다.
-          if(!confirmlist.contains(fields[i][0])){ //만약 원래 추가가 되지 않았던 레시피 코드라면 confirmlist에 추가하고, set을 사용해서 firebase에도 올린다.
-            confirmlist.add(fields[i][0]);
-            print("confirmlist");
-            print(confirmlist);
-            //원래 추가가 된 것이 아니기 때문에 set을 이용해서 올린다.
-            await FirebaseFirestore.instance
-                .collection('recipes')
-                .doc(fields[i][0].toString() + "안녕")
-                .set({
-              /*
-        레시피 코드, 레시피 이름 ,재료 명, 재료 용량, 재료 타입 명(양념, 주재료 등), 유형 분류(한식, 퓨전 등),
-        음식분류(부침, 나물, 밥 등),조리 시간, 분량(인분), 난이도, 가격, 대표이미지 URL, 상세 URL, 요리 설명순서, 요리 설명, 과정 이미지 url, tip
-         */
-              'recipeCode' : fields[i][0] as int, //레시피 코드이자 doc 이름
-              'recipeName': "", //레시피 이름
-              'ingredient' : {fields[i][2] :  fields[i][3]}, //재료 명과 용량
+        //   if(!confirmlist.contains(fields[i][0])){ //만약 원래 추가가 되지 않았던 레시피 코드라면 confirmlist에 추가하고, set을 사용해서 firebase에도 올린다.
+        //     confirmlist.add(fields[i][0]);
+        //     print("confirmlist");
+        //     print(confirmlist);
+        //     //원래 추가가 된 것이 아니기 때문에 set을 이용해서 올린다.
+        //     await FirebaseFirestore.instance
+        //         .collection('recipes')
+        //         .doc(fields[i][0].toString())
+        //         .set({
+        //       /*
+        // 레시피 코드!, 레시피 이름! ,재료 명!, 재료 용량!, 재료 타입 명(양념, 주재료 등)!, 유형 분류(한식, 퓨전 등)!, 간략 요약!
+        // 음식분류(부침, 나물, 밥 등)!,조리 시간!, 분량(인분)!, 난이도!, 대표이미지 URL!, 상세 URL!, 요리 설명순서!, 요리 설명!, 과정 이미지 url!
+        //  */
+        //       'recipeCode' : fields[i][0] as int, //레시피 코드이자 doc 이름 // 첫 번째 파일 !
+        //       // 'recipeName': "", //레시피 이름 !
+        //       // 'ingredient_main' : {"주재료" : "목록"}, //(주)재료 명과 용량 !
+        //       // 'ingredient_sub' : {"" : ""}, //(부)재료 명과 용량 !
+        //       // 'ingredient_sauce' : {"" : ""}, //(양념)재료 명과 용량 !
+        //       // 'type_c' : "", // 유형 분류(한식, 퓨전 등) !
+        //       // 'food_c' : "", // 음식 분류(부침, 나물 등) !
+        //       // 'description' : "", //간략 요약 !
+        //       // 'cooking_time' : "", //조리 시간 !
+        //       // 'level' : "", //난이도 !
+        //       // 'image_url' : "", //대표이미지 url !
+        //       // 'detail_url' : "", //상세 url !
+        //       // 'process_description' : {"" :  ""}, //과정 순서 : 설명
+        //       // 'process_url' : {"" :  ""}, //과정 순서 : 설명
+        //     });
+        //
+        //     }
+        //   else{ // 만약 confirmlist에 있다면 set이 된 것이니 update를 이용한다.
 
 
+          await FirebaseFirestore.instance
+              .collection("recipes")
+              .doc(fields[i][0].toString())
+              .update({
+                // 'ingredient' : FieldValue.arrayUnion([fields[i][2] ,  fields[i][3]]),
+                'process_description.${fields[i][1]}': fields[i][2],
+                'process_url.${fields[i][1]}': fields[i][3],
 
+                // 'userInfo.userCount': 2
+          });
+           //세번째  파일 순서 넣는 용
+            
+            // await FirebaseFirestore.instance
+            //     .collection("recipes")
+            //     .doc(fields[i][0].toString())
+            //     .update({
+            //   // 'ingredient' : FieldValue.arrayUnion([fields[i][2] ,  fields[i][3]]),
+            //   'recipeName' : fields[i][1],
+            //   'type_c' : fields[i][4],
+            //   'food_c' : fields[i][6],
+            //   'description' : fields[i][2],
+            //   'cooking_time' : fields[i][7],
+            //   'level' : fields[i][10],
+            //   'image_url' : fields[i][11],
+            //   'detail_url' : fields[i][12],
+            //
+            //
+            //   // 'userInfo.userCount': 2
+            // }); //두번째 파일용
 
-            });
+            // await FirebaseFirestore.instance
+            //     .collection("recipes")
+            //     .doc(fields[i][0].toString())
+            //     .update({
+            //       // 'ingredient' : FieldValue.arrayUnion([fields[i][2] ,  fields[i][3]]),
+            //       'ingredient.${fields[i][2]}': fields[i][3],
+            //       // 'userInfo.userCount': 2
+            // });
+            // } //첫번째 파일 ingredient 넣는 용
 
-            }
-          else{ // 만약 confirmlist에 있다면 set이 된 것이니 update를 이용한다.
-            await FirebaseFirestore.instance
-                .collection("recipes")
-                .doc(fields[i][0].toString())
-                .update({
-                  // 'ingredient' : FieldValue.arrayUnion([fields[i][2] ,  fields[i][3]]),
-                  'ingredient.${fields[i][2]}': fields[i][3],
-                  // 'userInfo.userCount': 2
-            });
-            }
-
-          print(fields[i]);
         }
       }
-
-      print(confirmlist);
-      print(fields);
-      print(fields.length);
 
     }
     return Scaffold(
@@ -163,11 +197,6 @@ class HomeState extends State<Home> {
         if (result == null )return;
         final file = result.files.first;
         openFile(file);
-        print('Name: ${file.name} ');
-        print('Bytes: ${file.bytes} ');
-        print('Size: ${file.size} ');
-        print('Extension: ${file.extension} ');
-        print('Path : ${file.path} ');
 
         // final fields = await input.transform(utf8.decoder).transform(new CsvToListConverter()).toList();
       }),
