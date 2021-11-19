@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "373247113494-be0cehsa0tpu6d39jqegatf1jk0gbgil.apps.googleusercontent.com",
+          "client_id": "373247113494-kqqfc47t5sf5nq9n1pvdrjt9bbqpv4e1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.joowhan.uana_project",
-            "certificate_hash": "9d3ecd3ebbb500dbe69bc61353ed122152d5c2ca"
+            "certificate_hash": "c1a0db2ae2bb428344d39f2d3309d41395aee137"
           }
         },
         {
