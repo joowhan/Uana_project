@@ -15,6 +15,7 @@ Home 화면
  */
 class HomePage extends StatefulWidget {
   const HomePage ({Key? key}) : super(key: key);
+  //final UserInformation users;
 
   @override
   _HomePageState createState() => _HomePageState();

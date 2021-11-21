@@ -39,7 +39,7 @@ dependencies:
   provider: ^6.0.1
   google_sign_in: ^4.5.1
   font_awesome_flutter: ^9.2.0
-  image_picker: ^0.6.2+2
+  image_picker: ^0.8.4+4
   video_player: ^2.2.3
   xfile: ^1.1.0
   firebase_storage: ^10.1.0
