@@ -30,7 +30,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
     print(widget.recipe.processUrl[key]);
     return Column(
       children: [
-        if(widget.recipe.processUrl[key] != '')
+        if(widget.recipe.processUrl[key] != ' ')//null이 아니라 space가 하나 있었음.
           Image.network(widget.recipe.processUrl[key]),
 
         Text('${key} : ${widget.recipe.processDescription[key]}'),
