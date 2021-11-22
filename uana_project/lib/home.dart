@@ -84,14 +84,65 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     LoginProvider loginProvider = Provider.of(context, listen: true);
-    return Column(
-      children: [
-        const SizedBox(height: 30.0),
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: const Text('Firebase Meetup'),
+      // ),
+        body: Container(
+          child: Column(
+            children: <Widget> [
+              ClipOval(
+                child: Material(
+                  color: Colors.blue, // Button color
+                  child: InkWell(
+                    splashColor: Colors.red, // Splash color
+                    onTap: () {},
+                    child: SizedBox(width: 150, height: 150, child: Icon(Icons.menu)),
+                  ),
+                ),
+              ),
+              ClipOval(
+                child: Material(
+                  color: Colors.blue, // Button color
+                  child: InkWell(
+                    splashColor: Colors.red, // Splash color
+                    onTap: () {},
+                    child: SizedBox(width: 150, height: 150, child: Text('식재료')),
+                  ),
+                ),
+              ),
+              ClipOval(
+                child: Material(
+                  color: Colors.blue, // Button color
+                  child: InkWell(
+                    splashColor: Colors.red, // Splash color
+                    onTap: () {},
+                    child: Container(
+                        width: 150,
+                        height: 150,
 
-        Text('Home'),
+                        child: const Text(
+                          '식재료',
+                          style:TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                          ),
+                          textAlign: TextAlign.center,
+                        )
+                    ),
+                  ),
+                ),
+              )
 
-        const SizedBox(height: 30.0),
-      ],
+            ],
+
+          ),
+          //const SizedBox(height: 30.0),
+
+
+
+          //const SizedBox(height: 30.0),
+        ),
     );
   }
 }
