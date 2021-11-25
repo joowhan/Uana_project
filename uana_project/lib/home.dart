@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'add_recipe.dart';
+import 'weather_provider.dart';
 import 'login_provider.dart';
-import 'package:provider/provider.dart';
 import 'dart:core';
 import 'refrigerator.dart';
 import 'search.dart';
@@ -83,11 +84,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     LoginProvider loginProvider = Provider.of(context, listen: true);
+    WeatherProvider weatherProvider = Provider.of(context, listen: true);
     return Column(
       children: [
         const SizedBox(height: 30.0),
 
         Text('Home'),
+        Text('${weatherProvider.currentPosition}'),
+        Text('${weatherProvider.weather}'),
 
         const SizedBox(height: 30.0),
       ],

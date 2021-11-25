@@ -28,7 +28,7 @@ class _SearchPageState extends State<SearchPage> {
 
     final ThemeData theme = Theme.of(context);
 
-    return recipeProvider.recipeInformation.map((recipe) { // 중간, 기말 때 썼던 예제 그대로
+    return recipeProvider.recipeInformation.map((recipe) {// 중간, 기말 때 썼던 예제 그대로
       return Card(
         clipBehavior: Clip.antiAlias,
         child: Column(
