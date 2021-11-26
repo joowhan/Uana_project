@@ -70,6 +70,9 @@ class _ProfilePageState extends State<ProfilePage> {
             Text(
                 loginProvider.userInformation!.email
             ),
+            Text(
+                'User Message: ${loginProvider.userInformation!.statusMessage}'
+            ),
             SizedBox(height:20),
             SizedBox(
               //width: 50.0,
@@ -93,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
             //LogoutField(),
           ],
         ),
-      ),
+     ),
     );
   }
 }
@@ -191,7 +194,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   //add update function
+                  // FirebaseFirestore.instance
+                  //     .collection('user')
+                  //     .doc(loginProvider.userInformation!.uid)
+                  //     .update(<String, dynamic>{
+                  //   'status_message': description,
+                  // });
+                  // Navigator.pushReplacement(context, MaterialPageRoute(
+                  //     builder: (context) => ProfilePage()));
                   _controller1.clear();
+                  Navigator.pop(context);
                 }
               },
               child: Row(
@@ -210,6 +222,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
     );
   }
+
   Widget bottomSheet(){
     return Container(
       height: 100,

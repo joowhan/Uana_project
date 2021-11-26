@@ -20,90 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fd0b792-6ca0-4fa0-8433-229a9d8e051d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/b54c1c65ad3a6ad4a7d1f11082def26f/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/b54c1c65ad3a6ad4a7d1f11082def26f/.filecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/b54c1c65ad3a6ad4a7d1f11082def26f/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/b54c1c65ad3a6ad4a7d1f11082def26f/app.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/b54c1c65ad3a6ad4a7d1f11082def26f/kernel_snapshot.d" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/b54c1c65ad3a6ad4a7d1f11082def26f/kernel_snapshot.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/b54c1c65ad3a6ad4a7d1f11082def26f/kernel_snapshot.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/b54c1c65ad3a6ad4a7d1f11082def26f/kernel_snapshot.stamp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config 2.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uana_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uana_project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/.AssetManifest.json.icloud.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/.FontManifest.json.icloud.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/kernel_blob.bin.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/kernel_blob.bin.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_build.d" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_build.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/libs.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/libs.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/merge-state" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/merge-state" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/zip-cache/nDj53OYh_dRZggiKXTXQe_RB6g4=" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeNativeLibs/merge-state" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeNativeLibs/merge-state" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeNativeLibs/zip-cache/nDj53OYh_dRZggiKXTXQe_RB6g4=" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_assets/debug/out/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_assets/debug/out/flutter_assets/kernel_blob.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/build-history.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/last-build.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/cloud_firestore/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/cloud_firestore/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/f58ed05f7a6fba8f3451773989665e4b.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f58ed05f7a6fba8f3451773989665e4b.cache.dill.track.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/file_picker/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/file_picker/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/firebase_auth/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/firebase_auth/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/firebase_core/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/firebase_core/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/firebase_storage/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/firebase_storage/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_plugin_android_lifecycle/intermediates/incremental/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_plugin_android_lifecycle/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_plugin_android_lifecycle/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_plugin_android_lifecycle/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/google_sign_in/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/google_sign_in/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/image_picker/intermediates/incremental/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/image_picker/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/image_picker/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/image_picker/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/FirebaseAuth.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/FirebaseCore.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/FirebaseCoreDiagnostics.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/FirebaseFirestore.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/FirebaseStorage.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/Flutter.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/GTMAppAuth.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/GTMSessionFetcher.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/GoogleDataTransport.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/GoogleSignIn.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/GoogleUtilities.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/Pods-Runner.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/PromisesObjC.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/SDWebImage.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/SwiftyGif.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/firebase_core.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/firebase_storage.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/gRPC-C++-gRPCCertificates-Cpp.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/gRPC-C++.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/gRPC-Core.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/google_sign_in.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/image_picker.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/leveldb-library.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/nanopb.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/open_file.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/path_provider_ios.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ios 2/Pods.build/Release-iphonesimulator/video_player.build/dgph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/open_file/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/open_file/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/path_provider_android/intermediates/incremental/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/path_provider_android/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/path_provider_android/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/path_provider_android/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/video_player/intermediates/incremental/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/video_player/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/video_player/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/video_player/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/Flutter.podspec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login_provider.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/profile.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -184,29 +103,29 @@
     <state x="2040" y="109" width="1320" height="971" key="AVDManager/0.25.1440.875/1440.0.1920.1080@1440.0.1920.1080" timestamp="1637501950919" />
     <state x="1540" y="25" width="1320" height="1055" key="AVDManager/0.25.1440.875/1440.0.1920.996@1440.0.1920.996" timestamp="1637399426307" />
     <state x="1540" y="25" width="1320" height="971" key="AVDManager/0.25.1440.875/1440.25.1920.971@1440.25.1920.971" timestamp="1637396913892" />
-    <state width="1474" height="424" key="GridCell.Tab.0.bottom" timestamp="1637505376285">
+    <state width="1878" height="80" key="GridCell.Tab.0.bottom" timestamp="1637559184414">
       <screen x="1440" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="305" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1637406042901" />
-    <state width="1474" height="424" key="GridCell.Tab.0.bottom/0.25.1440.875/1440.0.1920.1080@1440.0.1920.1080" timestamp="1637505376285" />
+    <state width="1398" height="407" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1637543668642" />
+    <state width="1878" height="80" key="GridCell.Tab.0.bottom/0.25.1440.875/1440.0.1920.1080@1440.0.1920.1080" timestamp="1637559184414" />
     <state width="1878" height="413" key="GridCell.Tab.0.bottom/0.25.1440.875/1440.0.1920.996@1440.0.1920.996" timestamp="1637404240413" />
-    <state width="1474" height="424" key="GridCell.Tab.0.center" timestamp="1637505376285">
+    <state width="1878" height="80" key="GridCell.Tab.0.center" timestamp="1637559184413">
       <screen x="1440" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="305" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1637406042900" />
-    <state width="1474" height="424" key="GridCell.Tab.0.center/0.25.1440.875/1440.0.1920.1080@1440.0.1920.1080" timestamp="1637505376285" />
+    <state width="1398" height="407" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1637543668640" />
+    <state width="1878" height="80" key="GridCell.Tab.0.center/0.25.1440.875/1440.0.1920.1080@1440.0.1920.1080" timestamp="1637559184413" />
     <state width="1878" height="413" key="GridCell.Tab.0.center/0.25.1440.875/1440.0.1920.996@1440.0.1920.996" timestamp="1637404240399" />
-    <state width="1474" height="424" key="GridCell.Tab.0.left" timestamp="1637505376284">
+    <state width="1878" height="80" key="GridCell.Tab.0.left" timestamp="1637559184410">
       <screen x="1440" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="305" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1637406042900" />
-    <state width="1474" height="424" key="GridCell.Tab.0.left/0.25.1440.875/1440.0.1920.1080@1440.0.1920.1080" timestamp="1637505376284" />
+    <state width="1398" height="407" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1637543668640" />
+    <state width="1878" height="80" key="GridCell.Tab.0.left/0.25.1440.875/1440.0.1920.1080@1440.0.1920.1080" timestamp="1637559184410" />
     <state width="1878" height="413" key="GridCell.Tab.0.left/0.25.1440.875/1440.0.1920.996@1440.0.1920.996" timestamp="1637404240396" />
-    <state width="1474" height="424" key="GridCell.Tab.0.right" timestamp="1637505376285">
+    <state width="1878" height="80" key="GridCell.Tab.0.right" timestamp="1637559184414">
       <screen x="1440" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="305" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1637406042901" />
-    <state width="1474" height="424" key="GridCell.Tab.0.right/0.25.1440.875/1440.0.1920.1080@1440.0.1920.1080" timestamp="1637505376285" />
+    <state width="1398" height="407" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1637543668641" />
+    <state width="1878" height="80" key="GridCell.Tab.0.right/0.25.1440.875/1440.0.1920.1080@1440.0.1920.1080" timestamp="1637559184414" />
     <state width="1878" height="413" key="GridCell.Tab.0.right/0.25.1440.875/1440.0.1920.996@1440.0.1920.996" timestamp="1637404240401" />
     <state x="1863" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1637411136057">
       <screen x="1440" y="0" width="1920" height="1080" />
