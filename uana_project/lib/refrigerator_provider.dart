@@ -43,21 +43,21 @@ class RefrigeratorProvider extends ChangeNotifier {
   Future<void> downloadUserFoods() async { // 유저의 냉장고에 있는 식재료를 받아옴
     FirebaseAuth.instance.userChanges().listen((user) {
       FirebaseFirestore.instance
-          .collection('${FirebaseAuth.instance.currentUser!.displayName}''s refrigerator')
-          .snapshots()
-          .listen((snapshot) {
-        _userfoodInformation = [];
-        for(final document in snapshot.docs) {
-          _userfoodInformation.add(
-            userFoodInfo(
-              foodCode: document.data()['foodCode'] as int,
-              foodName: document.data()['foodName'] as String,
-              registerDate: document.data()['registerDate'] as Timestamp,
-              expiredDate: document.data()['expiredDate'] as Timestamp,
-              storageType: document.data()['storageType'] as String,
-            ),
-          );
-        }
+          .collection('refrigerator')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get().then((value) {
+            _userfoodInformation = [];
+            value.data()!['foods'].forEach((element) {
+              _userfoodInformation.add(
+                userFoodInfo(
+                  foodCode: element['foodCode'] as int,
+                  foodName: element['foodName'] as String,
+                  registerDate: element['registerDate'] as Timestamp,
+                  expiredDate: element['expiredDate'] as Timestamp,
+                  storageType: element['storageType'] as String,
+                ),
+              );
+            });
       });
       print("유저 냉장고 식재료 받아오기 완료!");
     });
@@ -66,25 +66,33 @@ class RefrigeratorProvider extends ChangeNotifier {
 
   Future<void> uploadUserFoods(FoodInfo food, DateTime expiredDate, String storageType) async { // 유저의 냉장고에 하나의 식재료 등록
     await FirebaseFirestore.instance
-        .collection('${FirebaseAuth.instance.currentUser!.displayName}''s refrigerator')
-        .doc(food.foodCode.toString())
+        .collection('refrigerator')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .set(<String, dynamic>{
+          'foods': FieldValue.arrayUnion([{
           'foodCode': food.foodCode,
           'foodName': food.foodName,
           'registerDate': DateTime.now(),
           'expiredDate': expiredDate,
           'storageType': storageType,
-    });
+        }]),
+    }, SetOptions(merge: true));
     notifyListeners();
   }
 
   Future<void> deleteUserFood(userFoodInfo userfood) async { // 유저의 냉장고에 있는 하나의 식재료 삭제
     await FirebaseFirestore.instance
-        .collection('${FirebaseAuth.instance.currentUser!.displayName}''s refrigerator')
-        .doc(userfood.foodCode.toString())
-        .delete()
-        .then((value) => print("${userfood.foodName} is Deleted"))
-        .catchError((error) => print("Failed to delete ${userfood.foodName}: $error"));
+        .collection('refrigerator')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({
+          'foods': FieldValue.arrayRemove([{
+          'foodCode': userfood.foodCode,
+          'foodName': userfood.foodName,
+          'registerDate': userfood.registerDate,
+          'expiredDate': userfood.expiredDate,
+          'storageType': userfood.storageType,
+      }]),
+    });
     notifyListeners();
   }
 
