@@ -7,6 +7,7 @@ import 'login_provider.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
 import 'recipe_provider.dart';
+import 'recipe_create.dart';
 
 /*
 전체 레시피 화면 (추후에 검색 기능 추가하도록)
@@ -104,6 +105,19 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        IconButton(
+          icon: const Icon(
+            Icons.add,
+            semanticLabel: 'add',
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RecipeCreate(context)),
+            );
+          },
+        ),
         Expanded(
           child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
             shrinkWrap: true,

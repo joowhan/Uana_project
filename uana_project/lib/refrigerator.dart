@@ -7,6 +7,9 @@ import 'refrigerator_provider.dart';
 import 'add_refrigerator_detail.dart';
 import 'login_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'dart:core';
 
 class RefrigeratorPage extends StatefulWidget {
@@ -95,7 +98,61 @@ class _RefrigeratorPageState extends State<RefrigeratorPage> {
           onPressed: () {},
           child: Text('레시피 검색'), // 내 냉장고에 있는 재료들로 할 수 있는 레시피 검색, 아직 구현 안함
         ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => googleMapPage()),
+            );
+          },
+          child: Text('Map'), // 내 냉장고에 있는 재료들로 할 수 있는 레시피 검색, 아직 구현 안함
+        ),
       ],
     );
   }
 }
+
+// class GeoLocatorService {
+//   Future<Position> getLocation() async {
+//     Position position =
+//     await getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+//     return position;
+//   }
+// }
+
+class googleMapPage extends StatefulWidget {
+  @override
+  _googleMapPageState createState() => _googleMapPageState();
+}
+
+class _googleMapPageState extends State<googleMapPage> {
+  late GoogleMapController mapController;
+
+  final LatLng _center = const LatLng(37.898989, 129.362536);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('집근처 식재료 '),
+          backgroundColor: Colors.green[700],
+        ),
+        body: GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: _center,
+            zoom: 12.0,
+          ),
+        ),
+        // floatingActionButton: TextButton(onPressed: () {Navigator.pop(context);  }, child: Text('back'),
+        //
+        // ),
+      ),
+    );
+  }
+}
+
