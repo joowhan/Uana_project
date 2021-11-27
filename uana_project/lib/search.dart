@@ -40,7 +40,7 @@ class _SearchPageState extends State<SearchPage> {
               aspectRatio: 18 / 11,
 
               child: Image.network(
-                recipe.imageUrl,
+                recipe.path,
                 fit: BoxFit.fitWidth,
               ),
 
@@ -52,15 +52,18 @@ class _SearchPageState extends State<SearchPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      recipe.recipeName,
+                      recipe.foodName,
                       style: theme.textTheme.headline6,
                       maxLines: 1,
                     ),
                     const SizedBox(height: 8.0),
+                    /*
                     Text(
-                      '소요 시간: ${recipe.cookingTime}',
+                      '카테고리: ${recipe.cookingTime}',
                       style: theme.textTheme.subtitle2,
                     ),
+
+                     */
                   ],
                 ),
               ),
