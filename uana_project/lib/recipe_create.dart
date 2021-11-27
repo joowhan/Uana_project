@@ -28,11 +28,11 @@ class RecipeCreateExState extends State<RecipeCreate> {
   var _processimage4;
   var _processimage5;
 
-
   var _default;
   var imagePicker;
   var type;
 
+  // List<Widget> kategorywidet = List<Widget>();
   var processimageWidth = 250.0;
   var processimageHeight = 140.0;
   var processDescriptionHeight = 20.0;
@@ -48,8 +48,16 @@ class RecipeCreateExState extends State<RecipeCreate> {
   List<String> processDes = List.generate(6, (index) => " ");
   List<String> processUrl = List.generate(6, (index) => " ");
   List<bool> _forimage = [false, true, true, true, true, true];
-  List<bool> _foringredient = List.generate(10,(index)=> false);
-  List<String> _ingredient = ["삼겹살", "계란", "우유", "스팸", "소고기", "떡", "파", "마늘", "라면","기타"];
+
+  List<String> _ingredient = [
+    "계란", "고춧가루", "김치", "돈까스 소스", "된장", "마늘", "면", "밥", "버섯", "양파", "치즈", "통깨", "파", "파스타 소스", "후추",
+    "기타"
+  ];
+  List<bool> _foringredient = [];
+
+  List<bool> _forkategorie = List.generate(6, (index) => false);
+  List<String> _kategorie = ["국물", "튀김", "매운 음식", "야식", "아침", "식사"];
+
   String etcingredient = " ";
 
   int price = 0;
@@ -95,11 +103,31 @@ class RecipeCreateExState extends State<RecipeCreate> {
     _user = await _firebaseAuth.currentUser!;
   }
 
+  Widget makeCheckbox(int i, String valuename, List<bool> forthis) {
+    return Row(
+      children: [
+        Checkbox(
+          value: forthis[i], //처음엔 false
+          onChanged: (value) {
+            //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
+            setState(() {
+              forthis[i] = value!; //true가 들어감.
+            });
+          },
+        ),
+        Text(valuename)
+      ],
+    );
+  }
 
   int count = 0;
 
   @override
   Widget build(BuildContext context) {
+    for (int i = 0; i < _ingredient.length; i++) {
+      _foringredient.add(false);
+    }
+    _forkategorie[_kategorie.length-1] = true;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -123,7 +151,14 @@ class RecipeCreateExState extends State<RecipeCreate> {
             ),
             onPressed: () {
               //
-              _uploadImageToStorage(_image, _processimage0,_processimage1, _processimage2, _processimage3, _processimage4, _processimage5);
+              _uploadImageToStorage(
+                  _image,
+                  _processimage0,
+                  _processimage1,
+                  _processimage2,
+                  _processimage3,
+                  _processimage4,
+                  _processimage5);
               // if (_image == null) {
               //   urlToFile();
               // } else {
@@ -140,13 +175,12 @@ class RecipeCreateExState extends State<RecipeCreate> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: 2500,
+          height: 3500,
           child: Column(
             children: [
               //대표이미지 및 이름
               Container(
-                  child:
-                  Column(
+                  child: Column(
                     children: [
                       _image != null
                           ? SizedBox(
@@ -161,8 +195,7 @@ class RecipeCreateExState extends State<RecipeCreate> {
                           width: 410,
                           height: 300,
                           child: Image.network(
-                              'http://handong.edu/site/handong/res/img/logo.png')
-                      ),
+                              'http://handong.edu/site/handong/res/img/logo.png')),
                       Container(
                         alignment: Alignment.bottomRight,
                         padding: const EdgeInsets.all(10),
@@ -171,9 +204,8 @@ class RecipeCreateExState extends State<RecipeCreate> {
                             Text("음식 이름 : "),
                             SizedBox(
                               width: 270,
-                              child:
-                              TextField(
-                                onChanged: (value){
+                              child: TextField(
+                                onChanged: (value) {
                                   productname = value;
                                 },
                               ),
@@ -183,8 +215,8 @@ class RecipeCreateExState extends State<RecipeCreate> {
                               color: Colors.grey[800],
                               onPressed: () async {
                                 var source = ImageSource.gallery;
-                                XFile image = (await ImagePicker()
-                                    .pickImage(source: source, imageQuality: 50)) as XFile;
+                                XFile image = (await ImagePicker().pickImage(
+                                    source: source, imageQuality: 50)) as XFile;
                                 setState(() {
                                   _image = File(image.path);
                                 });
@@ -195,170 +227,106 @@ class RecipeCreateExState extends State<RecipeCreate> {
                         ),
                       ),
                     ],
-                  )
+                  )),
+              //카테고리 만들기
+              Container(
+                child: Column(
+                    children: _kategorie.map((item) {
+                      var index = _kategorie.indexOf(item);
+                      if (index % 3 == 0) {
+                        return Row(children: [
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: _forkategorie[index], //처음엔 false
+                                onChanged: (value) {
+                                  //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
+                                  setState(() {
+                                    _forkategorie[index] = value!; //true가 들어감.
+                                  });
+                                },
+                              ),
+                              Text(_kategorie[index])
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: _forkategorie[index + 1], //처음엔 false
+                                onChanged: (value) {
+                                  //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
+                                  setState(() {
+                                    _forkategorie[index + 1] = value!; //true가 들어감.
+                                  });
+                                },
+                              ),
+                              Text(_kategorie[index + 1])
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: _forkategorie[index + 2], //처음엔 false
+                                onChanged: (value) {
+                                  //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
+                                  setState(() {
+                                    _forkategorie[index + 2] = value!; //true가 들어감.
+                                  });
+                                },
+                              ),
+                              Text(_kategorie[index + 2])
+                            ],
+                          ),
+                        ]);
+                      } else {
+                        return SizedBox(height: 0);
+                      }
+                    }).toList()),
               ),
 
               //재료들
+              Text("재료 추가"),
               Container(
-                child: Column(
-                  children: [
-                    Text("재료 추가"),
-                    Row(
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _foringredient[0], //처음엔 false
-                              onChanged: (value) { //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                setState(() {
-                                  _foringredient[0] = value!; //true가 들어감.
-                                });
-                              },
-                            ),
-                            Text("삼겹살")
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _foringredient[1], //처음엔 false
-                              onChanged: (value) { //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                setState(() {
-                                  _foringredient[1] = value!; //true가 들어감.
-                                });
-                              },
-                            ),
-                            Text("계란")
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _foringredient[2], //처음엔 false
-                              onChanged: (value) { //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                setState(() {
-                                  _foringredient[2] = value!; //true가 들어감.
-                                });
-                              },
-                            ),
-                            Text("우유")
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _foringredient[3], //처음엔 false
-                              onChanged: (value) { //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                setState(() {
-                                  _foringredient[3] = value!; //true가 들어감.
-                                });
-                              },
-                            ),
-                            Text("스팸")
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _foringredient[4], //처음엔 false
-                              onChanged: (value) { //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                setState(() {
-                                  _foringredient[4] = value!; //true가 들어감.
-                                });
-                              },
-                            ),
-                            Text("소고기")
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _foringredient[5], //처음엔 false
-                              onChanged: (value) { //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                setState(() {
-                                  _foringredient[5] = value!; //true가 들어감.
-                                });
-                              },
-                            ),
-                            Text("떡")
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _foringredient[6], //처음엔 false
-                              onChanged: (value) { //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                setState(() {
-                                  _foringredient[6] = value!; //true가 들어감.
-                                });
-                              },
-                            ),
-                            Text("파")
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _foringredient[7], //처음엔 false
-                              onChanged: (value) { //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                setState(() {
-                                  _foringredient[7] = value!; //true가 들어감.
-                                });
-                              },
-                            ),
-                            Text("마늘")
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _foringredient[8], //처음엔 false
-                              onChanged: (value) { //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                setState(() {
-                                  _foringredient[8] = value!; //true가 들어감.
-                                });
-                              },
-                            ),
-                            Text("라면")
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: _foringredient[9], //처음엔 false
-                          onChanged: (value) { //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                            setState(() {
-                              _foringredient[2] = value!; //true가 들어감.
-                            });
+                  child: Column(
+                    children: [
+                      Column(
+                          children: _ingredient.map((item) {
+                            var index = _ingredient.indexOf(item);
+                            return Row(children: [
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: _foringredient[index],
+                                    //처음엔 false
+                                    onChanged: (value) {
+                                      //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
+                                      setState(() {
+                                        _foringredient[index] = value!; //true가 들어감.
+                                      });
+                                    },
+                                  ),
+                                  Text(_ingredient[index])
+                                ],
+                              ),
+                            ]);
+                          }).toList()),
+                      SizedBox(
+                        width: 300,
+                        height: 50,
+                        child: TextField(
+                          decoration: const InputDecoration(
+
+                              prefixText: "기타 재료 "
+                          ),
+                          onChanged: (value) {
+                            etcDescription = value;
                           },
                         ),
-                        Text("기타 :  "),
-                        SizedBox(
-                            width: 200,
-                            child:
-                            TextField(
-                              onChanged: (value){
-                                etcDescription = value;
-                              },
-                            )
-                        )
+                      )
 
-                      ],
-                    )
+                    ],
+                  )),
 
-                  ],
-                ),
-              ),
 
               //여기서 부터 과정 image와 url을 집어 넣었는데 일단 Offstage가 6번 반복이라 이것좀 gridview나 listview로 바꿔야 할 필요가 있음.
               Container(
@@ -370,8 +338,7 @@ class RecipeCreateExState extends State<RecipeCreate> {
                         child: SizedBox(
                             width: processimageWidth,
                             height: processimageWidth,
-                            child:
-                            Column(
+                            child: Column(
                               children: [
                                 _processimage0 != null
                                     ? SizedBox(
@@ -382,12 +349,12 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                       fit: BoxFit.fitHeight,
                                     ))
                                     : Container(
-                                    decoration: BoxDecoration(color: Colors.grey[200]),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200]),
                                     width: processimageWidth,
                                     height: processimageHeight,
                                     child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')
-                                ),
+                                        'http://handong.edu/site/handong/res/img/logo.png')),
                                 Container(
                                   alignment: Alignment.bottomRight,
                                   // padding: const EdgeInsets.all(10),
@@ -397,7 +364,9 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                     onPressed: () async {
                                       var source = ImageSource.gallery;
                                       XFile image = (await ImagePicker()
-                                          .pickImage(source: source, imageQuality: 50)) as XFile;
+                                          .pickImage(
+                                          source: source,
+                                          imageQuality: 50)) as XFile;
                                       setState(() {
                                         _processimage0 = File(image.path);
                                       });
@@ -407,25 +376,19 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                 SizedBox(
                                     width: processimageWidth,
                                     height: processDescriptionHeight,
-                                    child:TextField(
-                                      onChanged: (value){
+                                    child: TextField(
+                                      onChanged: (value) {
                                         processDes[0] = value;
                                       },
-                                    )
-                                )
-
+                                    ))
                               ],
-                            )
-
-                        )
-                    ),
+                            ))),
                     Offstage(
                         offstage: _forimage[1],
                         child: SizedBox(
                             width: processimageWidth,
                             height: processimageWidth,
-                            child:
-                            Column(
+                            child: Column(
                               children: [
                                 _processimage1 != null
                                     ? SizedBox(
@@ -436,12 +399,12 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                       fit: BoxFit.fitHeight,
                                     ))
                                     : Container(
-                                    decoration: BoxDecoration(color: Colors.grey[200]),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200]),
                                     width: processimageWidth,
                                     height: processimageHeight,
                                     child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')
-                                ),
+                                        'http://handong.edu/site/handong/res/img/logo.png')),
                                 Container(
                                   alignment: Alignment.bottomRight,
                                   padding: const EdgeInsets.all(10),
@@ -451,7 +414,9 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                     onPressed: () async {
                                       var source = ImageSource.gallery;
                                       XFile image = (await ImagePicker()
-                                          .pickImage(source: source, imageQuality: 50)) as XFile;
+                                          .pickImage(
+                                          source: source,
+                                          imageQuality: 50)) as XFile;
                                       setState(() {
                                         _processimage1 = File(image.path);
                                       });
@@ -461,24 +426,19 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                 SizedBox(
                                     width: processimageWidth,
                                     height: processDescriptionHeight,
-                                    child:TextField(
-                                      onChanged: (value){
+                                    child: TextField(
+                                      onChanged: (value) {
                                         processDes[1] = value;
                                       },
-                                    )
-                                )
+                                    ))
                               ],
-                            )
-
-                        )
-                    ),
+                            ))),
                     Offstage(
                         offstage: _forimage[2],
                         child: SizedBox(
                             width: processimageWidth,
                             height: processimageWidth,
-                            child:
-                            Column(
+                            child: Column(
                               children: [
                                 _processimage2 != null
                                     ? SizedBox(
@@ -489,12 +449,12 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                       fit: BoxFit.fitHeight,
                                     ))
                                     : Container(
-                                    decoration: BoxDecoration(color: Colors.grey[200]),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200]),
                                     width: processimageWidth,
                                     height: processimageHeight,
                                     child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')
-                                ),
+                                        'http://handong.edu/site/handong/res/img/logo.png')),
                                 Container(
                                   alignment: Alignment.bottomRight,
                                   padding: const EdgeInsets.all(10),
@@ -504,7 +464,9 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                     onPressed: () async {
                                       var source = ImageSource.gallery;
                                       XFile image = (await ImagePicker()
-                                          .pickImage(source: source, imageQuality: 50)) as XFile;
+                                          .pickImage(
+                                          source: source,
+                                          imageQuality: 50)) as XFile;
                                       setState(() {
                                         _processimage2 = File(image.path);
                                       });
@@ -514,24 +476,19 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                 SizedBox(
                                     width: processimageWidth,
                                     height: processDescriptionHeight,
-                                    child:TextField(
-                                      onChanged: (value){
+                                    child: TextField(
+                                      onChanged: (value) {
                                         processDes[2] = value;
                                       },
-                                    )
-                                )
+                                    ))
                               ],
-                            )
-
-                        )
-                    ),
+                            ))),
                     Offstage(
                         offstage: _forimage[3],
                         child: SizedBox(
                             width: processimageWidth,
                             height: processimageWidth,
-                            child:
-                            Column(
+                            child: Column(
                               children: [
                                 _processimage3 != null
                                     ? SizedBox(
@@ -542,12 +499,12 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                       fit: BoxFit.fitHeight,
                                     ))
                                     : Container(
-                                    decoration: BoxDecoration(color: Colors.grey[200]),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200]),
                                     width: processimageWidth,
                                     height: processimageHeight,
                                     child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')
-                                ),
+                                        'http://handong.edu/site/handong/res/img/logo.png')),
                                 Container(
                                   alignment: Alignment.bottomRight,
                                   padding: const EdgeInsets.all(10),
@@ -557,7 +514,9 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                     onPressed: () async {
                                       var source = ImageSource.gallery;
                                       XFile image = (await ImagePicker()
-                                          .pickImage(source: source, imageQuality: 50)) as XFile;
+                                          .pickImage(
+                                          source: source,
+                                          imageQuality: 50)) as XFile;
                                       setState(() {
                                         _processimage3 = File(image.path);
                                       });
@@ -567,24 +526,19 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                 SizedBox(
                                     width: processimageWidth,
                                     height: processDescriptionHeight,
-                                    child:TextField(
-                                      onChanged: (value){
+                                    child: TextField(
+                                      onChanged: (value) {
                                         processDes[3] = value;
                                       },
-                                    )
-                                )
+                                    ))
                               ],
-                            )
-
-                        )
-                    ),
+                            ))),
                     Offstage(
                         offstage: _forimage[4],
                         child: SizedBox(
                             width: processimageWidth,
                             height: processimageWidth,
-                            child:
-                            Column(
+                            child: Column(
                               children: [
                                 _processimage4 != null
                                     ? SizedBox(
@@ -595,12 +549,12 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                       fit: BoxFit.fitHeight,
                                     ))
                                     : Container(
-                                    decoration: BoxDecoration(color: Colors.grey[200]),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200]),
                                     width: processimageWidth,
                                     height: processimageHeight,
                                     child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')
-                                ),
+                                        'http://handong.edu/site/handong/res/img/logo.png')),
                                 Container(
                                   alignment: Alignment.bottomRight,
                                   padding: const EdgeInsets.all(10),
@@ -610,7 +564,9 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                     onPressed: () async {
                                       var source = ImageSource.gallery;
                                       XFile image = (await ImagePicker()
-                                          .pickImage(source: source, imageQuality: 50)) as XFile;
+                                          .pickImage(
+                                          source: source,
+                                          imageQuality: 50)) as XFile;
                                       setState(() {
                                         _processimage4 = File(image.path);
                                       });
@@ -620,22 +576,19 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                 SizedBox(
                                     width: processimageWidth,
                                     height: processDescriptionHeight,
-                                    child:TextField(onChanged: (value){
-                                      processDes[4] = value;
-                                    },)
-                                )
+                                    child: TextField(
+                                      onChanged: (value) {
+                                        processDes[4] = value;
+                                      },
+                                    ))
                               ],
-                            )
-
-                        )
-                    ),
+                            ))),
                     Offstage(
                         offstage: _forimage[5],
                         child: SizedBox(
                             width: processimageWidth,
                             height: processimageWidth,
-                            child:
-                            Column(
+                            child: Column(
                               children: [
                                 _processimage5 != null
                                     ? SizedBox(
@@ -646,12 +599,12 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                       fit: BoxFit.fitHeight,
                                     ))
                                     : Container(
-                                    decoration: BoxDecoration(color: Colors.grey[200]),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200]),
                                     width: processimageWidth,
                                     height: processimageHeight,
                                     child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')
-                                ),
+                                        'http://handong.edu/site/handong/res/img/logo.png')),
                                 Container(
                                   alignment: Alignment.bottomRight,
                                   padding: const EdgeInsets.all(10),
@@ -661,7 +614,9 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                     onPressed: () async {
                                       var source = ImageSource.gallery;
                                       XFile image = (await ImagePicker()
-                                          .pickImage(source: source, imageQuality: 50)) as XFile;
+                                          .pickImage(
+                                          source: source,
+                                          imageQuality: 50)) as XFile;
                                       setState(() {
                                         _processimage5 = File(image.path);
                                       });
@@ -671,57 +626,50 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                 SizedBox(
                                     width: processimageWidth,
                                     height: processDescriptionHeight,
-                                    child:TextField(
-                                      onChanged: (value){
+                                    child: TextField(
+                                      onChanged: (value) {
                                         processDes[5] = value;
                                       },
-                                    )
-                                )
+                                    ))
                               ],
-                            )
-
-                        )
-                    ),
+                            ))),
                     Row(
                       children: [
                         IconButton(
                           icon: Icon(Icons.expand_more_outlined),
                           onPressed: () {
-                            if(count >0){
+                            if (count > 0) {
                               count--;
                               setState(() {
                                 _forimage[count] = !_forimage[count];
                               });
                               print(_forimage);
-                            }else{
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('You should input more than 1 process'),
+                                  content: Text(
+                                      'You should input more than 1 process'),
                                 ),
                               );
                             }
-
                           },
                         ),
                         IconButton(
                           icon: Icon(Icons.expand_less_outlined),
                           onPressed: () {
-                            if(count < 5){
+                            if (count < 5) {
                               count++;
                               setState(() {
                                 _forimage[count] = !_forimage[count];
                               });
                               print(_forimage);
-                            }else{
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('You can input just 6 process'),
                                 ),
                               );
                             }
-
                           },
                         ),
                       ],
@@ -732,23 +680,18 @@ class RecipeCreateExState extends State<RecipeCreate> {
 
               //대표 요리 영상
               Container(
-                  child:
-                  Column(
+                  child: Column(
                     children: [
                       Text("영상 url"),
                       SizedBox(
                           width: 270,
-                          child:
-                          TextField(
-                            onChanged: (value){
+                          child: TextField(
+                            onChanged: (value) {
                               detailVideo = value;
                             },
-                          )
-                      )
-
+                          ))
                     ],
-                  )
-              )
+                  ))
             ],
           ),
         ),
@@ -756,93 +699,125 @@ class RecipeCreateExState extends State<RecipeCreate> {
     );
   }
 
-  void _uploadImageToStorage(File _image, File _p0, File _p1,File _p2,File _p3,File _p4,File _p5) async {
+  void _uploadImageToStorage(File _image, File _p0, File _p1, File _p2,
+      File _p3, File _p4, File _p5) async {
     // 프로필 사진을 업로드할 경로와 파일명을 정의. 사용자의 uid를 이용하여 파일명의 중복 가능성 제거
 
-
     // 파일 업로드
-    if(_image != null){
+    if (_image != null) {
       Reference storageReference1 = _firebaseStorage.ref().child(
           "${_user!.uid}/" + DateTime.now().toString() + "/" + productname);
       UploadTask storageUploadTask = storageReference1.putFile(_image);
       var downloadURL = (await (await storageUploadTask).ref.getDownloadURL());
       // print(downloadURL.toString());
       _profileImageURL = downloadURL.toString();
-    }else{
-      _profileImageURL= "http://handong.edu/site/handong/res/img/logo.png";
+    } else {
+      _profileImageURL = "http://handong.edu/site/handong/res/img/logo.png";
     }
 
-    if(_p0 != null){
+    if (_p0 != null) {
       Reference storageReference2 = _firebaseStorage.ref().child(
-          "${_user!.uid}/" + DateTime.now().toString() + "/" + productname+"0");
+          "${_user!.uid}/" +
+              DateTime.now().toString() +
+              "/" +
+              productname +
+              "0");
       UploadTask storageUploadTask = storageReference2.putFile(_p0);
       var downloadURL = (await (await storageUploadTask).ref.getDownloadURL());
       // print(downloadURL.toString());
       processUrl[0] = downloadURL.toString();
-    }else{
-      processUrl[0]= "http://handong.edu/site/handong/res/img/logo.png";
+    } else {
+      processUrl[0] = "http://handong.edu/site/handong/res/img/logo.png";
     }
 
-    if(_p1 != null){
+    if (_p1 != null) {
       Reference storageReference3 = _firebaseStorage.ref().child(
-          "${_user!.uid}/" + DateTime.now().toString() + "/" + productname +"1");
+          "${_user!.uid}/" +
+              DateTime.now().toString() +
+              "/" +
+              productname +
+              "1");
       UploadTask storageUploadTask = storageReference3.putFile(_p1);
       var downloadURL = (await (await storageUploadTask).ref.getDownloadURL());
       // print(downloadURL.toString());
       processUrl[1] = downloadURL.toString();
-    }else{
-      processUrl[1]= "http://handong.edu/site/handong/res/img/logo.png";
+    } else {
+      processUrl[1] = "http://handong.edu/site/handong/res/img/logo.png";
     }
 
-    if(_p2 != null){
+    if (_p2 != null) {
       Reference storageReference4 = _firebaseStorage.ref().child(
-          "${_user!.uid}/" + DateTime.now().toString() + "/" + productname +"2");
+          "${_user!.uid}/" +
+              DateTime.now().toString() +
+              "/" +
+              productname +
+              "2");
       UploadTask storageUploadTask = storageReference4.putFile(_p2);
       var downloadURL = (await (await storageUploadTask).ref.getDownloadURL());
       // print(downloadURL.toString());
       processUrl[2] = downloadURL.toString();
-    }else{
-      processUrl[2]= "http://handong.edu/site/handong/res/img/logo.png";
+    } else {
+      processUrl[2] = "http://handong.edu/site/handong/res/img/logo.png";
     }
 
-    if(_p3 != null){
+    if (_p3 != null) {
       Reference storageReference5 = _firebaseStorage.ref().child(
-          "${_user!.uid}/" + DateTime.now().toString() + "/" + productname +"3");
+          "${_user!.uid}/" +
+              DateTime.now().toString() +
+              "/" +
+              productname +
+              "3");
       UploadTask storageUploadTask = storageReference5.putFile(_p3);
       var downloadURL = (await (await storageUploadTask).ref.getDownloadURL());
       // print(downloadURL.toString());
       processUrl[3] = downloadURL.toString();
-    }else{
-      processUrl[3]= "http://handong.edu/site/handong/res/img/logo.png";
+    } else {
+      processUrl[3] = "http://handong.edu/site/handong/res/img/logo.png";
     }
 
-    if(_p4 != null){
+    if (_p4 != null) {
       Reference storageReference6 = _firebaseStorage.ref().child(
-          "${_user!.uid}/" + DateTime.now().toString() + "/" + productname +"4");
+          "${_user!.uid}/" +
+              DateTime.now().toString() +
+              "/" +
+              productname +
+              "4");
       UploadTask storageUploadTask = storageReference6.putFile(_p4);
       var downloadURL = (await (await storageUploadTask).ref.getDownloadURL());
       // print(downloadURL.toString());
       processUrl[4] = downloadURL.toString();
-    }else{
-      processUrl[4]= "http://handong.edu/site/handong/res/img/logo.png";
+    } else {
+      processUrl[4] = "http://handong.edu/site/handong/res/img/logo.png";
     }
 
-    if(_p5 != null){
+    if (_p5 != null) {
       Reference storageReference7 = _firebaseStorage.ref().child(
-          "${_user!.uid}/" + DateTime.now().toString() + "/" + productname +"5");
+          "${_user!.uid}/" +
+              DateTime.now().toString() +
+              "/" +
+              productname +
+              "5");
       UploadTask storageUploadTask = storageReference7.putFile(_p5);
       var downloadURL = (await (await storageUploadTask).ref.getDownloadURL());
       // print(downloadURL.toString());
       processUrl[5] = downloadURL.toString();
-    }else{
-      processUrl[5]= "http://handong.edu/site/handong/res/img/logo.png";
+    } else {
+      processUrl[5] = "http://handong.edu/site/handong/res/img/logo.png";
     }
 
     List<String> tempingredient = [];
 
-    for(int i=0; i < _ingredient.length; i++){
-      if(_foringredient[i] == true){
+    for (int i = 0; i < _ingredient.length; i++) {
+      if (_foringredient[i] == true) {
         tempingredient.add(_ingredient[i]);
+      }
+    }
+
+    List<String> tempkategorie = [];
+
+    for (int i = 0; i < _kategorie.length; i++) {
+      if (_forkategorie[i] == true) {
+        tempkategorie.add(_kategorie[i]);
       }
     }
     // 파일 업로드 완료까지 대기
@@ -862,12 +837,30 @@ class RecipeCreateExState extends State<RecipeCreate> {
       'timedate': DateTime.now().toString(),
       'name': FirebaseAuth.instance.currentUser!.displayName,
       // 'userId' : DocumentRe
-      'ingredient' : tempingredient,
-      'processUrl' : { "1" : processUrl[0], "2" : processUrl[1], "3" : processUrl[2], "4" : processUrl[3], "5" : processUrl[4], "6" : processUrl[5]},
-      'processDescription' : { "1" : processDes[0], "2" : processDes[1], "3" : processDes[2], "4" : processDes[3], "5" : processDes[4], "6" : processDes[5]},
+      'ingredient': tempingredient,
+      'kategorie': tempkategorie,
+      'processUrl': {
+        "1": processUrl[0],
+        "2": processUrl[1],
+        "3": processUrl[2],
+        "4": processUrl[3],
+        "5": processUrl[4],
+        "6": processUrl[5]
+      },
+      'processDescription': {
+        "1": processDes[0],
+        "2": processDes[1],
+        "3": processDes[2],
+        "4": processDes[3],
+        "5": processDes[4],
+        "6": processDes[5]
+      },
       'userId': FirebaseAuth.instance.currentUser!.uid.toString(),
       'docId': docName.toString(),
       'etcMaterial': etcDescription,
+      'like': 0,
+      'likeusers': [],
+      'detailUrl' : detailVideo
     });
     // setState(() {
     //   _profileImageURL = downloadURL.toString();
