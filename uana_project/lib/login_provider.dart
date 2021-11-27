@@ -152,7 +152,16 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
+  Future<void> updateAnonymousInfo(User? user) { // 익명 유저 추가
+    return FirebaseFirestore.instance
+        .collection('user')
+        .doc(user!.uid)
+        .update(<String, dynamic>{
+      'status_message': "I promise to take the test honestly before GOD.",
+      'uid': user.uid,
+    });
+    notifyListeners();
+  }
 
 }
 

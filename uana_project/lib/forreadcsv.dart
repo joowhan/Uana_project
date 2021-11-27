@@ -91,7 +91,7 @@ class HomeState extends State<Home> {
           .transform(utf8.decoder)
           .transform(new CsvToListConverter())
           .toList();
-      final confirmlist = List.generate(0, (index) => 0); // 레시피 코드를 저장한다.
+      final confirmlist = List.generate(0, (index) => 0);  // 레시피 코드를 저장한다.
       for(int i =0; i < fields.length; i++){
         print(i);
         if(fields[i][0] is! String){ //각 csv 파일 맨 위는 사용하지 않는다.
@@ -127,7 +127,7 @@ class HomeState extends State<Home> {
         //     }
         //   else{ // 만약 confirmlist에 있다면 set이 된 것이니 update를 이용한다.
 
-
+/*
           await FirebaseFirestore.instance
               .collection("recipes")
               .doc(fields[i][0].toString())
@@ -138,6 +138,15 @@ class HomeState extends State<Home> {
 
                 // 'userInfo.userCount': 2
           });
+ */
+
+        await FirebaseFirestore.instance
+            .collection("food")
+            .doc(fields[i][0].toString())
+            .set({
+          'foodCode' : fields[i][0] as int,
+          'foodName' : fields[i][1] as String,
+        });
            //세번째  파일 순서 넣는 용
             
             // await FirebaseFirestore.instance

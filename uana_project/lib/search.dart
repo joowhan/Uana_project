@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:uana_project/recipe_create.dart';
 import 'recipe_detail.dart';
 import 'login_provider.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
 import 'recipe_provider.dart';
+import 'recipe_create.dart';
 
 /*
 전체 레시피 화면 (추후에 검색 기능 추가하도록)
@@ -28,7 +30,7 @@ class _SearchPageState extends State<SearchPage> {
 
     final ThemeData theme = Theme.of(context);
 
-    return recipeProvider.recipeInformation.map((recipe) { // 중간, 기말 때 썼던 예제 그대로
+    return recipeProvider.recipeInformation.map((recipe) {// 중간, 기말 때 썼던 예제 그대로
       return Card(
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -104,6 +106,19 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        IconButton(
+          icon: const Icon(
+            Icons.add,
+            semanticLabel: 'add',
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RecipeCreate(context)),
+            );
+          },
+        ),
         Expanded(
           child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
             shrinkWrap: true,
