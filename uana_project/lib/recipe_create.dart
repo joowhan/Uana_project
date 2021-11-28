@@ -42,7 +42,7 @@ class RecipeCreateExState extends State<RecipeCreate> {
   String _profileImageURL = "";
 
   String productname = 'Default Name';
-  String detailVideo = ' ';
+  String detailVideo = 'NUienUvTEvg';
   String etcDescription = ' ';
 
   List<String> processDes = List.generate(6, (index) => " ");
@@ -50,11 +50,19 @@ class RecipeCreateExState extends State<RecipeCreate> {
   List<bool> _forimage = [false, true, true, true, true, true];
 
   List<String> _ingredient = [
-    "계란", "고춧가루", "김치", "돈까스 소스", "된장", "마늘", "면", "밥", "버섯", "양파", "치즈", "통깨", "파", "파스타 소스", "후추",
-    "기타"
+    "가래떡", "간장", "감자", "게맛살", "계란", "고등어", "고추기름", "고추장", "고춧가루", "골뱅이",
+    "국수", "치즈", "김", "김치", "깨소금", "깻잎", "꽈리고추", "녹말", "다시마", "단무지",
+    "닭", "당근", "대파", "돼지고기", "된장", "두반장", "두부", "떡", "라면", "마늘",
+    "만두피", "맛소금", "맛술", "매실장아찌", "멸치", "멸칫국물", "무", "물", "물엿", "밀가루",
+    "바질", "밥", "버터", "베이컨", "부추", "새우", "샐러리", "생강", "생크림", "설탕",
+    "소금", "소면", "쇠고기", "숙주", "스파게티", "식용유", "식초", "실고추", "실파", "쑥갓",
+    "애호박", "양송이버섯", "양파", "어묵", "오이", "오징어", "완두콩", "우유", "육수", "죽순",
+    "참기름", "참치", "청고추", "청주", "청피망", "카레", "콩나물", "토마토케첩", "통후추", "파",
+    "파슬리", "팽이버섯", "표고버섯", "프랑크소시지", "햄", "호두","호박", "홍고추", "홍합", "화이트와인",
+    "후추", "기타"
   ];
   List<bool> _foringredient = [];
-
+  bool _offingre = true;
   List<bool> _forkategorie = List.generate(6, (index) => false);
   List<String> _kategorie = ["국물", "튀김", "매운 음식", "야식", "아침", "식사"];
 
@@ -120,6 +128,8 @@ class RecipeCreateExState extends State<RecipeCreate> {
     );
   }
 
+  final _formKey = GlobalKey<FormState>();
+
   int count = 0;
 
   @override
@@ -127,7 +137,7 @@ class RecipeCreateExState extends State<RecipeCreate> {
     for (int i = 0; i < _ingredient.length; i++) {
       _foringredient.add(false);
     }
-    _forkategorie[_kategorie.length-1] = true;
+    _forkategorie[_kategorie.length - 1] = true;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -151,550 +161,619 @@ class RecipeCreateExState extends State<RecipeCreate> {
             ),
             onPressed: () {
               //
-              _uploadImageToStorage(
-                  _image,
-                  _processimage0,
-                  _processimage1,
-                  _processimage2,
-                  _processimage3,
-                  _processimage4,
-                  _processimage5);
-              // if (_image == null) {
-              //   urlToFile();
-              // } else {
-              //   _uploadImageToStorage(_image);
-              //   // print("Profile"+_profileImageURL);
-              //   // addProduct(productname, price, description, _image.toString());
-              // }
-              // print(_profileImageURL);
+              if(_formKey.currentState!.validate()){
+                _uploadImageToStorage(
+                    _image,
+                    _processimage0,
+                    _processimage1,
+                    _processimage2,
+                    _processimage3,
+                    _processimage4,
+                    _processimage5);
 
-              Navigator.pop(context);
+                Navigator.pop(context);
+              }
+
             },
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: 3500,
-          child: Column(
-            children: [
-              //대표이미지 및 이름
-              Container(
-                  child: Column(
-                    children: [
-                      _image != null
-                          ? SizedBox(
-                          width: 410,
-                          height: 300,
-                          child: Image.file(
-                            _image,
-                            fit: BoxFit.fitHeight,
-                          ))
-                          : Container(
-                          decoration: BoxDecoration(color: Colors.grey[200]),
-                          width: 410,
-                          height: 300,
-                          child: Image.network(
-                              'http://handong.edu/site/handong/res/img/logo.png')),
-                      Container(
-                        alignment: Alignment.bottomRight,
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            Text("음식 이름 : "),
-                            SizedBox(
-                              width: 270,
-                              child: TextField(
-                                onChanged: (value) {
-                                  productname = value;
-                                },
-                              ),
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.camera_alt),
-                              color: Colors.grey[800],
-                              onPressed: () async {
-                                var source = ImageSource.gallery;
-                                XFile image = (await ImagePicker().pickImage(
-                                    source: source, imageQuality: 50)) as XFile;
-                                setState(() {
-                                  _image = File(image.path);
-                                });
-                                print(_image);
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )),
-              //카테고리 만들기
-              Container(
-                child: Column(
-                    children: _kategorie.map((item) {
-                      var index = _kategorie.indexOf(item);
-                      if (index % 3 == 0) {
-                        return Row(children: [
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: _forkategorie[index], //처음엔 false
-                                onChanged: (value) {
-                                  //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                  setState(() {
-                                    _forkategorie[index] = value!; //true가 들어감.
-                                  });
-                                },
-                              ),
-                              Text(_kategorie[index])
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: _forkategorie[index + 1], //처음엔 false
-                                onChanged: (value) {
-                                  //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                  setState(() {
-                                    _forkategorie[index + 1] = value!; //true가 들어감.
-                                  });
-                                },
-                              ),
-                              Text(_kategorie[index + 1])
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: _forkategorie[index + 2], //처음엔 false
-                                onChanged: (value) {
-                                  //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                  setState(() {
-                                    _forkategorie[index + 2] = value!; //true가 들어감.
-                                  });
-                                },
-                              ),
-                              Text(_kategorie[index + 2])
-                            ],
-                          ),
-                        ]);
-                      } else {
-                        return SizedBox(height: 0);
-                      }
-                    }).toList()),
-              ),
-
-              //재료들
-              Text("재료 추가"),
-              Container(
-                  child: Column(
-                    children: [
-                      Column(
-                          children: _ingredient.map((item) {
-                            var index = _ingredient.indexOf(item);
-                            return Row(children: [
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    value: _foringredient[index],
-                                    //처음엔 false
-                                    onChanged: (value) {
-                                      //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
-                                      setState(() {
-                                        _foringredient[index] = value!; //true가 들어감.
-                                      });
-                                    },
-                                  ),
-                                  Text(_ingredient[index])
-                                ],
-                              ),
-                            ]);
-                          }).toList()),
-                      SizedBox(
-                        width: 300,
-                        height: 50,
-                        child: TextField(
-                          decoration: const InputDecoration(
-
-                              prefixText: "기타 재료 "
-                          ),
-                          onChanged: (value) {
-                            etcDescription = value;
-                          },
-                        ),
-                      )
-
-                    ],
-                  )),
-
-
-              //여기서 부터 과정 image와 url을 집어 넣었는데 일단 Offstage가 6번 반복이라 이것좀 gridview나 listview로 바꿔야 할 필요가 있음.
-              Container(
+      body:  LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints viewportConstraints){
+          return SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Container(
+                // height: 3500,
                 child: Column(
                   children: [
-                    Text("과정 image 넣기 및, 설명 넣기 가능"),
-                    Offstage(
-                        offstage: _forimage[0],
-                        child: SizedBox(
-                            width: processimageWidth,
-                            height: processimageWidth,
-                            child: Column(
-                              children: [
-                                _processimage0 != null
-                                    ? SizedBox(
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.file(
-                                      _processimage0,
-                                      fit: BoxFit.fitHeight,
-                                    ))
-                                    : Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200]),
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')),
-                                Container(
-                                  alignment: Alignment.bottomRight,
-                                  // padding: const EdgeInsets.all(10),
-                                  child: IconButton(
+                    //대표이미지 및 이름
+                    Container(
+                        child: Column(
+                          children: [
+                            _image != null
+                                ? SizedBox(
+                                width: 410,
+                                height: 300,
+                                child: Image.file(
+                                  _image,
+                                  fit: BoxFit.fitHeight,
+                                ))
+                                : Container(
+                                decoration: BoxDecoration(color: Colors.grey[200]),
+                                width: 410,
+                                height: 300,
+                                child: Image.network(
+                                    'http://handong.edu/site/handong/res/img/logo.png')),
+                            Container(
+                              alignment: Alignment.bottomRight,
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                children: [
+                                  Text("음식 이름 : "),
+                                  SizedBox(
+                                    width: 270,
+                                    child: TextFormField(
+                                      onChanged: (value) {
+                                        productname = value;
+                                      },
+                                      validator: (val){
+                                        if(val!.isEmpty){
+                                          return '이름을 입력해주세요';
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  IconButton(
                                     icon: Icon(Icons.camera_alt),
                                     color: Colors.grey[800],
                                     onPressed: () async {
                                       var source = ImageSource.gallery;
-                                      XFile image = (await ImagePicker()
-                                          .pickImage(
-                                          source: source,
-                                          imageQuality: 50)) as XFile;
+                                      XFile image = (await ImagePicker().pickImage(
+                                          source: source, imageQuality: 50)) as XFile;
                                       setState(() {
-                                        _processimage0 = File(image.path);
+                                        _image = File(image.path);
                                       });
+                                      print(_image);
                                     },
                                   ),
-                                ),
-                                SizedBox(
-                                    width: processimageWidth,
-                                    height: processDescriptionHeight,
-                                    child: TextField(
+                                ],
+                              ),
+                            ),
+                          ],
+                        )),
+                    //카테고리 만들기
+                    Container(
+                      child: Column(
+                          children: _kategorie.map((item) {
+                            var index = _kategorie.indexOf(item);
+                            if (index % 3 == 0) {
+                              return Row(children: [
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: _forkategorie[index], //처음엔 false
                                       onChanged: (value) {
-                                        processDes[0] = value;
+                                        //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
+                                        setState(() {
+                                          _forkategorie[index] = value!; //true가 들어감.
+                                        });
                                       },
-                                    ))
-                              ],
-                            ))),
-                    Offstage(
-                        offstage: _forimage[1],
-                        child: SizedBox(
-                            width: processimageWidth,
-                            height: processimageWidth,
-                            child: Column(
-                              children: [
-                                _processimage1 != null
-                                    ? SizedBox(
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.file(
-                                      _processimage1,
-                                      fit: BoxFit.fitHeight,
-                                    ))
-                                    : Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200]),
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')),
-                                Container(
-                                  alignment: Alignment.bottomRight,
-                                  padding: const EdgeInsets.all(10),
-                                  child: IconButton(
-                                    icon: Icon(Icons.camera_alt),
-                                    color: Colors.grey[800],
-                                    onPressed: () async {
-                                      var source = ImageSource.gallery;
-                                      XFile image = (await ImagePicker()
-                                          .pickImage(
-                                          source: source,
-                                          imageQuality: 50)) as XFile;
-                                      setState(() {
-                                        _processimage1 = File(image.path);
-                                      });
-                                    },
-                                  ),
+                                    ),
+                                    Text(_kategorie[index])
+                                  ],
                                 ),
-                                SizedBox(
-                                    width: processimageWidth,
-                                    height: processDescriptionHeight,
-                                    child: TextField(
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: _forkategorie[index + 1], //처음엔 false
                                       onChanged: (value) {
-                                        processDes[1] = value;
+                                        //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
+                                        setState(() {
+                                          _forkategorie[index + 1] =
+                                          value!; //true가 들어감.
+                                        });
                                       },
-                                    ))
-                              ],
-                            ))),
-                    Offstage(
-                        offstage: _forimage[2],
-                        child: SizedBox(
-                            width: processimageWidth,
-                            height: processimageWidth,
-                            child: Column(
-                              children: [
-                                _processimage2 != null
-                                    ? SizedBox(
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.file(
-                                      _processimage2,
-                                      fit: BoxFit.fitHeight,
-                                    ))
-                                    : Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200]),
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')),
-                                Container(
-                                  alignment: Alignment.bottomRight,
-                                  padding: const EdgeInsets.all(10),
-                                  child: IconButton(
-                                    icon: Icon(Icons.camera_alt),
-                                    color: Colors.grey[800],
-                                    onPressed: () async {
-                                      var source = ImageSource.gallery;
-                                      XFile image = (await ImagePicker()
-                                          .pickImage(
-                                          source: source,
-                                          imageQuality: 50)) as XFile;
-                                      setState(() {
-                                        _processimage2 = File(image.path);
-                                      });
-                                    },
-                                  ),
+                                    ),
+                                    Text(_kategorie[index + 1])
+                                  ],
                                 ),
-                                SizedBox(
-                                    width: processimageWidth,
-                                    height: processDescriptionHeight,
-                                    child: TextField(
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: _forkategorie[index + 2], //처음엔 false
                                       onChanged: (value) {
-                                        processDes[2] = value;
+                                        //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
+                                        setState(() {
+                                          _forkategorie[index + 2] =
+                                          value!; //true가 들어감.
+                                        });
                                       },
-                                    ))
-                              ],
-                            ))),
-                    Offstage(
-                        offstage: _forimage[3],
-                        child: SizedBox(
-                            width: processimageWidth,
-                            height: processimageWidth,
-                            child: Column(
-                              children: [
-                                _processimage3 != null
-                                    ? SizedBox(
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.file(
-                                      _processimage3,
-                                      fit: BoxFit.fitHeight,
-                                    ))
-                                    : Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200]),
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')),
-                                Container(
-                                  alignment: Alignment.bottomRight,
-                                  padding: const EdgeInsets.all(10),
-                                  child: IconButton(
-                                    icon: Icon(Icons.camera_alt),
-                                    color: Colors.grey[800],
-                                    onPressed: () async {
-                                      var source = ImageSource.gallery;
-                                      XFile image = (await ImagePicker()
-                                          .pickImage(
-                                          source: source,
-                                          imageQuality: 50)) as XFile;
-                                      setState(() {
-                                        _processimage3 = File(image.path);
-                                      });
-                                    },
-                                  ),
+                                    ),
+                                    Text(_kategorie[index + 2])
+                                  ],
                                 ),
-                                SizedBox(
-                                    width: processimageWidth,
-                                    height: processDescriptionHeight,
-                                    child: TextField(
-                                      onChanged: (value) {
-                                        processDes[3] = value;
-                                      },
-                                    ))
-                              ],
-                            ))),
-                    Offstage(
-                        offstage: _forimage[4],
-                        child: SizedBox(
-                            width: processimageWidth,
-                            height: processimageWidth,
-                            child: Column(
-                              children: [
-                                _processimage4 != null
-                                    ? SizedBox(
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.file(
-                                      _processimage4,
-                                      fit: BoxFit.fitHeight,
-                                    ))
-                                    : Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200]),
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')),
-                                Container(
-                                  alignment: Alignment.bottomRight,
-                                  padding: const EdgeInsets.all(10),
-                                  child: IconButton(
-                                    icon: Icon(Icons.camera_alt),
-                                    color: Colors.grey[800],
-                                    onPressed: () async {
-                                      var source = ImageSource.gallery;
-                                      XFile image = (await ImagePicker()
-                                          .pickImage(
-                                          source: source,
-                                          imageQuality: 50)) as XFile;
-                                      setState(() {
-                                        _processimage4 = File(image.path);
-                                      });
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                    width: processimageWidth,
-                                    height: processDescriptionHeight,
-                                    child: TextField(
-                                      onChanged: (value) {
-                                        processDes[4] = value;
-                                      },
-                                    ))
-                              ],
-                            ))),
-                    Offstage(
-                        offstage: _forimage[5],
-                        child: SizedBox(
-                            width: processimageWidth,
-                            height: processimageWidth,
-                            child: Column(
-                              children: [
-                                _processimage5 != null
-                                    ? SizedBox(
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.file(
-                                      _processimage5,
-                                      fit: BoxFit.fitHeight,
-                                    ))
-                                    : Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200]),
-                                    width: processimageWidth,
-                                    height: processimageHeight,
-                                    child: Image.network(
-                                        'http://handong.edu/site/handong/res/img/logo.png')),
-                                Container(
-                                  alignment: Alignment.bottomRight,
-                                  padding: const EdgeInsets.all(10),
-                                  child: IconButton(
-                                    icon: Icon(Icons.camera_alt),
-                                    color: Colors.grey[800],
-                                    onPressed: () async {
-                                      var source = ImageSource.gallery;
-                                      XFile image = (await ImagePicker()
-                                          .pickImage(
-                                          source: source,
-                                          imageQuality: 50)) as XFile;
-                                      setState(() {
-                                        _processimage5 = File(image.path);
-                                      });
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                    width: processimageWidth,
-                                    height: processDescriptionHeight,
-                                    child: TextField(
-                                      onChanged: (value) {
-                                        processDes[5] = value;
-                                      },
-                                    ))
-                              ],
-                            ))),
+                              ]);
+                            } else {
+                              return SizedBox(height: 0);
+                            }
+                          }).toList()),
+                    ),
+
+                    //재료들
                     Row(
                       children: [
-                        IconButton(
-                          icon: Icon(Icons.expand_more_outlined),
-                          onPressed: () {
-                            if (count > 0) {
-                              count--;
-                              setState(() {
-                                _forimage[count] = !_forimage[count];
-                              });
-                              print(_forimage);
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                      'You should input more than 1 process'),
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.expand_less_outlined),
-                          onPressed: () {
-                            if (count < 5) {
-                              count++;
-                              setState(() {
-                                _forimage[count] = !_forimage[count];
-                              });
-                              print(_forimage);
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('You can input just 6 process'),
-                                ),
-                              );
-                            }
-                          },
-                        ),
+                        IconButton(onPressed: (){
+                          setState(() {
+                            _offingre = !_offingre;
+                          });
+
+                        }, icon: _offingre ? Icon(Icons.expand_more_outlined) : Icon(Icons.expand_less_outlined)),
+                        Text("재료 추가")
                       ],
-                    )
+                    ),
+                    Container(
+                        child: Column(
+                          children: [
+                            Offstage(
+                              offstage: _offingre,
+                              child: GridView.count(
+                                shrinkWrap: true,
+                                physics: const BouncingScrollPhysics(),
+                                crossAxisCount: 3,
+                                padding: const EdgeInsets.all(5.0),
+                                childAspectRatio: 5.0 / 2.0,
+                                children: _ingredient.map((ingre){
+                                  var index = _ingredient.indexOf(ingre);
+                                  return Row(children: [
+                                    Row(
+                                      children: [
+                                        Checkbox(
+                                          value: _foringredient[index],
+                                          //처음엔 false
+                                          onChanged: (value) {
+                                            //value가 false -> 클릭하면 true로 변경됨(두개 중 하나니까)
+                                            setState(() {
+                                              _foringredient[index] = value!; //true가 들어감.
+                                            });
+                                          },
+                                        ),
+                                        Text(_ingredient[index])
+                                      ],
+                                    ),
+                                  ]);
+                                }
+
+                                ).toList(),
+
+                              ),
+                            ),
+
+                            !_offingre ?
+                            SizedBox(
+                              width: 300,
+                              height: 50,
+                              child: TextFormField(
+                                decoration: const InputDecoration(labelText: "기타 재료"),
+                                onChanged: (value) {
+                                  etcDescription = value;
+                                },
+                                validator: (val){
+                                  if(_foringredient[_ingredient.length-1] == true && val!.isEmpty){
+                                    return '기타에 체크 시 추가 재료를 입력해주세요';
+                                  }
+                                },
+                              ),
+                            ) : SizedBox(height: 0,)
+                          ],
+                        )
+                    ),
+                    !_offingre ?
+                    Row(
+                      children: [
+                        IconButton(onPressed: (){
+                          setState(() {
+                            _offingre = !_offingre;
+                          });
+
+                        }, icon: Icon(Icons.expand_less_outlined)),
+                        Text("재료 목록 올리기")
+                      ],
+                    ) : SizedBox(height: 0),
+
+                    //여기서 부터 과정 image와 url을 집어 넣었는데 일단 Offstage가 6번 반복이라 이것좀 gridview나 listview로 바꿔야 할 필요가 있음.
+                    Container(
+                      child: Column(
+                        children: [
+                          Text("과정 image 넣기 및, 설명 넣기 가능"),
+                          Offstage(
+                              offstage: _forimage[0],
+                              child: SizedBox(
+                                  width: processimageWidth,
+                                  height: processimageWidth,
+                                  child: Column(
+                                    children: [
+                                      _processimage0 != null
+                                          ? SizedBox(
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.file(
+                                            _processimage0,
+                                            fit: BoxFit.fitHeight,
+                                          ))
+                                          : Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200]),
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.network(
+                                              'http://handong.edu/site/handong/res/img/logo.png')),
+                                      Container(
+                                        alignment: Alignment.bottomRight,
+                                        // padding: const EdgeInsets.all(10),
+                                        child: IconButton(
+                                          icon: Icon(Icons.camera_alt),
+                                          color: Colors.grey[800],
+                                          onPressed: () async {
+                                            var source = ImageSource.gallery;
+                                            XFile image = (await ImagePicker()
+                                                .pickImage(
+                                                source: source,
+                                                imageQuality: 50)) as XFile;
+                                            setState(() {
+                                              _processimage0 = File(image.path);
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: processimageWidth,
+                                          height: processDescriptionHeight,
+                                          child: TextFormField(
+                                            onChanged: (value) {
+                                              processDes[0] = value;
+                                            },
+                                            validator: (val){
+                                              if(val!.isEmpty){
+                                                return '적어도 하나의 과정은 추가 해야합니다.';
+                                              }
+                                            },
+                                          ))
+                                    ],
+                                  ))),
+                          Offstage(
+                              offstage: _forimage[1],
+                              child: SizedBox(
+                                  width: processimageWidth,
+                                  height: processimageWidth,
+                                  child: Column(
+                                    children: [
+                                      _processimage1 != null
+                                          ? SizedBox(
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.file(
+                                            _processimage1,
+                                            fit: BoxFit.fitHeight,
+                                          ))
+                                          : Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200]),
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.network(
+                                              'http://handong.edu/site/handong/res/img/logo.png')),
+                                      Container(
+                                        alignment: Alignment.bottomRight,
+                                        padding: const EdgeInsets.all(10),
+                                        child: IconButton(
+                                          icon: Icon(Icons.camera_alt),
+                                          color: Colors.grey[800],
+                                          onPressed: () async {
+                                            var source = ImageSource.gallery;
+                                            XFile image = (await ImagePicker()
+                                                .pickImage(
+                                                source: source,
+                                                imageQuality: 50)) as XFile;
+                                            setState(() {
+                                              _processimage1 = File(image.path);
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: processimageWidth,
+                                          height: processDescriptionHeight,
+                                          child: TextField(
+                                            onChanged: (value) {
+                                              processDes[1] = value;
+                                            },
+                                          ))
+                                    ],
+                                  ))),
+                          Offstage(
+                              offstage: _forimage[2],
+                              child: SizedBox(
+                                  width: processimageWidth,
+                                  height: processimageWidth,
+                                  child: Column(
+                                    children: [
+                                      _processimage2 != null
+                                          ? SizedBox(
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.file(
+                                            _processimage2,
+                                            fit: BoxFit.fitHeight,
+                                          ))
+                                          : Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200]),
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.network(
+                                              'http://handong.edu/site/handong/res/img/logo.png')),
+                                      Container(
+                                        alignment: Alignment.bottomRight,
+                                        padding: const EdgeInsets.all(10),
+                                        child: IconButton(
+                                          icon: Icon(Icons.camera_alt),
+                                          color: Colors.grey[800],
+                                          onPressed: () async {
+                                            var source = ImageSource.gallery;
+                                            XFile image = (await ImagePicker()
+                                                .pickImage(
+                                                source: source,
+                                                imageQuality: 50)) as XFile;
+                                            setState(() {
+                                              _processimage2 = File(image.path);
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: processimageWidth,
+                                          height: processDescriptionHeight,
+                                          child: TextField(
+                                            onChanged: (value) {
+                                              processDes[2] = value;
+                                            },
+                                          ))
+                                    ],
+                                  ))),
+                          Offstage(
+                              offstage: _forimage[3],
+                              child: SizedBox(
+                                  width: processimageWidth,
+                                  height: processimageWidth,
+                                  child: Column(
+                                    children: [
+                                      _processimage3 != null
+                                          ? SizedBox(
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.file(
+                                            _processimage3,
+                                            fit: BoxFit.fitHeight,
+                                          ))
+                                          : Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200]),
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.network(
+                                              'http://handong.edu/site/handong/res/img/logo.png')),
+                                      Container(
+                                        alignment: Alignment.bottomRight,
+                                        padding: const EdgeInsets.all(10),
+                                        child: IconButton(
+                                          icon: Icon(Icons.camera_alt),
+                                          color: Colors.grey[800],
+                                          onPressed: () async {
+                                            var source = ImageSource.gallery;
+                                            XFile image = (await ImagePicker()
+                                                .pickImage(
+                                                source: source,
+                                                imageQuality: 50)) as XFile;
+                                            setState(() {
+                                              _processimage3 = File(image.path);
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: processimageWidth,
+                                          height: processDescriptionHeight,
+                                          child: TextField(
+                                            onChanged: (value) {
+                                              processDes[3] = value;
+                                            },
+                                          ))
+                                    ],
+                                  ))),
+                          Offstage(
+                              offstage: _forimage[4],
+                              child: SizedBox(
+                                  width: processimageWidth,
+                                  height: processimageWidth,
+                                  child: Column(
+                                    children: [
+                                      _processimage4 != null
+                                          ? SizedBox(
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.file(
+                                            _processimage4,
+                                            fit: BoxFit.fitHeight,
+                                          ))
+                                          : Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200]),
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.network(
+                                              'http://handong.edu/site/handong/res/img/logo.png')),
+                                      Container(
+                                        alignment: Alignment.bottomRight,
+                                        padding: const EdgeInsets.all(10),
+                                        child: IconButton(
+                                          icon: Icon(Icons.camera_alt),
+                                          color: Colors.grey[800],
+                                          onPressed: () async {
+                                            var source = ImageSource.gallery;
+                                            XFile image = (await ImagePicker()
+                                                .pickImage(
+                                                source: source,
+                                                imageQuality: 50)) as XFile;
+                                            setState(() {
+                                              _processimage4 = File(image.path);
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: processimageWidth,
+                                          height: processDescriptionHeight,
+                                          child: TextField(
+                                            onChanged: (value) {
+                                              processDes[4] = value;
+                                            },
+                                          ))
+                                    ],
+                                  ))),
+                          Offstage(
+                              offstage: _forimage[5],
+                              child: SizedBox(
+                                  width: processimageWidth,
+                                  height: processimageWidth,
+                                  child: Column(
+                                    children: [
+                                      _processimage5 != null
+                                          ? SizedBox(
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.file(
+                                            _processimage5,
+                                            fit: BoxFit.fitHeight,
+                                          ))
+                                          : Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200]),
+                                          width: processimageWidth,
+                                          height: processimageHeight,
+                                          child: Image.network(
+                                              'http://handong.edu/site/handong/res/img/logo.png')),
+                                      Container(
+                                        alignment: Alignment.bottomRight,
+                                        padding: const EdgeInsets.all(10),
+                                        child: IconButton(
+                                          icon: Icon(Icons.camera_alt),
+                                          color: Colors.grey[800],
+                                          onPressed: () async {
+                                            var source = ImageSource.gallery;
+                                            XFile image = (await ImagePicker()
+                                                .pickImage(
+                                                source: source,
+                                                imageQuality: 50)) as XFile;
+                                            setState(() {
+                                              _processimage5 = File(image.path);
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: processimageWidth,
+                                          height: processDescriptionHeight,
+                                          child: TextField(
+                                            onChanged: (value) {
+                                              processDes[5] = value;
+                                            },
+                                          ))
+                                    ],
+                                  ))),
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.expand_more_outlined),
+                                onPressed: () {
+                                  if (count > 0) {
+                                    count--;
+                                    setState(() {
+                                      _forimage[count] = !_forimage[count];
+                                    });
+                                    print(_forimage);
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            'You should input more than 1 process'),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.expand_less_outlined),
+                                onPressed: () {
+                                  if (count < 5) {
+                                    count++;
+                                    setState(() {
+                                      _forimage[count] = !_forimage[count];
+                                    });
+                                    print(_forimage);
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                        Text('You can input just 6 process'),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+
+                    //대표 요리 영상
+                    Container(
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text("영상 url id  "),
+                                SizedBox(
+                                  width: 320,
+                                  child: TextFormField(
+                                    decoration: const InputDecoration(prefixText: "www.youtube.com/watch?v="),
+                                    onChanged: (value) {
+                                      detailVideo = value;
+                                    },
+                                    validator: (val) {
+                                      String value = val.toString();
+                                      if (value.length > 11) {
+                                        return 'Youtube Video ID만 입력해주세요.';
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+
+
+                            SizedBox(
+                              height: 20.0,
+                            )
+                          ],
+                        ))
                   ],
                 ),
               ),
-
-              //대표 요리 영상
-              Container(
-                  child: Column(
-                    children: [
-                      Text("영상 url"),
-                      SizedBox(
-                          width: 270,
-                          child: TextField(
-                            onChanged: (value) {
-                              detailVideo = value;
-                            },
-                          ))
-                    ],
-                  ))
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -860,7 +939,7 @@ class RecipeCreateExState extends State<RecipeCreate> {
       'etcMaterial': etcDescription,
       'like': 0,
       'likeusers': [],
-      'detailUrl' : detailVideo
+      'detailUrl': detailVideo
     });
     // setState(() {
     //   _profileImageURL = downloadURL.toString();
