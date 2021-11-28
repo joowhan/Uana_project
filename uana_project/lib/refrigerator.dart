@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -114,33 +116,93 @@ class googleMapPage extends StatefulWidget {
   _googleMapPageState createState() => _googleMapPageState();
 }
 
-class _googleMapPageState extends State<googleMapPage> {
-  late GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(37.898989, 129.362536);
+
+class _googleMapPageState extends State<googleMapPage> {
+  late double lat=0;
+  late double lng=0;
+  Location location = new Location();
+  late bool _serviceEnabled;
+  late PermissionStatus _permissionGranted;
+  late GoogleMapController mapController;
+  //Completer<GoogleMapController> _controller = Completer();
+  LatLng _center=const LatLng(0, 0);
+  _locateMe() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    location.getLocation().then((res) {
+      setState(() {
+        lat = res.latitude!;
+        lng = res.longitude!;
+        _center = LatLng(lat, lng);
+
+        mapController.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(target: _center, zoom: 15),
+          ),
+        );
+      });
+    });
+
+
+  }
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('집근처 식재료 '),
-          backgroundColor: Colors.green[700],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Geolocation"),
+      ),
+      body: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: GoogleMap(
+                onMapCreated: _onMapCreated,
+                myLocationEnabled: true,
+                initialCameraPosition: CameraPosition(
+                  target: _center,
+                  zoom: 15,
+                ),
+              ),
+
+            ),
+            Container(
+              width: double.infinity,
+              child: ElevatedButton(
+                child: Text("Locate Me"),
+                onPressed: () async {
+                  await _locateMe();
+                },
+              ),
+            ),
+          ],
         ),
-        body: GoogleMap(
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 12.0,
-          ),
-        ),
-        // floatingActionButton: TextButton(onPressed: () {Navigator.pop(context);  }, child: Text('back'),
-        //
-        // ),
       ),
     );
   }
