@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:uana_project/recipe_detail_youtube.dart';
 import 'login_provider.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
 import 'recipe_provider.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:video_player/video_player.dart';
 
 /*
 디테일 레시피 화면
@@ -59,7 +61,10 @@ class _RecipePageState extends State<RecipeDetailPage> {
         }*/
 
         var recipeDocument = snapshot.data;
-
+        var ingreMap = Map<int , String>();
+        for (int i = 0; i < widget.recipe.ingredient.length; i++){
+          ingreMap[i] = widget.recipe.ingredient[i];
+        }
           return Scaffold(
             appBar: AppBar(
               title: Text(widget.recipe.foodName),
@@ -74,45 +79,115 @@ class _RecipePageState extends State<RecipeDetailPage> {
                 ),
               ),
 
-              Row(
-                children: [
-                  Text(
-                    '${widget.recipe.foodName}\n',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+              Container(
+                margin: EdgeInsets.fromLTRB(5.0,10.0,0,0),
+                child: Row(
+                  // crossAxisAlignment: CrossAxisAlignment.st,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${widget.recipe.foodName}\n',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
 
-                  recipeDocument!['likeusers'].contains(FirebaseAuth.instance.currentUser!.uid) ?
-                  IconButton(
-                    icon: Icon(Icons.star),
-                    color: Colors.red,
-                    iconSize: 30,
-                    onPressed: () {
-                      recipeProvider.updateLike(recipeDocument['docId'], recipeDocument['like'], false);
-                    },
-                  ) : IconButton(
-                    icon : Icon(Icons.star_border),
-                    color: Colors.red,
-                    iconSize: 30,
-                    onPressed: () {
-                      recipeProvider.updateLike(recipeDocument['docId'], recipeDocument['like'], true);
-                    },
-                  ),
-                  Text(recipeDocument['like'].toString()),
-                ],
+                    Container(
+                      margin: EdgeInsets.fromLTRB(180, 0,0,0),
+                      child:
+                      recipeDocument!['likeusers'].contains(FirebaseAuth.instance.currentUser!.uid) ?
+                      IconButton(
+                        icon: Icon(Icons.star),
+                        color: Colors.red,
+                        iconSize: 30,
+                        onPressed: () {
+                          recipeProvider.updateLike(recipeDocument['docId'], recipeDocument['like'], false);
+                        },
+                      ) : IconButton(
+                        icon : Icon(Icons.star_border),
+                        color: Colors.red,
+                        iconSize: 30,
+                        onPressed: () {
+                          recipeProvider.updateLike(recipeDocument['docId'], recipeDocument['like'], true);
+                        },
+                      ),
+                    ),
+
+
+                    Text(recipeDocument['like'].toString(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Text('재료 목록\n'),
-              for (int i = 0; i < widget.recipe.ingredient.length; i++)
-                Text('${widget.recipe.ingredient[i]}'), // 재료 목록
 
-              Text('\n\n카테고리\n\n'),
-              for (int i = 0; i < widget.recipe.kategorie.length; i++)
-                Text('${widget.recipe.kategorie[i]}'), // 카테고리 목록
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: Text('재료 목록\n',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
 
+              GridView.count(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                crossAxisCount: 6,
+                padding: const EdgeInsets.all(5.0),
+                childAspectRatio: 5.0 / 2.0,
+                children: widget.recipe.ingredient.map((ingre){
+                  return Text(ingre);
+                }
 
-              Text('\n\n요리 과정\n\n'),
+                ).toList(),
+
+              ),
+
+              // for (int i = 0; i < widget.recipe.ingredient.length; i++)
+              //   Text('${widget.recipe.ingredient[i]}'), // 재료 목록
+              Container(
+                padding: EdgeInsets.fromLTRB(10.0,0,0,0),
+                child:Text('\n\n카테고리\n\n',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+
+              ),
+
+              GridView.count(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                crossAxisCount: 6,
+                padding: const EdgeInsets.all(5.0),
+                childAspectRatio: 5.0 / 2.0,
+                children: widget.recipe.kategorie.map((kate){
+                  return Text(kate);
+                }
+
+                ).toList(),
+
+              ),
+              // 카테고리 목록
+
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child:Text('\n\n요리 과정\n\n',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+
+              ),
+
               for (dynamic key in widget.recipe.processDescription.keys)
                 getCookingProcess(key),
               /*
@@ -120,7 +195,27 @@ class _RecipePageState extends State<RecipeDetailPage> {
           getCookingProcess(i), // 요리 순서 출력
 
          */
-              Text('\n\n요리 영상\n\n'),
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child:Text('\n\n요리 영상\n\n',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+
+              ),
+              TextButton(
+                  onPressed :(){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Player(widget.recipe.detailUrl,  widget.recipe.foodName),
+                        ),
+                      );
+                    },
+                  child: Text("보러 가기")
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
