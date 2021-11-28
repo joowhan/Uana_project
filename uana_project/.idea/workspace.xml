@@ -6,57 +6,97 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fd0b792-6ca0-4fa0-8433-229a9d8e051d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/recipe_create.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config 2.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset 2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/version 2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uana_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uana_project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.7/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcuserdata/kimjoowhan.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcuserdata/kimjoowhan.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/create_recipe.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/recipe_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/recipe_detail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/refrigerator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/refrigerator.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/search.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/search.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/.R 2.jar.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeExtDexDebug/.classes2 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_0 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_1 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_10 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_11 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_12 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_2 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_3 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_4 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_5 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_6 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_7 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_8 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeLibDexDebug/.classes_9 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/dex/debug/mergeProjectDexDebug/.classes 2.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/zip-cache/.._bvS4DiiSqpwcH1fVMhYdHAVyd8=.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/zip-cache/.W4piFzjmbt26Jthv_DP1P7CYRqA=.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/zip-cache/.jGdPNTZ+JbfEgSJ4+wm3MgpVmhs=.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/zip-cache/.qPHdULAPxqjORappejEQzYsLYRI=.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/zip-cache/.rj5qMd4lgglS9Fs4J5HvEWkPysY=.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeNativeLibs/zip-cache/.._bvS4DiiSqpwcH1fVMhYdHAVyd8=.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeNativeLibs/zip-cache/.W4piFzjmbt26Jthv_DP1P7CYRqA=.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeNativeLibs/zip-cache/.jGdPNTZ+JbfEgSJ4+wm3MgpVmhs=.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeNativeLibs/zip-cache/.qPHdULAPxqjORappejEQzYsLYRI=.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeNativeLibs/zip-cache/.rj5qMd4lgglS9Fs4J5HvEWkPysY=.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/manifest_merge_blame_file/debug/.manifest-merger-blame-debug-report 2.txt.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_manifest/debug/out/.AndroidManifest 2.xml.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_manifests/debug/.output-metadata 3.json.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/processed_res/debug/out/.output-metadata 3.json.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/project_dex_archive/debug/out/.cd202a7d3dc1f36c3a0e375c2fd763c375bb8ca608325b58336a1a1460331ebd_1.jar.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/runtime_symbol_list/debug/.R 2.txt.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/symbol_list_with_package_name/debug/.package-aware-r 2.txt.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/.last-build 3.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/caches-jvm/inputs/.source-to-output.tab 3.len.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/caches-jvm/inputs/.source-to-output.tab.keystream 3.len.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/caches-jvm/inputs/.source-to-output.tab.values 3.at.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/caches-jvm/lookups/.counters 3.tab.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/caches-jvm/lookups/.file-to-id.tab.values 3.at.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/caches-jvm/lookups/.id-to-file.tab.values 3.at.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/caches-jvm/lookups/.lookups.tab 3.len.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/caches-jvm/lookups/.lookups.tab.keystream 3.len.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/caches-jvm/lookups/.lookups.tab.values 3.at.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/.app 2.apk.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/cloud_firestore/.transforms/.67c2b505e13b5fb51b0e4ae372a1e2f6.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/cloud_firestore/.transforms/67c2b505e13b5fb51b0e4ae372a1e2f6/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/file_picker/.transforms/.6a18aa592dfdc719bc5e3c55749ad8da.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/file_picker/.transforms/6a18aa592dfdc719bc5e3c55749ad8da/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/firebase_auth/.transforms/.1805a76b160a479313149079507d76ab.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/firebase_auth/.transforms/1805a76b160a479313149079507d76ab/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/firebase_core/.transforms/.f46989d8b1c7e73157519801fabeae6c.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/firebase_core/.transforms/f46989d8b1c7e73157519801fabeae6c/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/firebase_storage/.transforms/.974c9ab0d4414a2697f1cb8fdc4e960e.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/firebase_storage/.transforms/974c9ab0d4414a2697f1cb8fdc4e960e/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_local_notifications/.transforms/.806f9ad4023d9b6814db2c99603fca47.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_local_notifications/.transforms/806f9ad4023d9b6814db2c99603fca47/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_local_notifications/intermediates/incremental/packageDebugResources/.compile-file-map.properties.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_plugin_android_lifecycle/.transforms/.89fe005d208a2941c478f13ca87653c3.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_plugin_android_lifecycle/.transforms/89fe005d208a2941c478f13ca87653c3/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_plugin_android_lifecycle/intermediates/incremental/packageDebugResources/.compile-file-map.properties.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/geolocator_android/.transforms/.5ad9b32bba8f15d1145cde45858e05bf.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/geolocator_android/.transforms/5ad9b32bba8f15d1145cde45858e05bf/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/geolocator_android/intermediates/incremental/packageDebugResources/.compile-file-map.properties.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/google_maps_flutter/.transforms/.64d2b59f463eab7ad45a069acc99ab31.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/google_maps_flutter/.transforms/64d2b59f463eab7ad45a069acc99ab31/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/google_maps_flutter/intermediates/incremental/packageDebugResources/.compile-file-map.properties.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/google_sign_in/.transforms/.309ddff9413cdfbe84bbd1c87030c0ec.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/google_sign_in/.transforms/309ddff9413cdfbe84bbd1c87030c0ec/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/google_sign_in/intermediates/incremental/packageDebugResources/.compile-file-map.properties.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/image_picker/.transforms/.4cde27a94ad34d9b2d6c7780e0096c21.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/image_picker/.transforms/4cde27a94ad34d9b2d6c7780e0096c21/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/image_picker/intermediates/incremental/packageDebugResources/.compile-file-map.properties.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/location/intermediates/incremental/packageDebugResources/.compile-file-map.properties.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/open_file/.transforms/.019784b63be4a67eccf7f7c67da9ebe9.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/open_file/.transforms/019784b63be4a67eccf7f7c67da9ebe9/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/open_file/intermediates/incremental/packageDebugResources/.compile-file-map.properties.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/path_provider_android/.transforms/.a630b23e5ce4f428eddb3c3a49bef4f3.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/path_provider_android/.transforms/a630b23e5ce4f428eddb3c3a49bef4f3/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/path_provider_android/intermediates/incremental/packageDebugResources/.compile-file-map.properties.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/video_player/.transforms/.d6a821a4b363cf8419b82e20210515ed.bin.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/video_player/.transforms/d6a821a4b363cf8419b82e20210515ed/classes/.classes.dex.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/video_player/intermediates/incremental/packageDebugResources/.compile-file-map.properties.icloud" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
