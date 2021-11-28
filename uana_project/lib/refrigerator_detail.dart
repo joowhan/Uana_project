@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,9 +25,18 @@ class _RefrigeratorDetailPageState extends State<RefrigeratorDetailPage> {
   @override
   Widget build(BuildContext context) {
     RefrigeratorProvider refrigeratorProvider = Provider.of(context, listen: true); // Refrigerator Provider 사용
+    var registerdate = DateTime.fromMicrosecondsSinceEpoch(widget.userfood.registerDate.seconds * 1000000);
+    var fmt_registerDate = DateFormat.yMMMMEEEEd().format(registerdate);
+
+    var expireddate = DateTime.fromMicrosecondsSinceEpoch(widget.userfood.expiredDate.seconds * 1000000);
+    var fmt_expiredDate = DateFormat.yMMMMEEEEd().format(expireddate);
+
+    var diff = expireddate.difference(registerdate).inDays.toString();
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(widget.userfood.foodName),
+        backgroundColor: Colors.grey,
         actions: <Widget>[
           IconButton(
             icon: const Icon(
@@ -42,14 +52,29 @@ class _RefrigeratorDetailPageState extends State<RefrigeratorDetailPage> {
         ],
       ),
 
-      body: ListView( // 내 냉장고에 등록된 식재료 상세 정보 출력
-        children: [
-          Text(widget.userfood.foodName),
+      body: Container(
+        padding: EdgeInsets.all(15.0),
+        child: ListView( // 내 냉장고에 등록된 식재료 상세 정보 출력
 
-          Text('추가된 날짜 : ${widget.userfood.registerDate}'), // 변경 필요 Timestamp 형식이라서 손 봐야할 듯
-          Text('유통 기한 ${widget.userfood.expiredDate}}'), // 변경 필요 Timestamp 형식이라서 손 봐야할 듯
-          Text('보관형태 : ${widget.userfood.storageType}'),
-        ],
+          children: [
+            Text(widget.userfood.foodName,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+
+            Text('추가된 날짜 : ' + fmt_registerDate), // 변경 필요 Timestamp 형식이라서 손 봐야할 듯
+            // Text(DateTime.now().toString()),
+            Text('유통 기한 : ' + fmt_expiredDate + ' 까지'), // 변경 필요 Timestamp 형식이라서 손 봐야할 듯
+            Row(
+              children: [
+                Text(diff,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(' 일 남았습니다.')
+              ],
+            ),
+            Text('보관형태 : ${widget.userfood.storageType}'),
+          ],
+        ),
       ),
     );
   }

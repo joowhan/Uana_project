@@ -39,10 +39,12 @@ class PlayerState extends State<Player> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           '$_videoTitle',
           style: TextStyle(fontSize: 20.0),
         ),
+        backgroundColor: Colors.grey,
       ),
       body: YoutubePlayer(
         key: ObjectKey(_controller),

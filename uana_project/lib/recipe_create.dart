@@ -230,7 +230,7 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                     onPressed: () async {
                                       var source = ImageSource.gallery;
                                       XFile image = (await ImagePicker().pickImage(
-                                          source: source, imageQuality: 50)) as XFile;
+                                          source: source, imageQuality: 30)) as XFile;
                                       setState(() {
                                         _image = File(image.path);
                                       });

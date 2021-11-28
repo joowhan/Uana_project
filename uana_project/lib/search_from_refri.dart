@@ -123,6 +123,8 @@ class _SearchFromRefriPageState extends State<SearchFromRefriPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.grey,
         title: Text("가지고 있는 재료로 레시피"),
       ),
       body: Column(
