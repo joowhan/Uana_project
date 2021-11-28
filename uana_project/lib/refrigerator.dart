@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:uana_project/search_from_refri.dart';
 import 'refrigerator_detail.dart';
 import 'refrigerator_provider.dart';
 import 'add_refrigerator_detail.dart';
@@ -24,10 +25,11 @@ class RefrigeratorPage extends StatefulWidget {
 자신의 냉장고 현황 관리하는 페이지
  */
 class _RefrigeratorPageState extends State<RefrigeratorPage> {
+  List<String> toSearch = [];
   @override
   Widget build(BuildContext context) {
     RefrigeratorProvider refrigeratorProvider = Provider.of(context, listen: true); // Refrigerator Provider 사용
-
+    toSearch=[];
     return ListView(
       children: [
         GridView.count(
@@ -37,6 +39,10 @@ class _RefrigeratorPageState extends State<RefrigeratorPage> {
           padding: const EdgeInsets.all(16.0),
           childAspectRatio: 8.0 / 9.0,
           children: refrigeratorProvider.userfoodInformation.map((userFoodInfo userfood) { // 내 냉장고에 등록된 식재료 버튼화로 띄우기
+            if(!toSearch.contains(userfood.foodName)){
+              toSearch.add(userfood.foodName);
+            }
+
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
@@ -83,7 +89,11 @@ class _RefrigeratorPageState extends State<RefrigeratorPage> {
         Padding(
           padding: EdgeInsets.all(16.0),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => SearchFromRefriPage(userRefriInfo: toSearch)),
+              );
+            },
             child: Text('레시피 검색'), // 내 냉장고에 있는 재료들로 할 수 있는 레시피 검색, 아직 구현 안함
           ),
         ),
