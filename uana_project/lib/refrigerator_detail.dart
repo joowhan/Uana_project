@@ -36,6 +36,7 @@ class _RefrigeratorDetailPageState extends State<RefrigeratorDetailPage> {
             onPressed: () async {
               Navigator.pop(context);
               refrigeratorProvider.deleteUserFood(widget.userfood); // 내 냉장고에서 해당 식재료 삭제
+              refrigeratorProvider.downloadUserFoods();
             },
           ),
         ],

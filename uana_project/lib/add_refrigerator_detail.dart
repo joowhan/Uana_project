@@ -121,8 +121,10 @@ class _AddRefrigeratorDetailPageState extends State<AddRefrigeratorDetailPage> {
               else {
                 storageType = "실온";
               }
-              await refrigeratorProvider.uploadUserFoods(widget.food, _selectedTime!, storageType); // Firebase에 내 냉장고에 식재료 등록
+
               Navigator.pop(context);
+              refrigeratorProvider.uploadUserFoods(widget.food, _selectedTime!, storageType); // Firebase에 내 냉장고에 식재료 등록
+              refrigeratorProvider.downloadUserFoods();
             },
             child: Text('식재료 등록'),
           ),
