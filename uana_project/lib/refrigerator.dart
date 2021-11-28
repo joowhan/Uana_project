@@ -185,6 +185,8 @@ class _googleMapPageState extends State<googleMapPage> {
               child: GoogleMap(
                 onMapCreated: _onMapCreated,
                 myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                mapToolbarEnabled: true,
                 initialCameraPosition: CameraPosition(
                   target: _center,
                   zoom: 15,
@@ -192,6 +194,7 @@ class _googleMapPageState extends State<googleMapPage> {
               ),
 
             ),
+            /*
             Container(
               width: double.infinity,
               child: ElevatedButton(
@@ -201,6 +204,8 @@ class _googleMapPageState extends State<googleMapPage> {
                 },
               ),
             ),
+
+             */
           ],
         ),
       ),

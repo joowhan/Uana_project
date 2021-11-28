@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
         const SizedBox(height: 30.0),
 
         Text('Home'),
-        Text('${weatherProvider.currentPosition}'),
+        Text('Latitude : ${weatherProvider.latitude} Longitude : ${weatherProvider.longitude}'),
         Text('${weatherProvider.weather}'),
 
         const SizedBox(height: 30.0),
