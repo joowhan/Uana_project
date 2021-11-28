@@ -18,12 +18,15 @@ class _UanaAppState extends State<UanaApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      /*
       theme : ThemeData(
         primaryColor : Colors.grey,
         appBarTheme : const AppBarTheme(
           color : Colors.grey,
         ),
       ),
+
+       */
       title: 'Uana',
       home: const LoginPage(),
       initialRoute: '/login',

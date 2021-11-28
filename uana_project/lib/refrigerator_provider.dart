@@ -20,6 +20,7 @@ class RefrigeratorProvider extends ChangeNotifier {
   }
 
   Future<void> downloadFoods() async { // 전체 식재료 받아옴 (받아오는데 시간 걸려서 클릭 후 다른 데 갔다가 오면 다 받아지더라)
+
     FirebaseAuth.instance.userChanges().listen((user) {
       FirebaseFirestore.instance
           .collection('food')

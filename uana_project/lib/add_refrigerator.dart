@@ -32,20 +32,28 @@ class _AddRefrigeratorPageState extends State<AddRefrigeratorPage> {
             child: GridView.count(
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
-            crossAxisCount: 5,
+            crossAxisCount: 4,
             padding: const EdgeInsets.all(16.0),
             childAspectRatio: 8.0 / 9.0,
             children: refrigeratorProvider.foodInformation.map((FoodInfo food) { // 전체 식재료 항목들 버튼화 해서 화면에 띄움
-              return ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddRefrigeratorDetailPage(food: food), // 해당 식재료 add detail로 넘어감
-                      ),
-                    );
-                  },
-                  child: Text(food.foodName)
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddRefrigeratorDetailPage(food: food), // 해당 식재료 add detail로 넘어감
+                        ),
+                      );
+                    },
+                    child: Text(
+                      food.foodName,
+                      style: const TextStyle(
+                        fontSize: 10,
+                    ),
+                  ),
+                ),
               );
             }).toList(),
           ),

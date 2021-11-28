@@ -25,6 +25,7 @@ class RecipeProvider extends ChangeNotifier {
           .snapshots()
           .listen((snapshot) {
             _recipeInformation = [];
+            _favoriteRecipes = [];
             for(final document in snapshot.docs) {
               _recipeInformation.add(
                 RecipeInfo(
@@ -45,15 +46,83 @@ class RecipeProvider extends ChangeNotifier {
                   userId: document.data()['userId'] as String,
                 ),
               );
+
+              if(document.data()['likeusers'].contains(FirebaseAuth.instance.currentUser!.uid)) {
+                _favoriteRecipes.add(
+                  RecipeInfo(
+                    detailUrl: document.data()['detailUrl'] as String,
+                    docId: document.data()['docId'] as String,
+                    etcMaterial: document.data()['etcMaterial'] as String,
+                    foodName: document.data()['foodName'] as String,
+                    ingredient: document.data()['ingredient'] as List<dynamic>,
+                    kategorie: document.data()['kategorie'] as List<dynamic>,
+                    like: document.data()['like'] as int,
+                    likeusers: document.data()['likeusers'] as List<dynamic>,
+                    name: document.data()['name'] as String,
+                    path: document.data()['path'] as String,
+                    processDescription: document.data()['processDescription'] as Map<String, dynamic>,
+                    processUrl: document.data()['processUrl'] as Map<String, dynamic>,
+                    timedate: document.data()['timedate'] as String,
+                    timestamp: document.data()['timestamp'] as int,
+                    userId: document.data()['userId'] as String,
+                  ),
+                );
+              }
             }
       });
       print("레시피 받아오기 완료!");
     });
     notifyListeners();
   }
+/*
+  Future<void> loadFavoriteRecipes() async { // favorite 레시피 받아옴
+    _favoriteRecipes = [];
+    for(final recipe in _recipeInformation) {
+      if(recipe.likeusers.contains(FirebaseAuth.instance.currentUser!.uid)) {
+        _favoriteRecipes.add(recipe);
+        print(recipe.foodName);
+      }
+    }
+    print('favorite recipe 받아오기 완료!');
+    notifyListeners();
+  }
+
+
+ */
+  Future<void> updateLike(String docId, int like, bool updating) async { // 좋아요 or 좋아요 취소
+    if(updating == true) {
+      await FirebaseFirestore.instance.collection('forUana')
+          .doc(docId)
+          .update({
+        'like': like+ 1,
+        'likeusers': FieldValue.arrayUnion(
+            [FirebaseAuth.instance.currentUser!.uid])
+      });
+      loadRecipes();
+      print('좋아요+1');
+    }
+    else {
+      await FirebaseFirestore.instance.collection('forUana')
+          .doc(docId)
+          .update({
+        'like': like - 1,
+        'likeusers': FieldValue.arrayRemove(
+            [FirebaseAuth.instance.currentUser!.uid])
+      });
+      loadRecipes();
+      print('좋아요-1');
+    }
+    //await loadRecipes(); // 전체 받아와서 비효율적
+    //loadFavoriteRecipes();
+
+    notifyListeners();
+  }
 
   List<RecipeInfo> _recipeInformation = [];
   List<RecipeInfo> get recipeInformation => _recipeInformation;
+
+  List<RecipeInfo> _favoriteRecipes = [];
+  List<RecipeInfo> get favoriteRecipes => _favoriteRecipes;
 }
 
 class RecipeInfo { // 레시피 정보를 담는 구조체
