@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:uana_project/recipe_create.dart';
 import 'package:uana_project/theme/light_colors.dart';
-import 'package:uana_project/widgets/active_project_card.dart';
 import 'recipe_detail.dart';
 import 'login_provider.dart';
 import 'package:provider/provider.dart';
