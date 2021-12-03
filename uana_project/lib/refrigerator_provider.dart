@@ -78,6 +78,7 @@ class RefrigeratorProvider extends ChangeNotifier {
           'storageType': storageType,
         }]),
     }, SetOptions(merge: true));
+    //downloadUserFoods();
     notifyListeners();
   }
 
@@ -94,6 +95,7 @@ class RefrigeratorProvider extends ChangeNotifier {
           'storageType': userfood.storageType,
       }]),
     });
+    //downloadUserFoods();
     notifyListeners();
   }
 

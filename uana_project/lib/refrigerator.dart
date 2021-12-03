@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -12,8 +13,11 @@ import 'login_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
+//import 'package:location/location.dart';
 import 'dart:core';
+import "package:google_maps_webservice/places.dart";
+
+
 
 class RefrigeratorPage extends StatefulWidget {
   const RefrigeratorPage ({Key? key}) : super(key: key);
@@ -120,6 +124,8 @@ class _RefrigeratorPageState extends State<RefrigeratorPage> {
 //     return position;
 //   }
 // }
+final places =
+GoogleMapsPlaces(apiKey: "AIzaSyAuNt_UmAPhv0KVmz9RxjeWOPp3IC4d3x0");
 
 class googleMapPage extends StatefulWidget {
   @override
@@ -129,97 +135,185 @@ class googleMapPage extends StatefulWidget {
 
 
 class _googleMapPageState extends State<googleMapPage> {
-  late double lat=0;
-  late double lng=0;
-  Location location = new Location();
-  late bool _serviceEnabled;
-  late PermissionStatus _permissionGranted;
-  late GoogleMapController mapController;
-  //Completer<GoogleMapController> _controller = Completer();
-  LatLng _center=const LatLng(0, 0);
-  _locateMe() async {
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
-      }
-    }
-
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-
-    location.getLocation().then((res) {
-      setState(() {
-        lat = res.latitude!;
-        lng = res.longitude!;
-        _center = LatLng(lat, lng);
-
-        mapController.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(target: _center, zoom: 15),
-          ),
-        );
-      });
-    });
-
-
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
+  //final places = GoogleMapsPlaces(apiKey: "AIzaSyAuNt_UmAPhv0KVmz9RxjeWOPp3IC4d3x0");
+  late Future<Position> _currentLocation;
+  Set<Marker> _markers = {};
 
   @override
-  void dispose() {
-    super.dispose();
+  void initState() {
+    super.initState();
+    _currentLocation = Geolocator.getCurrentPosition();
   }
+
+  Future<void> _retrieveNearbyRestaurants(LatLng _userLocation) async {
+    PlacesSearchResponse _response = await places.searchNearbyWithRadius(
+        Location(lat: _userLocation.latitude, lng: _userLocation.longitude), 500,
+        type: 'restaurant');
+
+    if(_response.results.isEmpty) {
+      print('무야호');
+    }
+    _response.results.map((result) {
+      print('result name : ${result.name}');
+    });
+
+    Set<Marker> _restaurantMarkers = _response.results
+        .map((result) => Marker(
+        markerId: MarkerId(result.name),
+        // Use an icon with different colors to differentiate between current location
+        // and the restaurants
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+        infoWindow: InfoWindow(
+            title: result.name,
+            snippet: "Ratings: " + (result.rating?.toString() ?? "Not Rated")),
+        position: LatLng(
+            result.geometry!.location.lat, result.geometry!.location.lng)))
+        .toSet();
+
+    setState(() {
+      _markers.addAll(_restaurantMarkers);
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Geolocation"),
-      ),
-      body: Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: GoogleMap(
-                onMapCreated: _onMapCreated,
-                myLocationEnabled: true,
-                myLocationButtonEnabled: true,
-                mapToolbarEnabled: true,
+    return FutureBuilder(
+        future: _currentLocation,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData) {
+              // The user location returned from the snapshot
+              Position? snapshotData = snapshot.data as Position?;
+              LatLng _userLocation =
+              LatLng(snapshotData!.latitude, snapshotData.longitude);
+
+              if (_markers.isEmpty) {
+                _retrieveNearbyRestaurants(_userLocation);
+              }
+
+              return GoogleMap(
                 initialCameraPosition: CameraPosition(
-                  target: _center,
-                  zoom: 15,
+                  target: _userLocation,
+                  zoom: 12,
                 ),
-              ),
-
-            ),
-            /*
-            Container(
-              width: double.infinity,
-              child: ElevatedButton(
-                child: Text("Locate Me"),
-                onPressed: () async {
-                  await _locateMe();
-                },
-              ),
-            ),
-
-             */
-          ],
-        ),
-      ),
-    );
+                markers: _markers
+                  ..add(Marker(
+                      markerId: MarkerId("User Location"),
+                      infoWindow: InfoWindow(title: "User Location"),
+                      position: _userLocation)),
+              );
+            } else {
+              return Center(child: Text("Failed to get user location."));
+            }
+          }
+          // While the connection is not in the done state yet
+          return Center(child: CircularProgressIndicator());
+        });
   }
 }
 
+
+// class _googleMapPageState extends State<googleMapPage> {
+//   late double lat=0;
+//   late double lng=0;
+//   Location location = new Location();
+//   late bool _serviceEnabled;
+//   late PermissionStatus _permissionGranted;
+//   late GoogleMapController mapController;
+//   final places = GoogleMapsPlaces(apiKey: "AIzaSyAuNt_UmAPhv0KVmz9RxjeWOPp3IC4d3x0");
+//   //Completer<GoogleMapController> _controller = Completer();
+//   LatLng _center=const LatLng(0, 0);
+//   _locateMe() async {
+//     _serviceEnabled = await location.serviceEnabled();
+//     if (!_serviceEnabled) {
+//       _serviceEnabled = await location.requestService();
+//       if (!_serviceEnabled) {
+//         return;
+//       }
+//     }
+//
+//
+//     _permissionGranted = await location.hasPermission();
+//     if (_permissionGranted == PermissionStatus.denied) {
+//       _permissionGranted = await location.requestPermission();
+//       if (_permissionGranted != PermissionStatus.granted) {
+//         return;
+//       }
+//     }
+//
+//     location.getLocation().then((res) {
+//       setState(() {
+//         lat = res.latitude!;
+//         lng = res.longitude!;
+//         _center = LatLng(lat, lng);
+//
+//         /*mapController.animateCamera(
+//           CameraUpdate.newCameraPosition(
+//             CameraPosition(target: _center, zoom: 15),
+//           ),
+//         );*/
+//       });
+//     });
+//
+//
+//   }
+//
+//   void _onMapCreated(GoogleMapController controller) {
+//     mapController = controller;
+//   }
+//
+//   @override
+//   void dispose() {
+//     super.dispose();
+//   }
+//
+//   Set<Marker> _markers = {};
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Geolocation"),
+//       ),
+//       body: Container(
+//         width: double.infinity,
+//         padding: EdgeInsets.all(8.0),
+//         child: Column(
+//           children: [
+//             Expanded(
+//               child: GoogleMap(
+//                 onMapCreated: _onMapCreated,
+//                 myLocationEnabled: true,
+//                 myLocationButtonEnabled: true,
+//                 mapToolbarEnabled: true,
+//                 initialCameraPosition: CameraPosition(
+//                   target: _center,
+//                   zoom: 15,
+//                 ),
+//
+//                 markers: _markers..add(Marker(
+//                     markerId: MarkerId("Google Plex"),
+//                     infoWindow: InfoWindow(title: "Google Plex"),
+//                     position: _center)),
+//               ),
+//
+//             ),
+//
+//             Container(
+//               width: double.infinity,
+//               child: ElevatedButton(
+//                 child: Text("Locate Me"),
+//                 onPressed: () async {
+//                   await _locateMe();
+//                 },
+//               ),
+//             ),
+//
+//
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
