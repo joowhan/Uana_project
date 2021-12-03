@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/kimjoowhan/Documents/University/semester6/Uana_project/uana_project/build/google_maps_flutter/intermediates/res/merged/debug/values-ne/values-ne.xml",
+            "outputFile": "/Users/kimjoowhan/Documents/University/semester6/uana/Uana_project/uana_project/build/google_maps_flutter/intermediates/res/merged/debug/values-ne/values-ne.xml",
             "map": [
                 {
                     "source": "/Users/kimjoowhan/.gradle/caches/transforms-2/files-2.1/bca6c35aaf5e106d2e94cb61e353e66b/jetified-play-services-basement-17.0.0/res/values-ne/values.xml",
@@ -57,7 +57,7 @@
             ]
         },
         {
-            "outputFile": "/Users/kimjoowhan/Documents/University/semester6/Uana_project/uana_project/build/google_maps_flutter/intermediates/incremental/mergeDebugResources/merged.dir/values-ne/values-ne.xml",
+            "outputFile": "/Users/kimjoowhan/Documents/University/semester6/uana/Uana_project/uana_project/build/google_maps_flutter/intermediates/incremental/mergeDebugResources/merged.dir/values-ne/values-ne.xml",
             "map": [
                 {
                     "source": "/Users/kimjoowhan/.gradle/caches/transforms-2/files-2.1/bca6c35aaf5e106d2e94cb61e353e66b/jetified-play-services-basement-17.0.0/res/values-ne/values.xml",

@@ -39,7 +39,61 @@ class _RecipePageState extends State<RecipeDetailPage> {
       children: [
         if (widget.recipe.processUrl[key] != ' ') //null이 아니라 space가 하나 있었음.
           Image.network(widget.recipe.processUrl[key]),
-        Text('$key : ${widget.recipe.processDescription[key]}'),
+        SizedBox(
+          height: 20.0,
+        ),
+        Column(
+          children: <Widget> [
+            _buildStep(
+                leadingTitle: "$key",
+                title: "Step".toUpperCase(),
+                content:
+                "${widget.recipe.processDescription[key]}"
+            ),
+          ],
+        ),
+
+        SizedBox(
+          height: 20.0,
+        ),
+        //Text('$key : ${widget.recipe.processDescription[key]}'),
+      ],
+    );
+  }
+  Widget _buildStep({required String leadingTitle, required String title, required String content}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Material(
+          shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          color: Colors.red,
+          child: Container(
+            padding: EdgeInsets.all(5.0),
+            child: Text(leadingTitle,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0)),
+          ),
+        ),
+        SizedBox(
+          width: 16.0,
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(title,
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+              SizedBox(
+                height: 10.0,
+              ),
+              Text(content),
+            ],
+          ),
+        )
       ],
     );
   }
@@ -71,15 +125,44 @@ class _RecipePageState extends State<RecipeDetailPage> {
             ingreMap[i] = widget.recipe.ingredient[i];
           }
           return Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
+              elevation: 0.0,
+              backgroundColor: Colors.white,
               centerTitle: true,
-              title: Text(
-                widget.recipe.foodName,
-                style: TextStyle(fontStyle: FontStyle.normal),
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                onPressed: () => Navigator.of(context).pop(),
               ),
-              backgroundColor: Colors.grey,
+              // title: Text(
+              //   widget.recipe.foodName,
+              //   style: TextStyle(fontStyle: FontStyle.normal),
+              // ),
+              //backgroundColor: Colors.grey,
+              actions: <Widget>[
+                FlatButton.icon(
+                  icon: Icon(Icons.play_circle_filled, color: Colors.red),
+                  label: Text("Watch Recipe"),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Player(
+                            widget.recipe.detailUrl,
+                            widget.recipe.foodName),
+                      ),
+                    );
+                  },
+                )
+              ],
+
             ),
-            body: ListView(children: [
+            body: ListView(
+                padding: EdgeInsets.all(20.0),
+                children: [
               SizedBox(
                 height: MediaQuery.of(context).size.height * (2 / 5),
                 width: MediaQuery.of(context).size.width,
@@ -90,20 +173,26 @@ class _RecipePageState extends State<RecipeDetailPage> {
               ),
 
               Container(
-                margin: EdgeInsets.fromLTRB(5.0, 10.0, 0, 0),
+                margin: EdgeInsets.fromLTRB(5.0, 5.0, 20, 0),
                 child: Row(
                   // crossAxisAlignment: CrossAxisAlignment.st,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      '${widget.recipe.foodName}\n',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                    SizedBox(
+                      height: 25.0,
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      child:Text(
+                        '${widget.recipe.foodName}\n',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(180, 0, 0, 0),
+                      margin: EdgeInsets.fromLTRB(100, 0, 0, 0),
                       child: recipeDocument!['likeusers']
                               .contains(FirebaseAuth.instance.currentUser!.uid)
                           ? IconButton(
@@ -139,14 +228,16 @@ class _RecipePageState extends State<RecipeDetailPage> {
                   ],
                 ),
               ),
-
+              const SizedBox(
+                height: 16.0,
+              ),
               Container(
                 padding: EdgeInsets.all(10.0),
-                child: Text(
-                  '재료 목록\n',
-                  style: const TextStyle(
+                child: const Text(
+                  'What we need?\n',
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 20,
                   ),
                 ),
               ),
@@ -158,7 +249,25 @@ class _RecipePageState extends State<RecipeDetailPage> {
                 padding: const EdgeInsets.all(5.0),
                 childAspectRatio: 5.0 / 2.0,
                 children: widget.recipe.ingredient.map((ingre) {
-                  return Text(ingre);
+                  return Container(
+                    height: 30,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              const SizedBox(
+                                width: 5.0,
+                              ),
+                              Text(ingre),
+                            ],
+                          )
+                        ),
+                        const VerticalDivider(),
+                      ],
+                    ),
+                  );
                 }).toList(),
               ),
 
@@ -166,9 +275,9 @@ class _RecipePageState extends State<RecipeDetailPage> {
               //   Text('${widget.recipe.ingredient[i]}'), // 재료 목록
               Container(
                 padding: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-                child: Text(
+                child: const Text(
                   '\n\n카테고리\n\n',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                   ),
@@ -182,7 +291,10 @@ class _RecipePageState extends State<RecipeDetailPage> {
                 padding: const EdgeInsets.all(5.0),
                 childAspectRatio: 5.0 / 2.0,
                 children: widget.recipe.kategorie.map((kate) {
-                  return Text(kate);
+                  //return Text(kate);
+                  return Container(
+                      child: Image(image:AssetImage('assets/soup.png'))
+                  );
                 }).toList(),
               ),
               // 카테고리 목록
@@ -205,31 +317,34 @@ class _RecipePageState extends State<RecipeDetailPage> {
           getCookingProcess(i), // 요리 순서 출력
 
          */
-              Container(
-                  padding: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-                  child: Row(
-                    children: [
-                      Text(
-                        '\n\n요리 영상  => \n\n',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Player(
-                                    widget.recipe.detailUrl,
-                                    widget.recipe.foodName),
-                              ),
-                            );
-                          },
-                          child: Text("보러 가기")),
-                    ],
-                  )),
+              // Container(
+
+              //     padding: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+              //     child: Row(
+              //       children: [
+              //         Text(
+              //           '\n\n요리 영상  => \n\n',
+              //           style: const TextStyle(
+              //             fontWeight: FontWeight.bold,
+              //             fontSize: 15,
+              //           ),
+              //         ),
+              //         TextButton(
+              //             onPressed: () {
+              //               Navigator.push(
+              //                 context,
+              //                 MaterialPageRoute(
+              //                   builder: (context) => Player(
+              //                       widget.recipe.detailUrl,
+              //                       widget.recipe.foodName),
+              //                 ),
+              //               );
+              //             },
+              //             child: Text("보러 가기")),
+              //       ],
+              //     )),
+
+
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

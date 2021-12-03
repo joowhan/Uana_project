@@ -1,8 +1,27 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/kimjoowhan/Documents/University/semester6/Uana_project/uana_project/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "/Users/kimjoowhan/Documents/University/semester6/uana/Uana_project/uana_project/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
             "map": [
+                {
+                    "source": "/Users/kimjoowhan/.gradle/caches/transforms-2/files-2.1/dc0db64dbb3ecce14138161df12c9cbb/appcompat-1.2.0/res/values-watch-v20/values-watch-v20.xml",
+                    "from": {
+                        "startLines": "2,5,8",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,214,385",
+                        "endLines": "4,7,10",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "209,380,553"
+                    },
+                    "to": {
+                        "startLines": "10,13,16",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "715,874,1045",
+                        "endLines": "12,15,18",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "869,1040,1213"
+                    }
+                },
                 {
                     "source": "/Users/kimjoowhan/.gradle/caches/transforms-2/files-2.1/3bd29a393d8c32e3896ee2b87cd4f602/jetified-play-services-auth-16.0.1/res/values-watch-v20/values.xml",
                     "from": {
