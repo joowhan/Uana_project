@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:uana_project/recipe_create.dart';
+import 'package:uana_project/theme/light_colors.dart';
+import 'package:uana_project/widgets/active_project_card.dart';
 import 'recipe_detail.dart';
 import 'login_provider.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +33,18 @@ class _SearchPageState extends State<SearchPage> {
     final ThemeData theme = Theme.of(context);
 
     return recipeProvider.recipeInformation.map((recipe) {// 중간, 기말 때 썼던 예제 그대로
+      String kate = "";
+      for(int i=0; i< recipe.kategorie.length ; i++){
+        if(i != 0){
+          kate += ", ";
+        }
+        kate += recipe.kategorie[i] + "류";
+      }
       return Card(
+        // color: LightColors.eachRecipe,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
         clipBehavior: Clip.antiAlias,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 0.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -56,7 +69,7 @@ class _SearchPageState extends State<SearchPage> {
                       style: theme.textTheme.headline6,
                       maxLines: 1,
                     ),
-                    const SizedBox(height: 8.0),
+                    // const SizedBox(height: 8.0),
                     /*
                     Text(
                       '카테고리: ${recipe.cookingTime}',
@@ -64,6 +77,14 @@ class _SearchPageState extends State<SearchPage> {
                     ),
 
                      */
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(kate,
+                      style: TextStyle(
+                        fontSize: 10, fontFamily: 'KotraHope',
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -72,7 +93,7 @@ class _SearchPageState extends State<SearchPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 10, 5),
                   child: SizedBox(
                     width: 50.0,
                     height: 25.0,
@@ -107,32 +128,67 @@ class _SearchPageState extends State<SearchPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        IconButton(
-          icon: const Icon(
-            Icons.add,
-            semanticLabel: 'add',
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => RecipeCreate(context)),
-            );
-          },
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => RecipeCreate(context)),
+          );
+        },
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.green,
+      ),
+      body: Container(
+        color: LightColors.homeback,
+        child: Column(
+          children: [
+            // Container(
+            //   padding : EdgeInsets.fromLTRB(0, 30, 0, 0),
+            //   margin : EdgeInsets.fromLTRB(0, 0, 0, 0),
+            //   color: Colors.green,
+            //   height: 80,
+            //   width: 450,
+            //   child: Text(
+            //     "전체 레시피",
+            //     textAlign: TextAlign.center,
+            //     style: TextStyle(
+            //       color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold
+            //     ),
+            //   ),
+            // ),
+            SizedBox(
+              height: 40,
+            ),
+            Text(
+                "hhhhh",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'KotraHope',
+                )
+            ),
+            Text(
+              "hhhhh",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: ' Nanum',
+                  )
+            ),
+
+            Expanded(
+              child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                crossAxisCount: 2,
+                padding: const EdgeInsets.all(16.0),
+                childAspectRatio: 8.0 / 9.0,
+                children: _buildGridCards(context),
+              ),
+            ),
+          ],
         ),
-        Expanded(
-          child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            crossAxisCount: 1,
-            padding: const EdgeInsets.all(16.0),
-            childAspectRatio: 8.0 / 9.0,
-            children: _buildGridCards(context),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
