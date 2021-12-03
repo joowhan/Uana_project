@@ -138,7 +138,7 @@ class _googleMapPageState extends State<googleMapPage> {
   @override
   void initState() {
     super.initState();
-    _currentLocation = Geolocator.getCurrentPosition();
+    _currentLocation  = Geolocator.getCurrentPosition();
   }
 
   Future<void> _retrieveNearbyRestaurants(LatLng _userLocation) async {
