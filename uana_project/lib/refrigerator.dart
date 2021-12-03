@@ -135,7 +135,6 @@ class _googleMapPageState extends State<googleMapPage> {
   late bool _serviceEnabled;
   late PermissionStatus _permissionGranted;
   late GoogleMapController mapController;
-  Set <Marker> _markers = {};
   //Completer<GoogleMapController> _controller = Completer();
   LatLng _center=const LatLng(0, 0);
   _locateMe() async {
@@ -202,10 +201,6 @@ class _googleMapPageState extends State<googleMapPage> {
                   target: _center,
                   zoom: 15,
                 ),
-                markers: _markers..add(Marker(
-                    markerId: MarkerId("Google Plex"),
-                    infoWindow: InfoWindow(title: "Google Plex"),
-                    position: _center)),
               ),
 
             ),

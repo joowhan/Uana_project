@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'login_provider.dart';
+import 'notification_provider.dart';
 import 'refrigerator_provider.dart';
 import 'dart:core';
 
@@ -46,6 +47,7 @@ class _AddRefrigeratorDetailPageState extends State<AddRefrigeratorDetailPage> {
   @override
   Widget build(BuildContext context) {
     RefrigeratorProvider refrigeratorProvider = Provider.of(context, listen: true); // Refrigerator Provider 사용
+    NotificationProvider notificationProvider = Provider.of(context, listen: true); // Notification Provider 사용
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.food.foodName),
@@ -124,6 +126,10 @@ class _AddRefrigeratorDetailPageState extends State<AddRefrigeratorDetailPage> {
 
               Navigator.pop(context);
               refrigeratorProvider.uploadUserFoods(widget.food, _selectedTime!, storageType); // Firebase에 내 냉장고에 식재료 등록
+
+
+              var diff = _selectedTime!.difference(DateTime.now()).inDays.toString(); // 오늘 날짜부터 유통기한 계산
+              notificationProvider.expiredNotification(widget.food.foodCode, widget.food.foodName, diff); // 유통기한 일주일 전 알림 등록
               refrigeratorProvider.downloadUserFoods();
             },
             child: Text('식재료 등록'),

@@ -115,9 +115,9 @@ class _RecipePageState extends State<RecipeDetailPage> {
             return const Text('Something went wrong');
           }
 
-          /*if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text('Something went wrong');
-        }*/
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container();
+          }
 
           var recipeDocument = snapshot.data;
           var ingreMap = Map<int, String>();

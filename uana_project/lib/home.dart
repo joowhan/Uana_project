@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:uana_project/recipe_provider.dart';
 import 'add_recipe.dart';
 import 'weather_provider.dart';
 import 'login_provider.dart';
@@ -83,15 +84,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    LoginProvider loginProvider = Provider.of(context, listen: true);
+    RecipeProvider recipeProvider = Provider.of(context, listen: true);
     WeatherProvider weatherProvider = Provider.of(context, listen: true);
     return Column(
       children: [
+        SizedBox(height: 30.0),
+        ElevatedButton(
+          onPressed: () {
+            recipeProvider.loadWeatherRecipes(weatherProvider.weather);
+            Navigator.pushNamed(context, '/weather_recipe');
+          },
+          child: Text('날씨에 맞는 음식 추천'),
+        ),
         const SizedBox(height: 30.0),
 
         Text('Home'),
-        Text('Latitude : ${weatherProvider.latitude} Longitude : ${weatherProvider.longitude}'),
-        Text('${weatherProvider.weather}'),
 
         const SizedBox(height: 30.0),
       ],

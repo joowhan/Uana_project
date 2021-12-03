@@ -5,8 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'login_provider.dart';
+import 'notification_provider.dart';
 import 'refrigerator_provider.dart';
 import 'dart:core';
+
 
 class RefrigeratorDetailPage extends StatefulWidget {
   final userFoodInfo userfood;
@@ -21,17 +23,22 @@ class RefrigeratorDetailPage extends StatefulWidget {
  */
 class _RefrigeratorDetailPageState extends State<RefrigeratorDetailPage> {
 
-
   @override
   Widget build(BuildContext context) {
     RefrigeratorProvider refrigeratorProvider = Provider.of(context, listen: true); // Refrigerator Provider 사용
+    NotificationProvider notificationProvider = Provider.of(context, listen: true); // Notification Provider 사용
+
     var registerdate = DateTime.fromMicrosecondsSinceEpoch(widget.userfood.registerDate.seconds * 1000000);
     var fmt_registerDate = DateFormat.yMMMMEEEEd().format(registerdate);
 
     var expireddate = DateTime.fromMicrosecondsSinceEpoch(widget.userfood.expiredDate.seconds * 1000000);
     var fmt_expiredDate = DateFormat.yMMMMEEEEd().format(expireddate);
 
-    var diff = expireddate.difference(registerdate).inDays.toString();
+    var diff = expireddate.difference(DateTime.now()).inDays.toString(); // 오늘 날짜부터 유통기한 계산
+
+    if(int.parse(diff) < 100) {
+      //_showNotification();
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -45,6 +52,7 @@ class _RefrigeratorDetailPageState extends State<RefrigeratorDetailPage> {
             ),
             onPressed: () async {
               Navigator.pop(context);
+              notificationProvider.cancelNotification(widget.userfood.foodCode); // 알림 삭제
               refrigeratorProvider.deleteUserFood(widget.userfood); // 내 냉장고에서 해당 식재료 삭제
               refrigeratorProvider.downloadUserFoods();
             },

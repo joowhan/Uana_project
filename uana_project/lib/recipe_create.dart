@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:uana_project/recipe_provider.dart';
 
 class RecipeCreate extends StatefulWidget {
   final type;
@@ -134,6 +136,7 @@ class RecipeCreateExState extends State<RecipeCreate> {
 
   @override
   Widget build(BuildContext context) {
+    RecipeProvider recipeProvider = Provider.of(context, listen : true); // provider 사용
     for (int i = 0; i < _ingredient.length; i++) {
       _foringredient.add(false);
     }
@@ -173,6 +176,7 @@ class RecipeCreateExState extends State<RecipeCreate> {
 
                 Navigator.pop(context);
               }
+              recipeProvider.loadRecipes();
 
             },
           ),
