@@ -96,6 +96,13 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           child: Text('날씨에 맞는 음식 추천'),
         ),
+        ElevatedButton(
+          onPressed: () {
+            recipeProvider.loadRecipes();
+            Navigator.pushNamed(context, '/my_recipe');
+          },
+          child: Text('나만의 레시피'),
+        ),
         const SizedBox(height: 30.0),
 
         Text('Home'),

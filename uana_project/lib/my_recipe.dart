@@ -115,41 +115,14 @@ class _MyRecipePageState extends State<MyRecipePage> {
     }).toList();
   }
 
-  Widget printWeatherDescription(Weather? weather) {
-    // 요리 과정 출력 (사진 + 과정) (사진 용량이 커서 띄우는데 오래 걸리네욥)
-    String? weatherDescription;
-
-    if(DateTime.now().hour >= 21) {
-      weatherDescription = "와우! 야심한 밤 야식 어떠세요?";
-    }
-    else if(DateTime.now().hour >= 7 && DateTime.now().hour <= 10) {
-      weatherDescription = "와우! 일찍 일어나셨군요! 간단하게 아침 어떠세요?";
-    }
-    else if(weather!.weatherDescription!.toLowerCase() == "rain") {
-      weatherDescription = "와우! 추적 추적 비가 오네요 비 오는 날엔 튀김이랑 전이 국룰인거 아시죠?";
-    }
-    else if(weather.tempFeelsLike!.celsius! <= 6.0) {
-      weatherDescription = "와우! 날이 참 춥네요 따뜻한 국물 요리 어떠세요?";
-    }
-    else if(weather.tempFeelsLike!.celsius! >= 27.0) {
-      weatherDescription = "와우! 날이 참 덥네요 스트레스를 확 풀어줄 매운 음식 어떠세요?";
-    }
-
-    return SizedBox(
-      width: 300,
-      height: 30,
-      child: Text(weatherDescription!),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    WeatherProvider weatherProvider = Provider.of(context, listen: true);
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
-          printWeatherDescription(weatherProvider.weather),
+          //printWeatherDescription(weatherProvider.weather),
           Expanded(
             child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
               shrinkWrap: true,

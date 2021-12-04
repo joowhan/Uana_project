@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'my_recipe.dart';
 import 'weather_recipe.dart';
 import 'login.dart';
 import 'home.dart';
@@ -36,6 +37,7 @@ class _UanaAppState extends State<UanaApp> {
         '/home': (context) => const HomePage(),
         '/add_refrigerator': (context) => const AddRefrigeratorPage(),
         '/weather_recipe': (context) => const WeatherRecipePage(),
+        '/my_recipe': (context) => const MyRecipePage(),
         //'/profile' : (context) => const ProfilePage(),
       },
       onGenerateRoute: _getRoute,
