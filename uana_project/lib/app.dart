@@ -32,6 +32,9 @@ class _UanaAppState extends State<UanaApp> {
       title: 'Uana',
       home: const LoginPage(),
       initialRoute: '/login',
+      theme: ThemeData(
+        fontFamily: 'DoHyeonRegular'
+      ),
       routes: {
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
