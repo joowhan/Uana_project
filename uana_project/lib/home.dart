@@ -43,19 +43,25 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: const TabBar(
           tabs: [
             Tab(
-                icon: Icon(Icons.home) // 홈화면
+                icon: Icon(Icons.home), // 홈화면
+                text: '홈',
+                //height: 15.0,
             ),
             Tab(
-                icon: Icon(FontAwesomeIcons.box) // 나의 냉장고 화면
+                icon: Icon(FontAwesomeIcons.box), // 나의 냉장고 화면
+                text: '냉장고',
             ),
             Tab(
-                icon: Icon(Icons.search) // 전체 레시피 화면
+                icon: Icon(Icons.search), // 전체 레시피 화면
+                text: '레시피',
             ),
             Tab(
-                icon: Icon(Icons.star) // Favorite 레시피 화면
+                icon: Icon(Icons.star), // Favorite 레시피 화면
+                text: '즐겨찾기',
             ),
             Tab(
-                icon: Icon(Icons.person) // profile 화면 (로그아웃 가능)
+                icon: Icon(Icons.person), // profile 화면 (로그아웃 가능)
+                text: '내 정보',
             ),
           ],
           indicatorColor: Colors.transparent,
@@ -96,6 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           child: Text('날씨에 맞는 음식 추천'),
         ),
+        const SizedBox(height: 30.0),
+
         ElevatedButton(
           onPressed: () {
             recipeProvider.loadRecipes();
@@ -105,7 +113,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SizedBox(height: 30.0),
 
-        Text('Home'),
+        ElevatedButton(
+          onPressed: () {
+            recipeProvider.loadRecipes();
+            Navigator.pushNamed(context, '/popular_recipe');
+          },
+          child: Text('인기 레시피'),
+        ),
 
         const SizedBox(height: 30.0),
       ],

@@ -94,6 +94,8 @@ class RecipeProvider extends ChangeNotifier {
             }
       });
       print("레시피 받아오기 완료!");
+
+      sortRecipesByLike();
     });
     notifyListeners();
   }
@@ -313,6 +315,13 @@ class RecipeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> sortRecipesByLike() async { // 인기 레시피 정렬
+    _popularRecipes = _recipeInformation;
+    _popularRecipes.sort((a, b) => b.like.compareTo(a.like)); // 내림차순 정렬
+    print('인기 레시피 정렬 완료!');
+    notifyListeners();
+  }
+
   List<RecipeInfo> _recipeInformation = [];
   List<RecipeInfo> get recipeInformation => _recipeInformation;
 
@@ -324,6 +333,9 @@ class RecipeProvider extends ChangeNotifier {
 
   List<RecipeInfo> _myRecipes = [];
   List<RecipeInfo> get myRecipes => _myRecipes;
+
+  List<RecipeInfo> _popularRecipes = [];
+  List<RecipeInfo> get popularRecipes => _popularRecipes;
 }
 
 class RecipeInfo { // 레시피 정보를 담는 구조체

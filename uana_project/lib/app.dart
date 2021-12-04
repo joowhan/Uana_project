@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:uana_project/popular_recipe.dart';
+import 'package:uana_project/theme/light_colors.dart';
 import 'my_recipe.dart';
 import 'weather_recipe.dart';
 import 'login.dart';
@@ -33,7 +35,8 @@ class _UanaAppState extends State<UanaApp> {
       home: const LoginPage(),
       initialRoute: '/login',
       theme: ThemeData(
-        fontFamily: 'DoHyeonRegular'
+        fontFamily: 'DoHyeonRegular',
+        canvasColor: LightColors.homeback,
       ),
       routes: {
         '/login': (context) => const LoginPage(),
@@ -41,6 +44,7 @@ class _UanaAppState extends State<UanaApp> {
         '/add_refrigerator': (context) => const AddRefrigeratorPage(),
         '/weather_recipe': (context) => const WeatherRecipePage(),
         '/my_recipe': (context) => const MyRecipePage(),
+        '/popular_recipe': (context) => const PopularRecipePage(),
         //'/profile' : (context) => const ProfilePage(),
       },
       onGenerateRoute: _getRoute,
