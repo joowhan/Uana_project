@@ -14,6 +14,13 @@ class LightColors  {
   static const Color kGreen = Color(0xFF309397);
   static const Color homeback = Color(0xFFF1FBF7);
   static const Color eachRecipe = Color(0xFFE0FDDB);
-
   static const Color kDarkBlue = Color(0xFF0D253F);
+
+  static const Color weatherRecipe = Color(0xFFFEE9B5);
+  static const Color weatherfont = Color(0xFF864043);
+  static const Color myrecipe = Color(0xFF91DD98);
+  static const Color myrecipefont = Color(0xFF1E6A58);
+  static const Color popular = Color(0xFF82B7C2);
+  static const Color popularfont = Color(0xFF215B68);
+
 }

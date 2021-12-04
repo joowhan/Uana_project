@@ -21,9 +21,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:core';
 import "package:google_maps_webservice/places.dart";
 
-
 class MyRecipePage extends StatefulWidget {
-  const MyRecipePage ({Key? key}) : super(key: key);
+  const MyRecipePage({Key? key}) : super(key: key);
 
   @override
   _MyRecipePageState createState() => _MyRecipePageState();
@@ -31,7 +30,8 @@ class MyRecipePage extends StatefulWidget {
 
 class _MyRecipePageState extends State<MyRecipePage> {
   List<Card> _buildGridCards(BuildContext context) {
-    RecipeProvider recipeProvider = Provider.of(context, listen : true); // provider 사용
+    RecipeProvider recipeProvider =
+    Provider.of(context, listen: true); // provider 사용
 
     if (recipeProvider.myRecipes.isEmpty) {
       return const <Card>[];
@@ -39,92 +39,115 @@ class _MyRecipePageState extends State<MyRecipePage> {
 
     final ThemeData theme = Theme.of(context);
 
-    return recipeProvider.myRecipes.map((recipe) {// 중간, 기말 때 썼던 예제 그대로
+    return recipeProvider.myRecipes.map((recipe) {
+      // 중간, 기말 때 썼던 예제 그대로
       return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
         clipBehavior: Clip.antiAlias,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            AspectRatio(
-              aspectRatio: 18 / 11,
-
-              child: Image.network(
-                recipe.path,
-                fit: BoxFit.fitWidth,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RecipeDetailPage(recipe: recipe),
               ),
-
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      recipe.foodName,
-                      style: theme.textTheme.headline6,
-                      maxLines: 1,
-                    ),
-                    const SizedBox(height: 8.0),
-                    /*
+            );
+          },
+          child: Container(
+            height: double.infinity,
+            width: double.infinity,
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                AspectRatio(
+                  aspectRatio: 18 / 11,
+                  child: Image.network(
+                    recipe.path,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          recipe.foodName,
+                          style: theme.textTheme.headline6,
+                          maxLines: 1,
+                        ),
+                        const SizedBox(height: 8.0),
+                        /*
                     Text(
                       '카테고리: ${recipe.cookingTime}',
                       style: theme.textTheme.subtitle2,
                     ),
 
                      */
-                  ],
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 25.0,
-                    child: TextButton(
-                      onPressed: () {
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RecipeDetailPage(recipe: recipe),
-                          ),
-                        );
-
-
-                      },
-                      child: const Text(
-                        'more',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.lightBlue,
-                        ),
-                      ),
+                      ],
                     ),
                   ),
                 ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: <Widget>[
+                //     Padding(
+                //       padding: const EdgeInsets.only(right: 5.0),
+                //       child: SizedBox(
+                //         width: 50.0,
+                //         height: 25.0,
+                //         child: TextButton(
+                //           onPressed: () {
+                //             Navigator.push(
+                //               context,
+                //               MaterialPageRoute(
+                //                 builder: (context) =>
+                //                     RecipeDetailPage(recipe: recipe),
+                //               ),
+                //             );
+                //           },
+                //           child: const Text(
+                //             'more',
+                //             style: TextStyle(
+                //               fontSize: 10,
+                //               color: Colors.lightBlue,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
-          ],
+          ),
         ),
       );
     }).toList();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar:AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+            "나만의 레시피",
+            style: TextStyle(
+              fontSize: 30,
+            )
+        ),
+      ),
       body: Column(
         children: [
           //printWeatherDescription(weatherProvider.weather),
           Expanded(
-            child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
+            child: GridView.count(
+              // 카드 한 줄에 하나씩 출력 되도록
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               crossAxisCount: 2,
@@ -135,7 +158,6 @@ class _MyRecipePageState extends State<MyRecipePage> {
           ),
         ],
       ),
-
     );
   }
 }

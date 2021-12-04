@@ -112,6 +112,8 @@ flutter:
      - assets/onion1.png
      - assets/onion2.png
      - assets/soup.png
+     - assets/uana_logo2.png
+     - assets/uana_logo3.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

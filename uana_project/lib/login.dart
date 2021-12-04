@@ -27,12 +27,10 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 80.0),
-            Image.network('https://handong.edu/site/handong/res/img/logo.png'),
+            const SizedBox(height: 100.0),
+            Image.asset('assets/uana_logo3.png'),
             const SizedBox(height: 16.0),
-            const Text('Uana'),
-
-            const SizedBox(height: 120.0),
+            const SizedBox(height: 10.0),
 
             SignInButton(
               Buttons.Google,
@@ -52,10 +50,10 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
 
-            const SizedBox(height: 120.0),
+            const SizedBox(height: 10.0),
 
             SizedBox(
-              width: 200.0,
+              width: 220.0,
               height: 30.0,
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
@@ -77,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  /*
+/*
   @override
   Widget build(BuildContext context) {
     LoginProvider loginProvider = Provider.of(context, listen: true); // Login Provider 사용
