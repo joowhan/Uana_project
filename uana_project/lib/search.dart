@@ -65,8 +65,11 @@ class _SearchPageState extends State<SearchPage> {
                   children: <Widget>[
                     Text(
                       recipe.foodName,
-                      style: theme.textTheme.headline6,
                       maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'DoHyeonRegular'
+                      ),
                     ),
                     // const SizedBox(height: 8.0),
                     /*
@@ -76,13 +79,14 @@ class _SearchPageState extends State<SearchPage> {
                     ),
 
                      */
-                    SizedBox(
-                      height: 5,
-                    ),
+                    // SizedBox(
+                    //   height: 5,
+                    // ),
                     Text(kate,
-                      style: TextStyle(
-                        fontSize: 10, fontFamily: 'KotraHope',
-                      ),
+                        style: TextStyle(
+                          fontSize: 13,
+                            fontFamily: 'DoHyeonRegular'
+                        )
                     ),
                   ],
                 ),
