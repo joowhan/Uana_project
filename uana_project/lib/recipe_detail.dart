@@ -70,14 +70,19 @@ class _RecipePageState extends State<RecipeDetailPage> {
 
   Widget _buildStep(
       {required String leadingTitle,
+<<<<<<< HEAD
         required String title,
         required String content}) {
+=======
+      required String title,
+      required String content}) {
+>>>>>>> origin/joowhan
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Material(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           color: Colors.red,
           child: Container(
             padding: EdgeInsets.all(5.0),
@@ -97,7 +102,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
             children: <Widget>[
               Text(title,
                   style:
-                  TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
               SizedBox(
                 height: 10.0,
               ),
@@ -238,6 +243,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
                       child: recipeDocument!['likeusers']
                           .contains(FirebaseAuth.instance.currentUser!.uid)
                           ? IconButton(
+<<<<<<< HEAD
                         icon: Icon(Icons.star),
                         color: Colors.red,
                         iconSize: 40,
@@ -259,6 +265,29 @@ class _RecipePageState extends State<RecipeDetailPage> {
                               true);
                         },
                       ),
+=======
+                              icon: Icon(Icons.star),
+                              color: Colors.red,
+                              iconSize: 40,
+                              onPressed: () {
+                                recipeProvider.updateLike(
+                                    recipeDocument['docId'],
+                                    recipeDocument['like'],
+                                    false);
+                              },
+                            )
+                          : IconButton(
+                              icon: Icon(Icons.star_border),
+                              color: Colors.red,
+                              iconSize: 40,
+                              onPressed: () {
+                                recipeProvider.updateLike(
+                                    recipeDocument['docId'],
+                                    recipeDocument['like'],
+                                    true);
+                              },
+                            ),
+>>>>>>> origin/joowhan
                     ),
                     Text(
                       recipeDocument['like'].toString(),
@@ -298,6 +327,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
                       children: <Widget>[
                         Expanded(
                             child: Row(
+<<<<<<< HEAD
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 const SizedBox(
@@ -306,6 +336,16 @@ class _RecipePageState extends State<RecipeDetailPage> {
                                 Text(ingre),
                               ],
                             )),
+=======
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const SizedBox(
+                              width: 5.0,
+                            ),
+                            Text(ingre),
+                          ],
+                        )),
+>>>>>>> origin/joowhan
                         const VerticalDivider(),
                       ],
                     ),
@@ -423,7 +463,11 @@ class _RecipePageState extends State<RecipeDetailPage> {
                               width: 30,
                               height: 30,
                             ),
+<<<<<<< HEAD
                             Text('아침')
+=======
+                            Text('아침식사')
+>>>>>>> origin/joowhan
                           ],
                         ),
                       ),
