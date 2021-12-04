@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uana_project/popular_recipe.dart';
+import 'package:uana_project/recipe_provider.dart';
+import 'package:uana_project/refrigerator_provider.dart';
 import 'package:uana_project/theme/light_colors.dart';
+import 'package:uana_project/weather_provider.dart';
+import 'login_provider.dart';
 import 'my_recipe.dart';
+import 'notification_provider.dart';
 import 'weather_recipe.dart';
 import 'login.dart';
 import 'home.dart';
@@ -21,6 +27,10 @@ class _UanaAppState extends State<UanaApp> {
 
   @override
   Widget build(BuildContext context) {
+    //RecipeProvider recipeProvider = Provider.of(context, listen: true);
+    //WeatherProvider weatherProvider = Provider.of(context, listen: true);
+    RefrigeratorProvider refrigeratorProvider = Provider.of(context, listen: true);
+
     return MaterialApp(
       /*
       theme : ThemeData(

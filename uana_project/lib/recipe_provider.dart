@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import 'package:weather/weather.dart';
 
 /*
@@ -17,12 +18,14 @@ class RecipeProvider extends ChangeNotifier {
   Future<void> init() async {
     await Firebase.initializeApp();
     loadRecipes();
+
   }
 
   Future<void> loadRecipes() async { // 전체 레시피 받아옴 (받아오는데 시간 걸려서 Search Page 클릭 후 다른 데 갔다가 오면 다 받아지더라)
     FirebaseAuth.instance.userChanges().listen((user) {
       FirebaseFirestore.instance
           .collection('forUana')
+          .orderBy('foodName', descending: false)
           .snapshots()
           .listen((snapshot) {
             _recipeInformation = [];
