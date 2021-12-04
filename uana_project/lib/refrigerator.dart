@@ -30,83 +30,91 @@ class _RefrigeratorPageState extends State<RefrigeratorPage> {
   Widget build(BuildContext context) {
     RefrigeratorProvider refrigeratorProvider = Provider.of(context, listen: true); // Refrigerator Provider 사용
     toSearch=[];
-    return ListView(
+    return Column(
       children: [
-        GridView.count(
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          crossAxisCount: 4,
-          padding: const EdgeInsets.all(16.0),
-          childAspectRatio: 8.0 / 9.0,
-          children: refrigeratorProvider.userfoodInformation.map((userFoodInfo userfood) { // 내 냉장고에 등록된 식재료 버튼화로 띄우기
-            if(!toSearch.contains(userfood.foodName)){
-              toSearch.add(userfood.foodName);
-            }
+        Expanded(
+          child: ListView(
+            children: [
+              GridView.count(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                crossAxisCount: 4,
+                padding: const EdgeInsets.all(16.0),
+                childAspectRatio: 8.0 / 9.0,
+                children: refrigeratorProvider.userfoodInformation.map((userFoodInfo userfood) { // 내 냉장고에 등록된 식재료 버튼화로 띄우기
+                  if(!toSearch.contains(userfood.foodName)){
+                    toSearch.add(userfood.foodName);
+                  }
 
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RefrigeratorDetailPage(userfood: userfood), // 내 냉장고에 있는 식재료 디테일 페이지로 연결
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RefrigeratorDetailPage(userfood: userfood), // 내 냉장고에 있는 식재료 디테일 페이지로 연결
+                            ),
+                          );
+                        },
+                        child: Text(
+                          userfood.foodName,
+                          style: const TextStyle(
+                            fontSize: 10,
+                        ),
                       ),
+                    ),
+                  );
+                }).toList(),
+              ),
+             
+              /*
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => googleMapPage()),
                     );
                   },
-                  child: Text(
-                    userfood.foodName,
-                    style: const TextStyle(
-                      fontSize: 10,
-                  ),
+                  child: Text('Map'), // 내 냉장고에 있는 재료들로 할 수 있는 레시피 검색, 아직 구현 안함
                 ),
               ),
-            );
-          }).toList(),
+               */
+            ],
+          ),
         ),
+
         Row(
           children: [
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/add_refrigerator'); // 내 냉장고에 새로운 식재료 등록하는 페이지로 연결
-                },
-                child: Text('식재료 등록'),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/add_refrigerator'); // 내 냉장고에 새로운 식재료 등록하는 페이지로 연결
+                  },
+                  child: Text('식재료 등록'),
+                ),
               ),
             ),
-            /*
-            Align(
-              alignment: Alignment.bottomRight,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text('식재료 삭제'), // 식재료 삭제 버튼은 구현 안했음
+
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SearchFromRefriPage(userRefriInfo: toSearch)),
+                    );
+                  },
+                  child: Text('레시피 검색'), // 내 냉장고에 있는 재료들로 할 수 있는 레시피 검색, 아직 구현 안함
+                ),
               ),
             ),
-             */
+
+
           ],
-        ),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => SearchFromRefriPage(userRefriInfo: toSearch)),
-              );
-            },
-            child: Text('레시피 검색'), // 내 냉장고에 있는 재료들로 할 수 있는 레시피 검색, 아직 구현 안함
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => googleMapPage()),
-              );
-            },
-            child: Text('Map'), // 내 냉장고에 있는 재료들로 할 수 있는 레시피 검색, 아직 구현 안함
-          ),
         ),
       ],
     );

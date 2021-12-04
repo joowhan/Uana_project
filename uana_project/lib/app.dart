@@ -45,8 +45,29 @@ class _UanaAppState extends State<UanaApp> {
       home: const LoginPage(),
       initialRoute: '/login',
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          color: LightColors.eachRecipe,
+          elevation: 0,
+          centerTitle: true,
+          titleTextStyle: const TextStyle(
+              color: Colors.black,
+              fontSize: 25,
+              fontFamily: 'DoHyeonRegular'),
+          iconTheme: IconThemeData(
+            color: Colors.black.withOpacity(0.7),
+          ),
+
+        ),
         fontFamily: 'DoHyeonRegular',
         canvasColor: LightColors.homeback,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.greenAccent,
+          ),
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Colors.greenAccent,
+        ),
       ),
       routes: {
         '/login': (context) => const LoginPage(),

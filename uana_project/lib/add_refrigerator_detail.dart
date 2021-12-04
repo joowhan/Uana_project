@@ -40,7 +40,7 @@ class _AddRefrigeratorDetailPageState extends State<AddRefrigeratorDetailPage> {
 
     selectedDate.then((dateTime) {
       setState(() {
-        _selectedTime = dateTime; // 유통기한
+        _selectedTime = dateTime!; // 유통기한
       });
     });
   }

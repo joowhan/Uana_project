@@ -23,6 +23,7 @@ class _AddRefrigeratorPageState extends State<AddRefrigeratorPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('식재료 등록'),
+        elevation: 0,
       ),
 
 
