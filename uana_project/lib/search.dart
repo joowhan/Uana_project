@@ -37,6 +37,7 @@ class _SearchPageState extends State<SearchPage> {
         if(i != 0){
           kate += ", ";
         }
+
         kate += recipe.kategorie[i] + "류";
       }
       return Card(
@@ -59,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 0.0),
+                padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -68,7 +69,6 @@ class _SearchPageState extends State<SearchPage> {
                       maxLines: 1,
                       style: TextStyle(
                         fontSize: 20,
-                        fontFamily: 'DoHyeonRegular'
                       ),
                     ),
                     // const SizedBox(height: 8.0),
@@ -83,7 +83,9 @@ class _SearchPageState extends State<SearchPage> {
                     //   height: 5,
                     // ),
                     Text(kate,
+                        maxLines: 1,
                         style: TextStyle(
+
                           fontSize: 13,
                             fontFamily: 'DoHyeonRegular'
                         )
@@ -161,30 +163,36 @@ class _SearchPageState extends State<SearchPage> {
             //     ),
             //   ),
             // ),
-            SizedBox(
-              height: 40,
-            ),
-            Text(
-                "hhhhh",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'KotraHope',
-                )
-            ),
-            Text(
-              "hhhhh",
+            // SizedBox(
+            //   height: 40,
+            // ),
+            Container(
+              color: LightColors.eachRecipe,
+              width: double.infinity,
+              alignment: Alignment.center,
+              // decoration: BoxDecoration(
+              //   color: LightColors.eachRecipe,
+              //   borderRadius: BorderRadius.only(
+              //     bottomLeft: Radius.circular(30.0),
+              //     bottomRight: Radius.circular(30.0),
+              //   )
+              // ),
+              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+              child: Text(
+                  "전체 레시피",
                   style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: ' Nanum',
+                    fontSize: 30,
                   )
+              ),
             ),
+
 
             Expanded(
               child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 crossAxisCount: 2,
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(20.0),
                 childAspectRatio: 8.0 / 9.0,
                 children: _buildGridCards(context),
               ),
