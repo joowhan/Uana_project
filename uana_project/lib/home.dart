@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
           ],
           indicatorColor: Colors.transparent,
           unselectedLabelColor: Colors.grey,
-          labelColor: Colors.black,
+          labelColor: Colors.lightGreen,
         ),
         body: TabBarView(
           children: _pages,
@@ -96,9 +96,9 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         SizedBox(height: 30.0),
         ElevatedButton(
-          onPressed: () {
-            recipeProvider.loadWeatherRecipes(weatherProvider.weather);
-            Navigator.pushNamed(context, '/weather_recipe');
+          onPressed: () async {
+            await recipeProvider.loadWeatherRecipes(weatherProvider.weather);
+            await Navigator.pushNamed(context, '/weather_recipe');
           },
           child: Text('날씨에 맞는 음식 추천'),
         ),

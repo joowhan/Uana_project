@@ -34,6 +34,7 @@ class _WeatherRecipePageState extends State<WeatherRecipePage> {
     RecipeProvider recipeProvider = Provider.of(context, listen : true); // provider 사용
 
     if (recipeProvider.weatherRecipes.isEmpty) {
+      print('아직 다운 안됐음');
       return const <Card>[];
     }
 
