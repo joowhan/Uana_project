@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:uana_project/recipe_detail.dart';
 import 'package:uana_project/recipe_provider.dart';
+import 'package:uana_project/theme/light_colors.dart';
 import 'login_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
@@ -82,6 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }).toList();
   }
   final ValueNotifier<int> _changeSetting = ValueNotifier<int>(0);
+  final ValueNotifier<bool> _changeSetting2 = ValueNotifier<bool>(true);
 
   @override
   Widget build(BuildContext context) {
@@ -153,22 +155,68 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             SizedBox(height:20),
-            TextButton(
-                onPressed: (){
-                  setState(() {
-                    _changeSetting.value = 0;
-                  });
-                },
-                child: Text("1"),
+
+            ValueListenableBuilder(
+                valueListenable: _changeSetting2,
+                builder: (BuildContext contex, bool bvaule, Widget? child){
+                  return Row(
+                    children: [
+                      Container(
+                        decoration : BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: _changeSetting2.value == true? LightColors.eachRecipe.withOpacity(1) : LightColors.homeback.withOpacity(1),
+                              spreadRadius: 1,
+                              blurRadius: 7,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ]
+                        ),
+                        child: IconButton(
+                          onPressed: (){
+                            setState(() {
+                              _changeSetting.value = 0;
+                              _changeSetting2.value = true;
+                            });
+                          },
+                          icon: const Icon(Icons.star,),
+                          color: _changeSetting2.value == true ?  Colors.green : Colors.black,
+
+                        ),
+                      ),
+                      Container(
+                        decoration : BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: _changeSetting2.value == false? LightColors.eachRecipe.withOpacity(1) : LightColors.homeback.withOpacity(1),
+                                spreadRadius: 1,
+                                blurRadius: 7,
+                                offset: Offset(0, 3), // changes position of shadow
+                              ),
+                            ]
+                        ),
+                        child: IconButton(
+                            onPressed: (){
+                              setState(() {
+                                _changeSetting.value = 1;
+                                _changeSetting2.value = false;
+                              });
+                            },
+                            icon : const Icon(Icons.account_circle),
+                            color: _changeSetting2.value == false ?  Colors.green : Colors.black,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+              child:
+              Text(
+                  _changeSetting2.value == true ? '즐겨찾기' : '내가 올린 레시피'
+              ),
             ),
-            TextButton(
-              onPressed: (){
-                setState(() {
-                  _changeSetting.value = 1;
-                });
-              },
-              child: Text("2"),
-            ),
+
             ValueListenableBuilder(
                 valueListenable: _changeSetting,
                 builder: (BuildContext context, int svalue, Widget? child){

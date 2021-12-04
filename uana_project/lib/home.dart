@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [const HomeScreen(), const RefrigeratorPage(), const SearchPage(),
-    const FavoritePage(), const ProfilePage()]; // 하단 네비게이션바 목록
+     const ProfilePage()]; // 하단 네비게이션바 목록
 
   void _onTap(int index) { // 네이버게이션바 눌릴 때 이동
     setState(() {
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
-      length: 5,
+      length: 4,
       child: Scaffold(
         bottomNavigationBar: const TabBar(
           tabs: [
@@ -54,10 +54,6 @@ class _HomePageState extends State<HomePage> {
             Tab(
                 icon: Icon(Icons.search), // 전체 레시피 화면
                 text: '레시피',
-            ),
-            Tab(
-                icon: Icon(Icons.star), // Favorite 레시피 화면
-                text: '즐겨찾기',
             ),
             Tab(
                 icon: Icon(Icons.person), // profile 화면 (로그아웃 가능)
