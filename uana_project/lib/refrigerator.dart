@@ -60,7 +60,7 @@ class _RefrigeratorPageState extends State<RefrigeratorPage> {
                         child: Text(
                           userfood.foodName,
                           style: const TextStyle(
-                            fontSize: 10,
+                            fontSize: 15,
                         ),
                       ),
                     ),
@@ -94,7 +94,12 @@ class _RefrigeratorPageState extends State<RefrigeratorPage> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/add_refrigerator'); // 내 냉장고에 새로운 식재료 등록하는 페이지로 연결
                   },
-                  child: Text('식재료 등록'),
+                  child: Text(
+                      '식재료 등록',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                  ),
                 ),
               ),
             ),
@@ -108,7 +113,12 @@ class _RefrigeratorPageState extends State<RefrigeratorPage> {
                       MaterialPageRoute(builder: (context) => SearchFromRefriPage(userRefriInfo: toSearch)),
                     );
                   },
-                  child: Text('레시피 검색'), // 내 냉장고에 있는 재료들로 할 수 있는 레시피 검색, 아직 구현 안함
+                  child: Text(
+                      '레시피 검색',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                  ), // 내 냉장고에 있는 재료들로 할 수 있는 레시피 검색, 아직 구현 안함
                 ),
               ),
             ),

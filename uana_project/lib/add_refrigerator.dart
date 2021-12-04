@@ -51,7 +51,7 @@ class _AddRefrigeratorPageState extends State<AddRefrigeratorPage> {
                     child: Text(
                       food.foodName,
                       style: const TextStyle(
-                        fontSize: 10,
+                        fontSize: 15,
                     ),
                   ),
                 ),

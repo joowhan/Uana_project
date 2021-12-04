@@ -12,6 +12,7 @@ import 'weather_recipe.dart';
 import 'login.dart';
 import 'home.dart';
 import 'add_refrigerator.dart';
+import 'refrigerator_detail.dart';
 
 
 /*
@@ -59,14 +60,31 @@ class _UanaAppState extends State<UanaApp> {
 
         ),
         fontFamily: 'DoHyeonRegular',
+
         canvasColor: LightColors.homeback,
+
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             primary: Colors.greenAccent,
           ),
         ),
+
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: Colors.greenAccent,
+        ),
+
+        toggleButtonsTheme: ToggleButtonsThemeData(
+          color: Colors.black.withOpacity(0.60),
+          selectedColor: Colors.green,
+          selectedBorderColor: Colors.green,
+          fillColor: Colors.green.withOpacity(0.08),
+          splashColor: Colors.green.withOpacity(0.12),
+          hoverColor: Colors.green.withOpacity(0.04),
+          borderRadius: BorderRadius.circular(4.0),
+          constraints: const BoxConstraints(
+            minWidth: 80.0,
+            minHeight: 60.0,
+          ),
         ),
       ),
       routes: {

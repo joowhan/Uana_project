@@ -41,9 +41,7 @@ class _RefrigeratorDetailPageState extends State<RefrigeratorDetailPage> {
     }
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text(widget.userfood.foodName),
-        backgroundColor: Colors.grey,
         actions: <Widget>[
           IconButton(
             icon: const Icon(
@@ -61,26 +59,61 @@ class _RefrigeratorDetailPageState extends State<RefrigeratorDetailPage> {
       ),
 
       body: Container(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(20.0),
         child: ListView( // 내 냉장고에 등록된 식재료 상세 정보 출력
-
           children: [
-            Text(widget.userfood.foodName,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const SizedBox(height: 30.0),
+
+            SizedBox(
+              height: MediaQuery.of(context).size.height * (1 / 6),
+              width: MediaQuery.of(context).size.width,
+              child: Text(
+                widget.userfood.foodName,
+                style: const TextStyle(
+                  fontSize: 30.0,
+                ),
+              ),
             ),
 
-            Text('추가된 날짜 : ' + fmt_registerDate), // 변경 필요 Timestamp 형식이라서 손 봐야할 듯
-            // Text(DateTime.now().toString()),
-            Text('유통 기한 : ' + fmt_expiredDate + ' 까지'), // 변경 필요 Timestamp 형식이라서 손 봐야할 듯
+
+            Text(
+              '추가된 날짜 : $fmt_registerDate',
+              style: const TextStyle(
+                fontSize: 20.0,
+              ),
+            ), // 오늘 날짜
+
+            const SizedBox(height: 30.0),
+
+            Text(
+              '유통 기한 : $fmt_expiredDate 까지',
+              style: const TextStyle(
+                fontSize: 20.0,
+              ),
+            ), // 오늘 날짜
+
+            const SizedBox(height: 30.0),
+
             Row(
               children: [
                 Text(diff,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-                Text(' 일 남았습니다.')
+                const Text(' 일 남았습니다.',
+                style: TextStyle(
+                    fontSize: 20.0,
+                ),
+              ),
               ],
             ),
-            Text('보관형태 : ${widget.userfood.storageType}'),
+
+            const SizedBox(height: 30.0),
+
+            Text('보관형태 : ${widget.userfood.storageType}',
+              style: const TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
           ],
         ),
       ),

@@ -32,7 +32,11 @@ class _AddRefrigeratorDetailPageState extends State<AddRefrigeratorDetailPage> {
       lastDate: DateTime(2025), // 마지막일
       builder: (BuildContext context, Widget? child) {
         return Theme(
-          data: ThemeData.light(),
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Colors.green,
+            ),
+          ),
           child: child!,
         );
       }
@@ -53,88 +57,158 @@ class _AddRefrigeratorDetailPageState extends State<AddRefrigeratorDetailPage> {
         title: Text(widget.food.foodName),
       ),
 
-      body: ListView(
+      body: Column(
         children: [
-          Text(widget.food.foodName),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(20.0),
+              child: ListView(
+                children: [
+                  SizedBox(height: 30.0),
 
-          Text('추가된 날짜 : ${DateTime.now().year}. ${DateTime.now().month}. ${DateTime.now().day}'), // 오늘 날짜
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * (1 / 6),
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(
+                      widget.food.foodName,
+                      style: TextStyle(
+                        fontSize: 30.0,
+                      ),
+                    ),
+                  ),
+
+
+                  Text(
+                    '추가된 날짜 : ${DateTime.now().year}. ${DateTime.now().month}. ${DateTime.now().day}',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ), // 오늘 날짜
+
+                  SizedBox(height: 30.0),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text('유통 기한 : ',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ),
+
+                      Expanded(
+                        child: Text(
+                          '${_selectedTime!.year}. ${_selectedTime!.month}. ${_selectedTime!.day}',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
+                        ), // 유통 기한
+                      ),
+
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            showDatePickerPop(); // Date picker 띄우기
+                          },
+                          child: const Text('날짜 선택',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 30.0),
+
+                  const Text(
+                    '보관형태',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+
+                  SizedBox(height: 30.0),
+
+                  ToggleButtons( // 냉장 / 냉동 / 실온 토글버튼
+                    onPressed: (int index) {
+                      setState(() {
+                        for(int i = 0; i < isSelected.length; i++) { // 세 개 중 하나만 선택되도록 (라디오 버튼 처럼)
+                          if(index == i) {
+                            isSelected[i] = true;
+                          }
+                          else {
+                            isSelected[i] = false;
+                          }
+                        }
+                      });
+                    },
+                    isSelected: isSelected,
+
+                    children: const [
+                      Text(
+                        '냉장',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                        ),
+                      ),
+                      Text(
+                        '냉동',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                        ),
+                      ),
+                      Text(
+                        '실온',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
 
           Row(
             children: [
               Expanded(
-                child: Text('유통 기한'),
-              ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton( // 식재료 등록 버튼
+                    onPressed: () async {
+                      if(isSelected[0] == true) {
+                        storageType = "냉장";
+                      }
+                      if(isSelected[1] == true) {
+                        storageType = "냉동";
+                      }
+                      else {
+                        storageType = "실온";
+                      }
 
-              Expanded(
-                child: Text('${_selectedTime!.year}. ${_selectedTime!.month}. ${_selectedTime!.day}'), // 유통 기한
-              ),
+                      Navigator.pop(context);
+                      refrigeratorProvider.uploadUserFoods(widget.food, _selectedTime!, storageType); // Firebase에 내 냉장고에 식재료 등록
 
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    showDatePickerPop(); // Date picker 띄우기
-                  },
-                  child: const Text('날짜 선택'),
+
+                      var diff = _selectedTime!.difference(DateTime.now()).inDays.toString(); // 오늘 날짜부터 유통기한 계산
+                      notificationProvider.expiredNotification(widget.food.foodCode, widget.food.foodName, diff); // 유통기한 일주일 전 알림 등록
+                      refrigeratorProvider.downloadUserFoods();
+                    },
+                    child: const Text(
+                      '식재료 등록',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-
-          Text('보관형태'),
-
-          ToggleButtons( // 냉장 / 냉동 / 실온 토글버튼
-            color: Colors.black.withOpacity(0.60),
-            selectedColor: Colors.blue,
-            selectedBorderColor: Colors.blue,
-            fillColor: Colors.blue.withOpacity(0.08),
-            splashColor: Colors.blue.withOpacity(0.12),
-            hoverColor: Colors.blue.withOpacity(0.04),
-            borderRadius: BorderRadius.circular(4.0),
-
-            onPressed: (int index) {
-              setState(() {
-                for(int i = 0; i < isSelected.length; i++) { // 세 개 중 하나만 선택되도록 (라디오 버튼 처럼)
-                  if(index == i) {
-                    isSelected[i] = true;
-                  }
-                  else {
-                    isSelected[i] = false;
-                  }
-                }
-              });
-            },
-            isSelected: isSelected,
-
-            children: const [
-              Text('냉장'),
-              Text('냉동'),
-              Text('실온'),
-            ],
-          ),
-
-          ElevatedButton( // 식재료 등록 버튼
-            onPressed: () async {
-              if(isSelected[0] == true) {
-                storageType = "냉장";
-              }
-              if(isSelected[1] == true) {
-                storageType = "냉동";
-              }
-              else {
-                storageType = "실온";
-              }
-
-              Navigator.pop(context);
-              refrigeratorProvider.uploadUserFoods(widget.food, _selectedTime!, storageType); // Firebase에 내 냉장고에 식재료 등록
-
-
-              var diff = _selectedTime!.difference(DateTime.now()).inDays.toString(); // 오늘 날짜부터 유통기한 계산
-              notificationProvider.expiredNotification(widget.food.foodCode, widget.food.foodName, diff); // 유통기한 일주일 전 알림 등록
-              refrigeratorProvider.downloadUserFoods();
-            },
-            child: Text('식재료 등록'),
-          ),
-
         ],
       ),
     );
