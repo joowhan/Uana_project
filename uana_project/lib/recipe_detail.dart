@@ -412,7 +412,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
                           ],
                         ),
                       ),
-                    if (kate == '아침')
+                    if (kate == '아침식사')
                       SizedBox(
                         width: 60,
                         height: 60,
