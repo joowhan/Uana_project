@@ -12,6 +12,7 @@ import 'recipe_provider.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:video_player/video_player.dart';
+import 'package:unicorndial/unicorndial.dart';
 
 /*
 디테일 레시피 화면
@@ -37,20 +38,6 @@ class _RecipePageState extends State<RecipeDetailPage> {
     print(widget.recipe.processUrl[key]);
     return Column(
       children: [
-        if (widget.recipe.processUrl[key] != ' ')//null이 아니라 space가 하나 있었음.
-      Container(
-          width: 200,
-          height: 150,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            color: Colors.redAccent,
-          ),
-              child: Image.network(widget.recipe.processUrl[key]),
-        ),
-
-        SizedBox(
-          height: 20.0,
-        ),
         Column(
           children: <Widget>[
             _buildStep(
@@ -59,6 +46,19 @@ class _RecipePageState extends State<RecipeDetailPage> {
                 content: "${widget.recipe.processDescription[key]}"),
           ],
         ),
+        SizedBox(
+          height: 20.0,
+        ),
+        if (widget.recipe.processUrl[key] != ' ') //null이 아니라 space가 하나 있었음.
+          Container(
+            width: 400,
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              color: Colors.redAccent,
+            ),
+            child: Image.network(widget.recipe.processUrl[key]),
+          ),
 
         SizedBox(
           height: 20.0,
@@ -111,6 +111,41 @@ class _RecipePageState extends State<RecipeDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    var childButtons = <UnicornButton>[];
+
+    childButtons.add(UnicornButton(
+        hasLabel: true,
+        labelText: "timer",
+        currentButton: FloatingActionButton(
+          heroTag: "start",
+          backgroundColor: Colors.redAccent,
+          mini: true,
+          child: Icon(Icons.not_started),
+          onPressed: () {
+            _controller.restart(duration: _duration);
+          },
+        )));
+
+    childButtons.add(UnicornButton(
+        currentButton: FloatingActionButton(
+            heroTag: "pause",
+            backgroundColor: Colors.greenAccent,
+            mini: true,
+            onPressed: () {
+              _controller.pause();
+            },
+            child: Icon(Icons.pause))));
+
+    childButtons.add(UnicornButton(
+        currentButton: FloatingActionButton(
+            heroTag: "resume",
+            backgroundColor: Colors.blueAccent,
+            mini: true,
+            onPressed: () {
+              _controller.resume();
+            },
+            child: Icon(Icons.restart_alt))));
+
     RecipeProvider recipeProvider =
         Provider.of(context, listen: true); // provider 사용
     print(widget.recipe.likeusers);
@@ -180,7 +215,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
               ),
 
               Container(
-                margin: EdgeInsets.fromLTRB(5.0, 5.0, 20, 0),
+                margin: EdgeInsets.fromLTRB(5.0, 20.0, 20, 0),
                 child: Row(
                   // crossAxisAlignment: CrossAxisAlignment.st,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -194,18 +229,18 @@ class _RecipePageState extends State<RecipeDetailPage> {
                         '${widget.recipe.foodName}\n',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          fontSize: 30,
                         ),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(100, 0, 0, 0),
+                      margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
                       child: recipeDocument!['likeusers']
                               .contains(FirebaseAuth.instance.currentUser!.uid)
                           ? IconButton(
                               icon: Icon(Icons.star),
                               color: Colors.red,
-                              iconSize: 30,
+                              iconSize: 40,
                               onPressed: () {
                                 recipeProvider.updateLike(
                                     recipeDocument['docId'],
@@ -216,7 +251,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
                           : IconButton(
                               icon: Icon(Icons.star_border),
                               color: Colors.red,
-                              iconSize: 30,
+                              iconSize: 40,
                               onPressed: () {
                                 recipeProvider.updateLike(
                                     recipeDocument['docId'],
@@ -229,17 +264,18 @@ class _RecipePageState extends State<RecipeDetailPage> {
                       recipeDocument['like'].toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                        fontSize: 20,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 16.0,
-              ),
+              // const SizedBox(
+              //   height: 16.0,
+              // ),
+              Divider(color: Colors.grey, height: 32),
               Container(
-                padding: EdgeInsets.all(10.0),
+                //padding: EdgeInsets.all(10.0),
                 child: const Text(
                   'What we need?\n',
                   style: TextStyle(
@@ -252,7 +288,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
               GridView.count(
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
-                crossAxisCount: 6,
+                crossAxisCount: 3,
                 padding: const EdgeInsets.all(5.0),
                 childAspectRatio: 5.0 / 2.0,
                 children: widget.recipe.ingredient.map((ingre) {
@@ -279,13 +315,14 @@ class _RecipePageState extends State<RecipeDetailPage> {
 
               // for (int i = 0; i < widget.recipe.ingredient.length; i++)
               //   Text('${widget.recipe.ingredient[i]}'), // 재료 목록
+              Divider(color: Colors.grey, height: 32),
               Container(
-                padding: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+                //padding: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
                 child: const Text(
-                  '\n\n카테고리\n\n',
+                  '\n\nCategory\n\n',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 20,
                   ),
                 ),
               ),
@@ -293,45 +330,115 @@ class _RecipePageState extends State<RecipeDetailPage> {
               GridView.count(
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
-                crossAxisCount: 6,
+                crossAxisCount: 3,
                 padding: const EdgeInsets.all(5.0),
-                childAspectRatio: 5.0 / 2.0,
+                childAspectRatio: 5.0 / 3.0,
                 children: widget.recipe.kategorie.map((kate) {
                   //return Text(kate);
-                  return Container(
-                      child: Column(
-                    children: <Widget>[
-                      Row(children: <Widget>[
-                        if (kate == '식사')
-                          Container(
-                              child: const Image(
-                            image: AssetImage('assets/soup.png'),
-                            width: 30,
-                            height: 30,
-                          ))
-                        else if (kate == '튀김')
-                          Container(
-                            child: const Image(
-                              image: AssetImage('assets/breakfast.png'),
+
+                  return Row(children: <Widget>[
+                    if (kate == '식사')
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/meal.png',
                               width: 30,
                               height: 30,
-                            )
-                          )
-
-                      ]),
-                    ],
-                  ));
+                            ),
+                            Text('식사')
+                          ],
+                        ),
+                      ),
+                    if (kate == '튀김')
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/deep-fryer.png',
+                              width: 30,
+                              height: 30,
+                            ),
+                            Text('튀김 음식')
+                          ],
+                        ),
+                      ),
+                    if (kate == '국물')
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/soup.png',
+                              width: 30,
+                              height: 30,
+                            ),
+                            Text('국물 음식')
+                          ],
+                        ),
+                      ),
+                    if (kate == '매운 음식')
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/chili-pepper.png',
+                              width: 30,
+                              height: 30,
+                            ),
+                            Text('매운 음식')
+                          ],
+                        ),
+                      ),
+                    if (kate == '야식')
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/fried-chicken.png',
+                              width: 30,
+                              height: 30,
+                            ),
+                            Text('야식')
+                          ],
+                        ),
+                      ),
+                    if (kate == '아침')
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/breakfast.png',
+                              width: 30,
+                              height: 30,
+                            ),
+                            Text('아침')
+                          ],
+                        ),
+                      ),
+                  ]);
                 }).toList(),
               ),
               // 카테고리 목록
-
+              Divider(color: Colors.grey, height: 32),
               Container(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
+                //padding: EdgeInsets.all(1.0),
+                child: const Text(
                   '\n\n요리 과정\n\n',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 23,
                   ),
                 ),
               ),
@@ -369,7 +476,17 @@ class _RecipePageState extends State<RecipeDetailPage> {
               //             child: Text("보러 가기")),
               //       ],
               //     )),
-
+              Divider(color: Colors.grey, height: 32),
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: const Text(
+                  'Timer\n',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -516,20 +633,20 @@ class _RecipePageState extends State<RecipeDetailPage> {
                   // Ring Gradient for Countdown Widget.
                   ringGradient: null,
                   // Filling Color for Countdown Widget.
-                  fillColor: Colors.purpleAccent[100]!,
+                  fillColor: Colors.redAccent,
                   // Filling Gradient for Countdown Widget.
                   fillGradient: null,
                   // Background Color for Countdown Widget.
-                  backgroundColor: Colors.purple[500],
+                  backgroundColor: Colors.red,
                   // Background Gradient for Countdown Widget.
                   backgroundGradient: null,
                   // Border Thickness of the Countdown Ring.
-                  strokeWidth: 20.0,
+                  strokeWidth: 15.0,
                   // Begin and end contours with a flat edge and no extension.
                   strokeCap: StrokeCap.round,
                   // Text Style for Countdown Text.
                   textStyle: const TextStyle(
-                      fontSize: 33.0,
+                      fontSize: 30.0,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                   // Format for the Countdown Text.
@@ -555,29 +672,36 @@ class _RecipePageState extends State<RecipeDetailPage> {
                 ),
               )
             ]),
-            floatingActionButton: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 30,
-                ),
-                _button(title: "Start", onPressed: () => _controller.start()),
-                SizedBox(
-                  width: 10,
-                ),
-                _button(title: "Pause", onPressed: () => _controller.pause()),
-                SizedBox(
-                  width: 10,
-                ),
-                _button(title: "Resume", onPressed: () => _controller.resume()),
-                SizedBox(
-                  width: 10,
-                ),
-                _button(
-                    title: "Restart",
-                    onPressed: () => _controller.restart(duration: _duration))
-              ],
-            ),
+            floatingActionButton: UnicornDialer(
+                backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
+                parentButtonBackground: Colors.redAccent,
+                orientation: UnicornOrientation.VERTICAL,
+                parentButton: Icon(Icons.timer),
+                childButtons: childButtons),
+
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     SizedBox(
+            //       width: 30,
+            //     ),
+            //     _button(title: "Start", onPressed: () => _controller.start()),
+            //     SizedBox(
+            //       width: 10,
+            //     ),
+            //     _button(title: "Pause", onPressed: () => _controller.pause()),
+            //     SizedBox(
+            //       width: 10,
+            //     ),
+            //     _button(title: "Resume", onPressed: () => _controller.resume()),
+            //     SizedBox(
+            //       width: 10,
+            //     ),
+            //     _button(
+            //         title: "Restart",
+            //         onPressed: () => _controller.restart(duration: _duration))
+            //   ],
+            // ),
           );
         });
   }
