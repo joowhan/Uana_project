@@ -37,19 +37,26 @@ class _RecipePageState extends State<RecipeDetailPage> {
     print(widget.recipe.processUrl[key]);
     return Column(
       children: [
-        if (widget.recipe.processUrl[key] != ' ') //null이 아니라 space가 하나 있었음.
-          Image.network(widget.recipe.processUrl[key]),
+        if (widget.recipe.processUrl[key] != ' ')//null이 아니라 space가 하나 있었음.
+      Container(
+          width: 200,
+          height: 150,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            color: Colors.redAccent,
+          ),
+              child: Image.network(widget.recipe.processUrl[key]),
+        ),
+
         SizedBox(
           height: 20.0,
         ),
         Column(
-          children: <Widget> [
+          children: <Widget>[
             _buildStep(
                 leadingTitle: "$key",
                 title: "Step".toUpperCase(),
-                content:
-                "${widget.recipe.processDescription[key]}"
-            ),
+                content: "${widget.recipe.processDescription[key]}"),
           ],
         ),
 
@@ -60,13 +67,17 @@ class _RecipePageState extends State<RecipeDetailPage> {
       ],
     );
   }
-  Widget _buildStep({required String leadingTitle, required String title, required String content}) {
+
+  Widget _buildStep(
+      {required String leadingTitle,
+      required String title,
+      required String content}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Material(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           color: Colors.red,
           child: Container(
             padding: EdgeInsets.all(5.0),
@@ -86,7 +97,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
             children: <Widget>[
               Text(title,
                   style:
-                  TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
               SizedBox(
                 height: 10.0,
               ),
@@ -151,18 +162,14 @@ class _RecipePageState extends State<RecipeDetailPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => Player(
-                            widget.recipe.detailUrl,
-                            widget.recipe.foodName),
+                            widget.recipe.detailUrl, widget.recipe.foodName),
                       ),
                     );
                   },
                 )
               ],
-
             ),
-            body: ListView(
-                padding: EdgeInsets.all(20.0),
-                children: [
+            body: ListView(padding: EdgeInsets.all(20.0), children: [
               SizedBox(
                 height: MediaQuery.of(context).size.height * (2 / 5),
                 width: MediaQuery.of(context).size.width,
@@ -183,7 +190,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
                     ),
                     Container(
                       padding: EdgeInsets.all(10.0),
-                      child:Text(
+                      child: Text(
                         '${widget.recipe.foodName}\n',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
@@ -254,16 +261,15 @@ class _RecipePageState extends State<RecipeDetailPage> {
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const SizedBox(
-                                width: 5.0,
-                              ),
-                              Text(ingre),
-                            ],
-                          )
-                        ),
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const SizedBox(
+                              width: 5.0,
+                            ),
+                            Text(ingre),
+                          ],
+                        )),
                         const VerticalDivider(),
                       ],
                     ),
@@ -293,8 +299,28 @@ class _RecipePageState extends State<RecipeDetailPage> {
                 children: widget.recipe.kategorie.map((kate) {
                   //return Text(kate);
                   return Container(
-                      child: Image(image:AssetImage('assets/soup.png'))
-                  );
+                      child: Column(
+                    children: <Widget>[
+                      Row(children: <Widget>[
+                        if (kate == '식사')
+                          Container(
+                              child: const Image(
+                            image: AssetImage('assets/soup.png'),
+                            width: 30,
+                            height: 30,
+                          ))
+                        else if (kate == '튀김')
+                          Container(
+                            child: const Image(
+                              image: AssetImage('assets/breakfast.png'),
+                              width: 30,
+                              height: 30,
+                            )
+                          )
+
+                      ]),
+                    ],
+                  ));
                 }).toList(),
               ),
               // 카테고리 목록
@@ -343,8 +369,6 @@ class _RecipePageState extends State<RecipeDetailPage> {
               //             child: Text("보러 가기")),
               //       ],
               //     )),
-
-
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
