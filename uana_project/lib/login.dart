@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'login_provider.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 /*
 로그인 화면
@@ -16,6 +17,67 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+
+  @override
+  Widget build(BuildContext context) {
+    LoginProvider loginProvider = Provider.of(context, listen: true); // Login Provider 사용
+
+    return Scaffold(
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 80.0),
+            Image.network('https://handong.edu/site/handong/res/img/logo.png'),
+            const SizedBox(height: 16.0),
+            const Text('Uana'),
+
+            const SizedBox(height: 120.0),
+
+            SignInButton(
+              Buttons.Google,
+              text: '구글로 시작하기',
+              onPressed: () async {
+                try {
+                  await loginProvider.signInWithGoogle(); // 구글 로그인
+                  print("Google Login Success!!");
+                  Navigator.pushNamed(context, '/home');
+
+                } catch(e) {
+                  if (e is FirebaseAuthException) {
+                    print(e.message!);
+                  }
+                }
+              },
+            ),
+
+
+            const SizedBox(height: 120.0),
+
+            SizedBox(
+              width: 200.0,
+              height: 30.0,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  onPrimary: Colors.black,
+                  minimumSize: const Size(double.infinity, 50),
+                ),
+                icon: const FaIcon(FontAwesomeIcons.question, color: Colors.black),
+                label: const Text('GUEST'),
+                onPressed: () async {
+                  await loginProvider.signInWithAnonymous(); // 익명 로그인 (우리 프로젝트에는 딱히 필요 없을 듯?!)
+                  print("Anonymous Login Success!!");
+                  Navigator.pushNamed(context, '/home');
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  /*
   @override
   Widget build(BuildContext context) {
     LoginProvider loginProvider = Provider.of(context, listen: true); // Login Provider 사용
@@ -88,4 +150,5 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+   */
 }
