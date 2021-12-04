@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:uana_project/recipe_detail.dart';
+import 'package:uana_project/recipe_provider.dart';
 import 'login_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,6 +25,64 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late PickedFile _imageFile;
   final ImagePicker _picker = ImagePicker();
+
+  List<Card> _buildGridCards(BuildContext context, int index) {
+    RecipeProvider recipeProvider = Provider.of(context, listen : true); // provider 사용
+    List<List<RecipeInfo>> changeRecipeList = [recipeProvider.favoriteRecipes,recipeProvider.myRecipes];
+    if (recipeProvider.favoriteRecipes.isEmpty) {
+      return const <Card>[];
+    }
+
+    final ThemeData theme = Theme.of(context);
+  print(index);
+    return changeRecipeList[index].map((recipe) {// 중간, 기말 때 썼던 예제 그대로
+      return Card(
+        clipBehavior: Clip.antiAlias,
+        child: GestureDetector(
+          onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RecipeDetailPage(recipe: recipe),
+              ),
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              AspectRatio(
+                aspectRatio: 15 / 11,
+
+                child: Image.network(
+                  recipe.path,
+                  fit: BoxFit.fill,
+                ),
+
+              ),
+              // Container(
+              //   width: double.infinity,
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: <Widget>[
+              //       Text(
+              //         recipe.foodName,
+              //         style: TextStyle(
+              //           fontSize: 10,
+              //         ),
+              //         maxLines: 1,
+              //       ),
+              //       // SizedBox(height: 1,)
+              //     ],
+              //   ),
+              // ),
+            ],
+          ),
+        ),
+      );
+    }).toList();
+  }
+  final ValueNotifier<int> _changeSetting = ValueNotifier<int>(0);
+
   @override
   Widget build(BuildContext context) {
     LoginProvider loginProvider = Provider.of(context, listen: true);
@@ -93,6 +153,38 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             SizedBox(height:20),
+            TextButton(
+                onPressed: (){
+                  setState(() {
+                    _changeSetting.value = 0;
+                  });
+                },
+                child: Text("1"),
+            ),
+            TextButton(
+              onPressed: (){
+                setState(() {
+                  _changeSetting.value = 1;
+                });
+              },
+              child: Text("2"),
+            ),
+            ValueListenableBuilder(
+                valueListenable: _changeSetting,
+                builder: (BuildContext context, int svalue, Widget? child){
+                  return Expanded(
+                    child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      crossAxisCount: 3,
+                      padding: const EdgeInsets.all(0.0),
+                      childAspectRatio: 11.5 / 9.0,
+                      children: _buildGridCards(context, _changeSetting.value),
+                    ),
+                  );
+                }
+            ),
+
             //LogoutField(),
           ],
         ),
