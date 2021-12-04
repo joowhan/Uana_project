@@ -46,87 +46,59 @@ class _SearchPageState extends State<SearchPage> {
           borderRadius: BorderRadius.circular(30.0),
         ),
         clipBehavior: Clip.antiAlias,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            AspectRatio(
-              aspectRatio: 18 / 11,
-
-              child: Image.network(
-                recipe.path,
-                fit: BoxFit.fitWidth,
+        child: GestureDetector(
+          onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RecipeDetailPage(recipe: recipe),
               ),
-
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      recipe.foodName,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    // const SizedBox(height: 8.0),
-                    /*
-                    Text(
-                      '카테고리: ${recipe.cookingTime}',
-                      style: theme.textTheme.subtitle2,
-                    ),
-
-                     */
-                    // SizedBox(
-                    //   height: 5,
-                    // ),
-                    Text(kate,
-                        maxLines: 1,
-                        style: TextStyle(
-
-                          fontSize: 13,
-                            fontFamily: 'DoHyeonRegular'
-                        )
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+            );
+          },
+          child: Container(
+            height: double.infinity,
+            width: double.infinity,
+            color : Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 10, 5),
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 25.0,
-                    child: TextButton(
-                      onPressed: () {
+                AspectRatio(
+                  aspectRatio: 18 / 11,
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RecipeDetailPage(recipe: recipe),
+                  child: Image.network(
+                    recipe.path,
+                    fit: BoxFit.fitWidth,
+                  ),
+
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          recipe.foodName,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 20,
                           ),
-                        );
-
-
-                      },
-                      child: const Text(
-                        'more',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.lightBlue,
                         ),
-                      ),
+                        Text(kate,
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontSize: 13,
+                                fontFamily: 'DoHyeonRegular'
+                            )
+                        ),
+                      ],
                     ),
                   ),
                 ),
+
               ],
             ),
-          ],
+          ),
         ),
       );
     }).toList();
@@ -144,6 +116,15 @@ class _SearchPageState extends State<SearchPage> {
         },
         child: const Icon(Icons.add),
         backgroundColor: Colors.green,
+      ),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+            "전체 레시피",
+            style: TextStyle(
+              fontSize: 30,
+            )
+        ),
       ),
       body: Container(
         color: LightColors.homeback,
@@ -166,25 +147,6 @@ class _SearchPageState extends State<SearchPage> {
             // SizedBox(
             //   height: 40,
             // ),
-            Container(
-              color: LightColors.eachRecipe,
-              width: double.infinity,
-              alignment: Alignment.center,
-              // decoration: BoxDecoration(
-              //   color: LightColors.eachRecipe,
-              //   borderRadius: BorderRadius.only(
-              //     bottomLeft: Radius.circular(30.0),
-              //     bottomRight: Radius.circular(30.0),
-              //   )
-              // ),
-              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-              child: Text(
-                  "전체 레시피",
-                  style: TextStyle(
-                    fontSize: 30,
-                  )
-              ),
-            ),
 
 
             Expanded(

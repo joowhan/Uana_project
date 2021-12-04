@@ -136,25 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 'User Message: ${loginProvider.userInformation!.statusMessage}'
             ),
             SizedBox(height:20),
-            SizedBox(
-              //width: 50.0,
-              height: 30.0,
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: Colors.black,
-                  minimumSize: const Size(double.infinity, 50),
-                ),
-                icon: const FaIcon(FontAwesomeIcons.signOutAlt, color: Colors.black),
-                label: const Text('Logout'),
-                onPressed: () async {
-                  await loginProvider.signOut(); // 로그아웃
-                  print("Logout Success!!");
-                  Navigator.pushNamed(context, '/login');
-                },
-              ),
-            ),
-            SizedBox(height:20),
+
 
             ValueListenableBuilder(
                 valueListenable: _changeSetting2,
@@ -216,22 +198,46 @@ class _ProfilePageState extends State<ProfilePage> {
                   _changeSetting2.value == true ? '즐겨찾기' : '내가 올린 레시피'
               ),
             ),
-
-            ValueListenableBuilder(
-                valueListenable: _changeSetting,
-                builder: (BuildContext context, int svalue, Widget? child){
-                  return Expanded(
-                    child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      crossAxisCount: 3,
-                      padding: const EdgeInsets.all(0.0),
-                      childAspectRatio: 11.5 / 9.0,
-                      children: _buildGridCards(context, _changeSetting.value),
-                    ),
-                  );
-                }
+            SizedBox(
+              height: 250,
+              child: ValueListenableBuilder(
+                  valueListenable: _changeSetting,
+                  builder: (BuildContext context, int svalue, Widget? child){
+                    return Expanded(
+                      child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        crossAxisCount: 3,
+                        padding: const EdgeInsets.all(0.0),
+                        childAspectRatio: 11.5 / 9.0,
+                        children: _buildGridCards(context, _changeSetting.value),
+                      ),
+                    );
+                  }
+              ),
             ),
+
+            Positioned(
+              bottom: 30,
+              child: SizedBox(
+              //width: 50.0,
+              height: 30.0,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  onPrimary: Colors.black,
+                  minimumSize: const Size(double.infinity, 50),
+                ),
+                icon: const FaIcon(FontAwesomeIcons.signOutAlt, color: Colors.black),
+                label: const Text('Logout'),
+                onPressed: () async {
+                  await loginProvider.signOut(); // 로그아웃
+                  print("Logout Success!!");
+                  Navigator.pushNamed(context, '/login');
+                },
+              ),
+            ),
+            )
 
             //LogoutField(),
           ],

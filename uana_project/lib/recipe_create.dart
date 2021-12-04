@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:uana_project/recipe_provider.dart';
+import 'package:uana_project/theme/light_colors.dart';
 
 class RecipeCreate extends StatefulWidget {
   final type;
@@ -65,7 +66,8 @@ class RecipeCreateExState extends State<RecipeCreate> {
   ];
   List<bool> _foringredient = [];
   bool _offingre = true;
-  List<bool> _forkategorie = List.generate(6, (index) => false);
+  // List<bool> _forkategorie = List.generate(6, (index) => false);
+  List<bool> _forkategorie = [];
   List<String> _kategorie = ["국물", "튀김", "매운 음식", "야식", "아침", "식사"];
 
   String etcingredient = " ";
@@ -140,9 +142,15 @@ class RecipeCreateExState extends State<RecipeCreate> {
     for (int i = 0; i < _ingredient.length; i++) {
       _foringredient.add(false);
     }
-    _forkategorie[_kategorie.length - 1] = true;
+    for (int i = 0; i < _kategorie.length-1; i++) {
+      _forkategorie.add(false);
+      if(i == _kategorie.length-2){
+        _forkategorie.add(true);
+      }
+    }
+
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
         leading: TextButton(
@@ -154,13 +162,17 @@ class RecipeCreateExState extends State<RecipeCreate> {
             style: TextStyle(fontSize: 13, color: Colors.black),
           ),
         ),
-        backgroundColor: Colors.grey,
-        title: Text("Add"),
+        backgroundColor: LightColors.eachRecipe,
+        title: Text("레시피 추가하기",
+        style: TextStyle(
+          color: Colors.black
+        ),
+        ),
         actions: <Widget>[
           TextButton(
             child: Text(
               "Save",
-              style: TextStyle(fontSize: 13, color: Colors.white),
+              style: TextStyle(fontSize: 13, color: Colors.black),
             ),
             onPressed: () {
               //
@@ -389,7 +401,7 @@ class RecipeCreateExState extends State<RecipeCreate> {
                     Container(
                       child: Column(
                         children: [
-                          Text("과정 image 넣기 및, 설명 넣기 가능"),
+                          Text("과정 이미지 추가와 설명 적어주세요"),
                           Offstage(
                               offstage: _forimage[0],
                               child: SizedBox(
@@ -695,47 +707,54 @@ class RecipeCreateExState extends State<RecipeCreate> {
                                           ))
                                     ],
                                   ))),
-                          Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.expand_more_outlined),
-                                onPressed: () {
-                                  if (count > 0) {
-                                    count--;
-                                    setState(() {
-                                      _forimage[count] = !_forimage[count];
-                                    });
-                                    print(_forimage);
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            'You should input more than 1 process'),
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.expand_less_outlined),
-                                onPressed: () {
-                                  if (count < 5) {
-                                    count++;
-                                    setState(() {
-                                      _forimage[count] = !_forimage[count];
-                                    });
-                                    print(_forimage);
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content:
-                                        Text('You can input just 6 process'),
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                            ],
+                          Container(
+                            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.remove),
+                                  onPressed: () {
+                                    if (count > 0) {
+
+                                      setState(() {
+                                        _forimage[count] = !_forimage[count];
+                                      });
+                                      count--;
+                                      print(_forimage);
+                                    } else {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                              'You should input more than 1 process'),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 280,
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    if (count < 5) {
+                                      count++;
+                                      setState(() {
+                                        _forimage[count] = !_forimage[count];
+                                      });
+                                      print(_forimage);
+                                    } else {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                          Text('You can input just 6 process'),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),
