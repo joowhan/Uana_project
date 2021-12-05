@@ -41,90 +41,76 @@ class _PopularRecipePageState extends State<PopularRecipePage> {
 
     return recipeProvider.popularRecipes.map((recipe) {// 중간, 기말 때 썼던 예제 그대로
       return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
         clipBehavior: Clip.antiAlias,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            AspectRatio(
-              aspectRatio: 18 / 11,
-
-              child: Image.network(
-                recipe.path,
-                fit: BoxFit.fitWidth,
+        child: GestureDetector(
+          onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RecipeDetailPage(recipe: recipe),
               ),
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              AspectRatio(
+                aspectRatio: 18 / 11,
 
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            recipe.foodName,
-                            style: theme.textTheme.headline6,
-                            maxLines: 1,
-                          ),
-                        ),
-
-                        Icon(
-                          Icons.star,
-                          color: Colors.red,
-                          size: 20,
-                        ),
-                        Text(
-                          'x ${recipe.like}',
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8.0),
-                    /*
-                    Text(
-                      '카테고리: ${recipe.cookingTime}',
-                      style: theme.textTheme.subtitle2,
-                    ),
-
-                     */
-                  ],
+                child: Image.network(
+                  recipe.path,
+                  fit: BoxFit.fitWidth,
                 ),
+
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 25.0,
-                    child: TextButton(
-                      onPressed: () {
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              recipe.foodName,
+                              style: theme.textTheme.headline6,
+                              maxLines: 1,
+                            ),
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RecipeDetailPage(recipe: recipe),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: Colors.red,
+                                size: 20,
+                              ),
+                              Text(
+                                'x ${recipe.like}',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-
-
-                      },
-                      child: const Text(
-                        'more',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.lightBlue,
-                        ),
+                        ],
                       ),
-                    ),
+                      /*
+                      Text(
+                        '카테고리: ${recipe.cookingTime}',
+                        style: theme.textTheme.subtitle2,
+                      ),
+
+                       */
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       );
     }).toList();
@@ -134,7 +120,9 @@ class _PopularRecipePageState extends State<PopularRecipePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('인기 레시피'),
+      ),
       body: Column(
         children: [
           //printWeatherDescription(weatherProvider.weather),

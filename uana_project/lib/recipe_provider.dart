@@ -147,7 +147,7 @@ class RecipeProvider extends ChangeNotifier {
   }
 
   Future<void> loadWeatherRecipes(Weather? weather) async {
-    if(DateTime.now().hour >= 21) {
+    if(DateTime.now().hour >= 21 && DateTime.now().hour <= 24 || DateTime.now().hour >= 0 || DateTime.now().hour <= 3) {
       FirebaseAuth.instance.userChanges().listen((user) {
         FirebaseFirestore.instance
             .collection('forUana')

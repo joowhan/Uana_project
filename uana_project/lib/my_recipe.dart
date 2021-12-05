@@ -134,13 +134,8 @@ class _MyRecipePageState extends State<MyRecipePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-            "나만의 레시피",
-            style: TextStyle(
-              fontSize: 30,
-            )
-        ),
+        //automaticallyImplyLeading: false,
+        title: Text('나만의 레시피'),
       ),
       body: Column(
         children: [

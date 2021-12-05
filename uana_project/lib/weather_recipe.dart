@@ -41,76 +41,64 @@ class _WeatherRecipePageState extends State<WeatherRecipePage> {
     final ThemeData theme = Theme.of(context);
 
     return recipeProvider.weatherRecipes.map((recipe) {// 중간, 기말 때 썼던 예제 그대로
+      String kate = "";
+      for(int i=0; i< recipe.kategorie.length ; i++){
+        if(i != 0){
+          kate += ", ";
+        }
+
+        kate += recipe.kategorie[i] + "류";
+      }
       return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
         clipBehavior: Clip.antiAlias,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            AspectRatio(
-              aspectRatio: 18 / 11,
-
-              child: Image.network(
-                recipe.path,
-                fit: BoxFit.fitWidth,
+        child: GestureDetector(
+          onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RecipeDetailPage(recipe: recipe),
               ),
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              AspectRatio(
+                aspectRatio: 18 / 11,
 
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      recipe.foodName,
-                      style: theme.textTheme.headline6,
-                      maxLines: 1,
-                    ),
-                    const SizedBox(height: 8.0),
-                    /*
-                    Text(
-                      '카테고리: ${recipe.cookingTime}',
-                      style: theme.textTheme.subtitle2,
-                    ),
-
-                     */
-                  ],
+                child: Image.network(
+                  recipe.path,
+                  fit: BoxFit.fitWidth,
                 ),
+
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 25.0,
-                    child: TextButton(
-                      onPressed: () {
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RecipeDetailPage(recipe: recipe),
-                          ),
-                        );
-
-
-                      },
-                      child: const Text(
-                        'more',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.lightBlue,
-                        ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        recipe.foodName,
+                        style: theme.textTheme.headline6,
+                        maxLines: 1,
                       ),
-                    ),
+                      Text(kate,
+                          maxLines: 1,
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontFamily: 'DoHyeonRegular'
+                          )
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       );
     }).toList();
@@ -121,25 +109,27 @@ class _WeatherRecipePageState extends State<WeatherRecipePage> {
     String? weatherDescription;
 
     if(DateTime.now().hour >= 21) {
-      weatherDescription = "와우! 야심한 밤 야식 어떠세요?";
+      weatherDescription = "야심한 밤 야식 어떠세요?";
     }
     else if(DateTime.now().hour >= 7 && DateTime.now().hour <= 10) {
-      weatherDescription = "와우! 일찍 일어나셨군요! 간단하게 아침 어떠세요?";
+      weatherDescription = "일찍 일어나셨군요! 간단하게 아침 어떠세요?";
     }
     else if(weather!.weatherDescription!.toLowerCase() == "rain") {
-      weatherDescription = "와우! 추적 추적 비가 오네요 비 오는 날엔 튀김이랑 전이 국룰인거 아시죠?";
+      weatherDescription = "추적 추적 비가 오네요 비 오는 날엔 튀김이랑 전이 국룰인거 아시죠?";
     }
     else if(weather.tempFeelsLike!.celsius! <= 6.0) {
-      weatherDescription = "와우! 날이 참 춥네요 따뜻한 국물 요리 어떠세요?";
+      weatherDescription = "날이 참 춥네요 따뜻한 국물 요리 어떠세요?";
     }
     else if(weather.tempFeelsLike!.celsius! >= 27.0) {
-      weatherDescription = "와우! 날이 참 덥네요 스트레스를 확 풀어줄 매운 음식 어떠세요?";
+      weatherDescription = "날이 참 덥네요 스트레스를 확 풀어줄 매운 음식 어떠세요?";
     }
 
-    return SizedBox(
-      width: 300,
-      height: 30,
-      child: Text(weatherDescription!),
+    return Text(
+        weatherDescription!,
+        maxLines: 3,
+      style: TextStyle(
+        fontSize: 20.0,
+      ),
     );
   }
 
@@ -147,10 +137,19 @@ class _WeatherRecipePageState extends State<WeatherRecipePage> {
   Widget build(BuildContext context) {
     WeatherProvider weatherProvider = Provider.of(context, listen: true);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('오늘의 추천 요리'),
+      ),
       body: Column(
         children: [
-          printWeatherDescription(weatherProvider.weather),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * (1 / 10),
+            width: MediaQuery.of(context).size.width,
+            child: Align(
+                alignment: Alignment.center,
+                child: printWeatherDescription(weatherProvider.weather)
+            ),
+          ),
           Expanded(
             child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
               shrinkWrap: true,

@@ -44,77 +44,66 @@ class _SearchFromRefriPageState extends State<SearchFromRefriPage> {
     print(newrecipePro);
     print(widget.userRefriInfo);
     return newrecipePro.map((recipe) {// 중간, 기말 때 썼던 예제 그대로
+      String kate = "";
+      for(int i=0; i< recipe.kategorie.length ; i++){
+        if(i != 0){
+          kate += ", ";
+        }
+
+        kate += recipe.kategorie[i] + "류";
+      }
       // print(recipe);
       return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
         clipBehavior: Clip.antiAlias,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            AspectRatio(
-              aspectRatio: 18 / 11,
-
-              child: Image.network(
-                recipe.path,
-                fit: BoxFit.fitWidth,
+        child: GestureDetector(
+          onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RecipeDetailPage(recipe: recipe),
               ),
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              AspectRatio(
+                aspectRatio: 18 / 11,
 
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      recipe.foodName,
-                      style: theme.textTheme.headline6,
-                      maxLines: 1,
-                    ),
-                    const SizedBox(height: 8.0),
-                    /*
-                    Text(
-                      '카테고리: ${recipe.cookingTime}',
-                      style: theme.textTheme.subtitle2,
-                    ),
-
-                     */
-                  ],
+                child: Image.network(
+                  recipe.path,
+                  fit: BoxFit.fitWidth,
                 ),
+
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 25.0,
-                    child: TextButton(
-                      onPressed: () {
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RecipeDetailPage(recipe: recipe),
-                          ),
-                        );
-
-
-                      },
-                      child: const Text(
-                        'more',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.lightBlue,
-                        ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        recipe.foodName,
+                        style: theme.textTheme.headline6,
+                        maxLines: 1,
                       ),
-                    ),
+                      const SizedBox(height: 8.0),
+                      Text(kate,
+                          maxLines: 1,
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontFamily: 'DoHyeonRegular'
+                          )
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       );
     }).toList();
@@ -123,9 +112,7 @@ class _SearchFromRefriPageState extends State<SearchFromRefriPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.grey,
-        title: Text("가지고 있는 재료로 레시피"),
+        title: Text('냉장고 파먹기'),
       ),
       body: Column(
         children: <Widget>[
@@ -146,7 +133,7 @@ class _SearchFromRefriPageState extends State<SearchFromRefriPage> {
             child: GridView.count( // 카드 한 줄에 하나씩 출력 되도록
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
-              crossAxisCount: 1,
+              crossAxisCount: 2,
               padding: const EdgeInsets.all(16.0),
               childAspectRatio: 8.0 / 9.0,
               children: _buildGridCards(context),
