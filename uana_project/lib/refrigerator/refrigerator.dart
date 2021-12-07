@@ -5,6 +5,7 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:uana_project/refrigerator/refrigerator_calendar.dart';
 import '../search/search_from_refri.dart';
 import 'refrigerator_detail.dart';
 import '../provider/refrigerator_provider.dart';
@@ -81,6 +82,29 @@ class _RefrigeratorPageState extends State<RefrigeratorPage> {
                 ),
               ),
                */
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => CalendarPage(refrigerator: refrigeratorProvider.userfoodInformation)),
+                      );
+                    },
+                    icon: const FaIcon(FontAwesomeIcons.calendarCheck),
+                    label: const Text(
+                      '유통기한 한 눈에 보기',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.amber,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -94,7 +118,7 @@ class _RefrigeratorPageState extends State<RefrigeratorPage> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/add_refrigerator'); // 내 냉장고에 새로운 식재료 등록하는 페이지로 연결
                   },
-                  child: Text(
+                  child: const Text(
                       '식재료 등록',
                       style: TextStyle(
                         fontSize: 18.0,
@@ -113,7 +137,7 @@ class _RefrigeratorPageState extends State<RefrigeratorPage> {
                       MaterialPageRoute(builder: (context) => SearchFromRefriPage(userRefriInfo: toSearch)),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                       '레시피 검색',
                       style: TextStyle(
                         fontSize: 18.0,

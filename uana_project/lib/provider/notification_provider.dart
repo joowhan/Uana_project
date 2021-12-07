@@ -41,10 +41,15 @@ class NotificationProvider extends ChangeNotifier {
   }
 
   Future<void> expiredNotification(int foodCode, String foodName, String expiredDate) async {
+
+    if(int.parse(expiredDate) <= 7) {
+      expiredDate = "7";
+    }
+
     await notifications.zonedSchedule(
         foodCode,
         '유통기한이 얼마 남지 않았습니다!',
-        '$foodName의 유통기한이 일주일 남았습니다!.',
+        '$foodName의 유통기한이 일주일 이하로 남았습니다!',
         tz.TZDateTime.now(tz.local).add(Duration(seconds: 5, days: int.parse(expiredDate) - 7)),
         const NotificationDetails(
             android: AndroidNotificationDetails(
