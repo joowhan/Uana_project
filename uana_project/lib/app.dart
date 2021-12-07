@@ -65,12 +65,12 @@ class _UanaAppState extends State<UanaApp> {
 
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: Colors.greenAccent,
+            primary: Colors.lightGreen,
           ),
         ),
 
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Colors.greenAccent,
+          backgroundColor: Colors.lightGreen,
         ),
 
         toggleButtonsTheme: ToggleButtonsThemeData(

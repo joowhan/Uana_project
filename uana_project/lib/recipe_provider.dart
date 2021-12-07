@@ -147,7 +147,7 @@ class RecipeProvider extends ChangeNotifier {
   }
 
   Future<void> loadWeatherRecipes(Weather? weather) async {
-    if(DateTime.now().hour >= 21 && DateTime.now().hour <= 24 || DateTime.now().hour >= 0 || DateTime.now().hour <= 3) {
+    if(DateTime.now().hour >= 21 && DateTime.now().hour <= 24 || DateTime.now().hour >= 0 && DateTime.now().hour <= 3) {
       FirebaseAuth.instance.userChanges().listen((user) {
         FirebaseFirestore.instance
             .collection('forUana')
@@ -181,7 +181,7 @@ class RecipeProvider extends ChangeNotifier {
       });
     }
 
-    else if(DateTime.now().hour >= 7 && DateTime.now().hour <= 10) {
+    else if(DateTime.now().hour >= 7 && DateTime.now().hour <= 11) {
       FirebaseAuth.instance.userChanges().listen((user) {
         FirebaseFirestore.instance
             .collection('forUana')

@@ -115,7 +115,7 @@ class _SearchPageState extends State<SearchPage> {
           );
         },
         child: const Icon(Icons.add),
-        backgroundColor: Colors.green,
+        //backgroundColor: Colors.green,
       ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
