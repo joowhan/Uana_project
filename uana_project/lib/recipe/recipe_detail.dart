@@ -109,10 +109,21 @@ class _RecipePageState extends State<RecipeDetailPage> {
       ],
     );
   }
+  var ingreMap = Map<int, String>();
 
   @override
   Widget build(BuildContext context) {
     var childButtons = <UnicornButton>[];
+
+    for (int i = 0; i < widget.recipe.ingredient.length; i++) {
+      ingreMap[i] = widget.recipe.ingredient[i];
+    }
+    final ValueNotifier<List<dynamic>> _a = ValueNotifier<List<dynamic>>([]);
+    _a.value = widget.recipe.likeusers;
+    // bool _owner =
+    //     FirebaseAuth.instance.currentUser!.uid == widget.recipe.likeusers;
+    int _thislike = widget.recipe.like;
+    final ValueNotifier<int> _counter = ValueNotifier<int>(_thislike);
 
     childButtons.add(UnicornButton(
         hasLabel: true,
@@ -151,37 +162,22 @@ class _RecipePageState extends State<RecipeDetailPage> {
     print(widget.recipe.likeusers);
 
 
-
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('forUana')
-            .doc(widget.recipe.docId)
-            .snapshots(),
-        builder:
-            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Something went wrong');
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Container();
-          }
-
-          var recipeDocument = snapshot.data;
-          var ingreMap = Map<int, String>();
-          for (int i = 0; i < widget.recipe.ingredient.length; i++) {
-            ingreMap[i] = widget.recipe.ingredient[i];
-          }
-          return Scaffold(
+    return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               title: Text('${widget.recipe.foodName}'),
               leading: IconButton(
                 icon: const Icon(
                   Icons.arrow_back,
                   color: Colors.black,
                 ),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () {
+
+                      Navigator.of(context).pop();
+                      recipeProvider.loadRecipes();
+
+                }
               ),
               // title: Text(
               //   widget.recipe.foodName,
@@ -234,47 +230,72 @@ class _RecipePageState extends State<RecipeDetailPage> {
                           ),
                         ),
 
-                        Row(
-                          children: [
-                            recipeDocument!['likeusers']
-                                .contains(FirebaseAuth.instance.currentUser!.uid)
-                                ? IconButton(
-                              padding: EdgeInsets.zero,
-                              constraints: BoxConstraints(),
-                              icon: Icon(Icons.star),
-                              color: Colors.red,
-                              iconSize: 40,
-                              onPressed: () {
-                                recipeProvider.updateLike(
-                                    recipeDocument['docId'],
-                                    recipeDocument['like'],
-                                    false);
-                              },
-                            )
-                                : IconButton(
-                              padding: EdgeInsets.zero,
-                              constraints: BoxConstraints(),
-                              icon: Icon(Icons.star_border),
-                              color: Colors.red,
-                              iconSize: 40,
-                              onPressed: () {
-                                recipeProvider.updateLike(
-                                    recipeDocument['docId'],
-                                    recipeDocument['like'],
-                                    true);
-                              },
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Text(
-                                recipeDocument['like'].toString(),
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30,
-                                ),
-                              ),
-                            ),
-                          ],
+                        ValueListenableBuilder(
+                          valueListenable: _counter,
+                          builder: (BuildContext context, int value, Widget? child) {
+                            return
+                            ValueListenableBuilder(
+                            valueListenable: _a,
+                            builder: (BuildContext context, List<dynamic> avalue, Widget? child) {
+                              return Row(
+                                children: [
+
+                                  avalue.contains(
+                                      FirebaseAuth.instance.currentUser!.uid)
+                                      ? IconButton(
+                                    padding: EdgeInsets.zero,
+                                    constraints: BoxConstraints(),
+                                    icon: Icon(Icons.star),
+                                    color: Colors.red,
+                                    iconSize: 40,
+                                    onPressed: () async{
+                                      _counter.value -= 1;
+                                      _a.value.remove(FirebaseAuth.instance.currentUser!.uid.toString());
+                                      await FirebaseFirestore.instance
+                                          .collection("forUana")
+                                          .doc(widget.recipe.docId)
+                                          .update({
+                                        'like': widget.recipe.like-1,
+                                        'likeusers': FieldValue.arrayRemove(
+                                            [FirebaseAuth.instance.currentUser!.uid])
+                                      });
+                                    },
+                                  )
+                                      : IconButton(
+                                    padding: EdgeInsets.zero,
+                                    constraints: BoxConstraints(),
+                                    icon: Icon(Icons.star_border),
+                                    color: Colors.red,
+                                    iconSize: 40,
+                                    onPressed: () async{
+                                      _counter.value += 1;
+                                      _a.value.add(FirebaseAuth.instance.currentUser!.uid.toString());
+                                      await FirebaseFirestore.instance
+                                          .collection("forUana")
+                                          .doc(widget.recipe.docId)
+                                          .update({
+                                        'like': widget.recipe.like+1,
+                                        'likeusers': FieldValue.arrayUnion(
+                                            [FirebaseAuth.instance.currentUser!.uid])
+                                      });
+                                    },
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      value.toString(),
+                                      semanticsLabel: 'like_you',
+                                      style: const TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+                            );
+                          }
                         ),
 
 
@@ -720,7 +741,8 @@ class _RecipePageState extends State<RecipeDetailPage> {
                 //   ],
                 // ),
               );
-            });
+            }
+
 
 
 
@@ -739,4 +761,3 @@ class _RecipePageState extends State<RecipeDetailPage> {
   }
 
 
-}
