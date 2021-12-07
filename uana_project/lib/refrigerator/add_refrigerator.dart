@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'add_refrigerator_detail.dart';
-import 'login_provider.dart';
-import 'refrigerator_provider.dart';
+import '../provider/login_provider.dart';
+import '../provider/refrigerator_provider.dart';
 import 'dart:core';
 
 class AddRefrigeratorPage extends StatefulWidget {

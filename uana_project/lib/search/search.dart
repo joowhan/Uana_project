@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:uana_project/recipe_create.dart';
+import 'package:uana_project/recipe/recipe_create.dart';
+import 'package:uana_project/provider/recipe_provider.dart';
 import 'package:uana_project/theme/light_colors.dart';
-import 'recipe_detail.dart';
-import 'login_provider.dart';
+import '../recipe/recipe_detail.dart';
+import '../provider/login_provider.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
-import 'recipe_provider.dart';
-import 'recipe_create.dart';
+import '../recipe/recipe_create.dart';
 
 /*
 전체 레시피 화면 (추후에 검색 기능 추가하도록)

@@ -10,7 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:uana_project/recipe_provider.dart';
+import 'package:uana_project/provider/recipe_provider.dart';
 import 'package:uana_project/theme/light_colors.dart';
 
 class RecipeCreate extends StatefulWidget {

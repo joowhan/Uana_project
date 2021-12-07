@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'notification_provider.dart';
-import 'refrigerator_provider.dart';
-import 'recipe_provider.dart';
-import 'login_provider.dart';
-import 'weather_provider.dart';
-import 'app.dart';
+import 'package:uana_project/provider/recipe_provider.dart';
+import 'provider/notification_provider.dart';
+import 'provider/refrigerator_provider.dart';
+import 'provider/login_provider.dart';
+import 'provider/weather_provider.dart';
+import 'recipe/app.dart';
 
 /*
 main

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'recipe_detail.dart';
-import 'recipe_provider.dart';
-import 'login_provider.dart';
+import 'package:uana_project/provider/recipe_provider.dart';
+import 'package:uana_project/recipe/recipe_detail.dart';
+import '../recipe/recipe_detail.dart';
+import '../provider/login_provider.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
 

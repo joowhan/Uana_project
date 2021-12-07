@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:uana_project/recipe_provider.dart';
+import 'package:uana_project/provider/recipe_provider.dart';
 import 'package:uana_project/theme/light_colors.dart';
 import 'add_recipe.dart';
-import 'weather_provider.dart';
-import 'login_provider.dart';
+import 'provider/weather_provider.dart';
+import 'provider/login_provider.dart';
 import 'dart:core';
-import 'refrigerator.dart';
-import 'search.dart';
-import 'favorite.dart';
-import 'profile.dart';
+import 'refrigerator/refrigerator.dart';
+import 'search/search.dart';
+import 'profile/favorite.dart';
+import 'profile/profile.dart';
 
 /*
 Home 화면

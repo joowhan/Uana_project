@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uana_project/popular_recipe.dart';
-import 'package:uana_project/recipe_provider.dart';
-import 'package:uana_project/refrigerator_provider.dart';
+import 'package:uana_project/homepage/popular_recipe.dart';
+import 'package:uana_project/provider/recipe_provider.dart';
+import 'package:uana_project/provider/refrigerator_provider.dart';
 import 'package:uana_project/theme/light_colors.dart';
-import 'package:uana_project/weather_provider.dart';
-import 'login_provider.dart';
-import 'my_recipe.dart';
-import 'notification_provider.dart';
-import 'weather_recipe.dart';
-import 'login.dart';
-import 'home.dart';
-import 'add_refrigerator.dart';
-import 'refrigerator_detail.dart';
+import 'package:uana_project/provider/weather_provider.dart';
+import '../provider/login_provider.dart';
+import '../homepage/my_recipe.dart';
+import '../provider/notification_provider.dart';
+import '../homepage/weather_recipe.dart';
+import '../login.dart';
+import '../home.dart';
+import '../refrigerator/add_refrigerator.dart';
+import '../refrigerator/refrigerator_detail.dart';
 
 
 /*
