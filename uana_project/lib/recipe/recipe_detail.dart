@@ -53,7 +53,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
           height: 20.0,
         ),
 
-        if (widget.recipe.processDescription[key] != ' ')
+        if (widget.recipe.processUrl[key] != 'http://handong.edu/site/handong/res/img/logo.png')
           Container(
             width: 400,
             height: 200,

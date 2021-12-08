@@ -181,6 +181,40 @@ class RecipeProvider extends ChangeNotifier {
       });
     }
 
+    else if(DateTime.now().hour >= 11 && DateTime.now().hour <= 16 || DateTime.now().hour >= 17 && DateTime.now().hour <= 20) {
+      FirebaseAuth.instance.userChanges().listen((user) {
+        FirebaseFirestore.instance
+            .collection('forUana')
+            .where('kategorie', arrayContains: '식사')
+            .snapshots()
+            .listen((snapshot) {
+          _weatherRecipes = [];
+          for(final document in snapshot.docs) {
+            _weatherRecipes.add(
+              RecipeInfo(
+                detailUrl: document.data()['detailUrl'] as String,
+                docId: document.data()['docId'] as String,
+                etcMaterial: document.data()['etcMaterial'] as String,
+                foodName: document.data()['foodName'] as String,
+                ingredient: document.data()['ingredient'] as List<dynamic>,
+                kategorie: document.data()['kategorie'] as List<dynamic>,
+                like: document.data()['like'] as int,
+                likeusers: document.data()['likeusers'] as List<dynamic>,
+                name: document.data()['name'] as String,
+                path: document.data()['path'] as String,
+                processDescription: document.data()['processDescription'] as Map<String, dynamic>,
+                processUrl: document.data()['processUrl'] as Map<String, dynamic>,
+                timedate: document.data()['timedate'] as String,
+                timestamp: document.data()['timestamp'] as int,
+                userId: document.data()['userId'] as String,
+              ),
+            );
+          }
+        });
+        print("점심 or 저녁 시간 때 식사 요리 다운로드 완료");
+      });
+    }
+
     else if(DateTime.now().hour >= 7 && DateTime.now().hour <= 11) {
       FirebaseAuth.instance.userChanges().listen((user) {
         FirebaseFirestore.instance

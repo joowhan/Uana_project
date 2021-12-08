@@ -32,6 +32,7 @@ class WeatherRecipePage extends StatefulWidget {
 class _WeatherRecipePageState extends State<WeatherRecipePage> {
   List<Card> _buildGridCards(BuildContext context) {
     RecipeProvider recipeProvider = Provider.of(context, listen : true); // provider 사용
+    WeatherProvider weatherProvider = Provider.of(context, listen: true); // provider 사용
 
     if (recipeProvider.weatherRecipes.isEmpty) {
       print('아직 다운 안됐음');
@@ -105,11 +106,16 @@ class _WeatherRecipePageState extends State<WeatherRecipePage> {
   }
 
   Widget printWeatherDescription(Weather? weather) {
-    // 요리 과정 출력 (사진 + 과정) (사진 용량이 커서 띄우는데 오래 걸리네욥)
     String? weatherDescription;
 
-    if(DateTime.now().hour >= 21) {
+    if(DateTime.now().hour >= 21 && DateTime.now().hour <= 24 || DateTime.now().hour >= 0 && DateTime.now().hour <= 3) {
       weatherDescription = "야심한 밤 야식 어떠세요?";
+    }
+    else if (DateTime.now().hour >= 11 && DateTime.now().hour <= 14) {
+      weatherDescription = "벌써 점심시간이네요! 밥 먹고 일합시다!";
+    }
+    else if (DateTime.now().hour >= 17 && DateTime.now().hour <= 20) {
+      weatherDescription = "오늘 하루도 고생했어요! 맛있는 저녁 식사 어떠세요?";
     }
     else if(DateTime.now().hour >= 7 && DateTime.now().hour <= 10) {
       weatherDescription = "일찍 일어나셨군요! 간단하게 아침 어떠세요?";
@@ -142,6 +148,20 @@ class _WeatherRecipePageState extends State<WeatherRecipePage> {
       ),
       body: Column(
         children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * (1 / 5),
+            width: MediaQuery.of(context).size.width,
+            child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  //'${weatherProvider.weather}'
+                  '장소: ${weatherProvider.weather!.areaName}\n'
+                  '날씨: ${weatherProvider.weather!.weatherDescription}\n'
+                  '최고기온: ${weatherProvider.weather!.tempMax} 최저기온: ${weatherProvider.weather!.tempMin}\n'
+                  '현재 기온: ${weatherProvider.weather!.temperature} 체감온도: ${weatherProvider.weather!.tempFeelsLike}\n',
+                ),
+            ),
+          ),
           SizedBox(
             height: MediaQuery.of(context).size.height * (1 / 10),
             width: MediaQuery.of(context).size.width,
