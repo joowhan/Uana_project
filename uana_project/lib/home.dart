@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
               text: '냉장고',
             ),
             Tab(
-              icon: Icon(Icons.search), // 전체 레시피 화면
+              icon: Icon(Icons.fastfood), // 전체 레시피 화면
               text: '레시피',
             ),
             Tab(
@@ -98,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         SizedBox(height: 30.0),
         Container(
-          margin: EdgeInsets.fromLTRB(0, 30, 160, 0),
+          margin: EdgeInsets.fromLTRB(20, 30, 160, 0),
           child: Stack(
             children: <Widget>[
               ElevatedButton(
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // ),
 
         Container(
-          margin: EdgeInsets.fromLTRB(90, 5, 0, 0),
+          margin: EdgeInsets.fromLTRB(170, 5, 0, 0),
           child: Stack(
             children: <Widget> [
               ElevatedButton(
