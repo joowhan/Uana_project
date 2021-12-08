@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:uana_project/home.dart';
+import 'package:uana_project/other/forreadcsv.dart';
 import 'package:uana_project/recipe/recipe_detail_youtube.dart';
 import 'package:uana_project/provider/recipe_provider.dart';
+import 'package:uana_project/search/search.dart';
 import '../provider/login_provider.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
@@ -182,7 +186,44 @@ class _RecipePageState extends State<RecipeDetailPage> {
 
     RecipeProvider recipeProvider = Provider.of(context, listen: true); // provider 사용
     print(widget.recipe.likeusers);
-
+    void _delete(RecipeInfo doc) {
+      FirebaseFirestore.instance.collection('forUana').doc(doc.docId).delete();
+      Navigator.pop(context);
+      recipeProvider.loadRecipes();
+    }
+    
+    _onAlertButtonsPressed(context) {
+      Alert(
+        context: context,
+        type: AlertType.warning,
+        title: "해당 레시피를 삭제시겠습니까?",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "삭제",
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+            onPressed: () async{
+              _delete(widget.recipe);
+              Navigator.pop(context);
+            },
+            color: Color.fromRGBO(0, 179, 134, 1.0),
+          ),
+          DialogButton(
+            child: Text(
+              "취소",
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+            onPressed: () => Navigator.pop(context),
+            gradient: LinearGradient(colors: [
+              Color.fromRGBO(116, 116, 191, 1.0),
+              Color.fromRGBO(52, 138, 199, 1.0),
+            ]
+            ),
+          )
+        ],
+      ).show();
+    }
 
     return Scaffold(
             backgroundColor: Colors.white,
@@ -207,19 +248,14 @@ class _RecipePageState extends State<RecipeDetailPage> {
               // ),
               //backgroundColor: Colors.grey,
               actions: <Widget>[
-                FlatButton.icon(
-                  icon: Icon(Icons.play_circle_filled, color: Colors.red),
-                  label: Text("Watch Recipe"),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Player(
-                            widget.recipe.detailUrl, widget.recipe.foodName),
-                      ),
-                    );
-                  },
-                )
+
+                IconButton(
+                  icon: Icon(Icons.delete),
+
+                  onPressed: () => _onAlertButtonsPressed(context),
+                ),
+
+
               ],
             ),
             body: ListView(
@@ -244,7 +280,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
 
 
                         Container(
-                          margin: EdgeInsets.fromLTRB(5.0, 20.0, 20, 0),
+                          margin: EdgeInsets.fromLTRB(5.0, 10.0, 20, 0),
                           child: Column(
                             // crossAxisAlignment: CrossAxisAlignment.st,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,13 +288,41 @@ class _RecipePageState extends State<RecipeDetailPage> {
                               const SizedBox(
                                 height: 25.0,
                               ),
-                              Text(
-                                '${widget.recipe.foodName}\n',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30,
-                                ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '${widget.recipe.foodName}\n',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30,
+                                    ),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      FlatButton.icon(
+                                        icon: Icon(Icons.play_circle_filled, color: Colors.red),
+                                        label: Text("Watch Recipe"),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Player(
+                                                  widget.recipe.detailUrl, widget.recipe.foodName),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 45,
+                                      )
+                                    ],
+                                  ),
+
+                                ],
                               ),
+
 
                               ValueListenableBuilder(
                                   valueListenable: _counter,
@@ -313,7 +377,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
                                                 Padding(
                                                   padding: const EdgeInsets.only(left: 8.0),
                                                   child: Text(
-                                                    value.toString(),
+                                                    _counter.value.toString(),
                                                     semanticsLabel: 'like_you',
                                                     style: const TextStyle(
                                                       color: Colors.red,
