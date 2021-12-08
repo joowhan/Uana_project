@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Positioned(
                 top: 0,
                 bottom: 120,
-                left: 70,
+                left: 65,
                 child: Container(
                     height: 75,
                     width: 75,
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Positioned(
                 top: 0,
                 bottom: 100,
-                left: 20,
+                left: 40,
                 child: Container(
                     height: 75,
                     width: 75,
@@ -228,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Positioned(
                 top: 0,
                 bottom: 100,
-                left: 20,
+                left: 30,
                 child: Container(
                     height: 75,
                     width: 75,
@@ -238,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Positioned(
                 top: 0,
                 bottom: 100,
-                left: 70,
+                left: 80,
                 child: Container(
                     height: 75,
                     width: 75,
