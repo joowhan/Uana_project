@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:weather/weather.dart';
+import 'package:location/location.dart';
 
 /*
 레시피 provider
@@ -147,7 +149,7 @@ class RecipeProvider extends ChangeNotifier {
   }
 
   Future<void> loadWeatherRecipes(Weather? weather) async {
-    if(DateTime.now().hour >= 21 && DateTime.now().hour <= 24 || DateTime.now().hour >= 0 && DateTime.now().hour <= 3) {
+    if (DateTime.now().hour >= 21 && DateTime.now().hour <= 24 || DateTime.now().hour >= 0 && DateTime.now().hour <= 3) {
       FirebaseAuth.instance.userChanges().listen((user) {
         FirebaseFirestore.instance
             .collection('forUana')
@@ -155,7 +157,7 @@ class RecipeProvider extends ChangeNotifier {
             .snapshots()
             .listen((snapshot) {
           _weatherRecipes = [];
-          for(final document in snapshot.docs) {
+          for (final document in snapshot.docs) {
             _weatherRecipes.add(
               RecipeInfo(
                 detailUrl: document.data()['detailUrl'] as String,
@@ -168,8 +170,10 @@ class RecipeProvider extends ChangeNotifier {
                 likeusers: document.data()['likeusers'] as List<dynamic>,
                 name: document.data()['name'] as String,
                 path: document.data()['path'] as String,
-                processDescription: document.data()['processDescription'] as Map<String, dynamic>,
-                processUrl: document.data()['processUrl'] as Map<String, dynamic>,
+                processDescription: document
+                    .data()['processDescription'] as Map<String, dynamic>,
+                processUrl: document.data()['processUrl'] as Map<String,
+                    dynamic>,
                 timedate: document.data()['timedate'] as String,
                 timestamp: document.data()['timestamp'] as int,
                 userId: document.data()['userId'] as String,
@@ -181,7 +185,156 @@ class RecipeProvider extends ChangeNotifier {
       });
     }
 
-    else if(DateTime.now().hour >= 11 && DateTime.now().hour <= 16 || DateTime.now().hour >= 17 && DateTime.now().hour <= 20) {
+    else if (DateTime.now().hour >= 7 && DateTime.now().hour <= 11) {
+      FirebaseAuth.instance.userChanges().listen((user) {
+        FirebaseFirestore.instance
+            .collection('forUana')
+            .where('kategorie', arrayContains: '아침')
+            .snapshots()
+            .listen((snapshot) {
+          _weatherRecipes = [];
+          for (final document in snapshot.docs) {
+            _weatherRecipes.add(
+              RecipeInfo(
+                detailUrl: document.data()['detailUrl'] as String,
+                docId: document.data()['docId'] as String,
+                etcMaterial: document.data()['etcMaterial'] as String,
+                foodName: document.data()['foodName'] as String,
+                ingredient: document.data()['ingredient'] as List<dynamic>,
+                kategorie: document.data()['kategorie'] as List<dynamic>,
+                like: document.data()['like'] as int,
+                likeusers: document.data()['likeusers'] as List<dynamic>,
+                name: document.data()['name'] as String,
+                path: document.data()['path'] as String,
+                processDescription: document
+                    .data()['processDescription'] as Map<String, dynamic>,
+                processUrl: document.data()['processUrl'] as Map<String,
+                    dynamic>,
+                timedate: document.data()['timedate'] as String,
+                timestamp: document.data()['timestamp'] as int,
+                userId: document.data()['userId'] as String,
+              ),
+            );
+          }
+        });
+        print("이른 시각 아침 요리 다운로드 완료");
+      });
+    }
+
+    else if (DateTime.now().hour >= 11 && DateTime.now().hour <= 16 || DateTime.now().hour >= 17 && DateTime.now().hour <= 20) {
+      if (weather!.weatherDescription!.toLowerCase() == "rain") {
+        FirebaseAuth.instance.userChanges().listen((user) {
+          FirebaseFirestore.instance
+              .collection('forUana')
+              .where('kategorie', arrayContains: '튀김, 전')
+              .snapshots()
+              .listen((snapshot) {
+            _weatherRecipes = [];
+            for (final document in snapshot.docs) {
+              _weatherRecipes.add(
+                RecipeInfo(
+                  detailUrl: document.data()['detailUrl'] as String,
+                  docId: document.data()['docId'] as String,
+                  etcMaterial: document.data()['etcMaterial'] as String,
+                  foodName: document.data()['foodName'] as String,
+                  ingredient: document.data()['ingredient'] as List<dynamic>,
+                  kategorie: document.data()['kategorie'] as List<dynamic>,
+                  like: document.data()['like'] as int,
+                  likeusers: document.data()['likeusers'] as List<dynamic>,
+                  name: document.data()['name'] as String,
+                  path: document.data()['path'] as String,
+                  processDescription: document
+                      .data()['processDescription'] as Map<String, dynamic>,
+                  processUrl: document.data()['processUrl'] as Map<
+                      String,
+                      dynamic>,
+                  timedate: document.data()['timedate'] as String,
+                  timestamp: document.data()['timestamp'] as int,
+                  userId: document.data()['userId'] as String,
+                ),
+              );
+            }
+          });
+          print("비오는 날 튀김, 전 요리 다운로드 완료");
+        });
+      }
+
+      else if (weather.tempFeelsLike!.celsius! <= 6.0) {
+        FirebaseAuth.instance.userChanges().listen((user) {
+          FirebaseFirestore.instance
+              .collection('forUana')
+              .where('kategorie', arrayContains: '국물')
+              .snapshots()
+              .listen((snapshot) {
+            _weatherRecipes = [];
+            for (final document in snapshot.docs) {
+              _weatherRecipes.add(
+                RecipeInfo(
+                  detailUrl: document.data()['detailUrl'] as String,
+                  docId: document.data()['docId'] as String,
+                  etcMaterial: document.data()['etcMaterial'] as String,
+                  foodName: document.data()['foodName'] as String,
+                  ingredient: document.data()['ingredient'] as List<dynamic>,
+                  kategorie: document.data()['kategorie'] as List<dynamic>,
+                  like: document.data()['like'] as int,
+                  likeusers: document.data()['likeusers'] as List<dynamic>,
+                  name: document.data()['name'] as String,
+                  path: document.data()['path'] as String,
+                  processDescription: document
+                      .data()['processDescription'] as Map<String, dynamic>,
+                  processUrl: document.data()['processUrl'] as Map<
+                      String,
+                      dynamic>,
+                  timedate: document.data()['timedate'] as String,
+                  timestamp: document.data()['timestamp'] as int,
+                  userId: document.data()['userId'] as String,
+                ),
+              );
+            }
+          });
+          print("추운 날씨 국물 요리 다운로드 완료");
+        });
+      }
+
+      else if (weather.tempFeelsLike!.celsius! >= 27.0) {
+        FirebaseAuth.instance.userChanges().listen((user) {
+          FirebaseFirestore.instance
+              .collection('forUana')
+              .where('kategorie', arrayContains: '매운 음식')
+              .snapshots()
+              .listen((snapshot) {
+            _weatherRecipes = [];
+            for (final document in snapshot.docs) {
+              _weatherRecipes.add(
+                RecipeInfo(
+                  detailUrl: document.data()['detailUrl'] as String,
+                  docId: document.data()['docId'] as String,
+                  etcMaterial: document.data()['etcMaterial'] as String,
+                  foodName: document.data()['foodName'] as String,
+                  ingredient: document.data()['ingredient'] as List<dynamic>,
+                  kategorie: document.data()['kategorie'] as List<dynamic>,
+                  like: document.data()['like'] as int,
+                  likeusers: document.data()['likeusers'] as List<dynamic>,
+                  name: document.data()['name'] as String,
+                  path: document.data()['path'] as String,
+                  processDescription: document
+                      .data()['processDescription'] as Map<String, dynamic>,
+                  processUrl: document.data()['processUrl'] as Map<
+                      String,
+                      dynamic>,
+                  timedate: document.data()['timedate'] as String,
+                  timestamp: document.data()['timestamp'] as int,
+                  userId: document.data()['userId'] as String,
+                ),
+              );
+            }
+          });
+          print("더운 날씨 매운 요리 다운로드 완료");
+        });
+      }
+    }
+
+    else {
       FirebaseAuth.instance.userChanges().listen((user) {
         FirebaseFirestore.instance
             .collection('forUana')
@@ -214,143 +367,12 @@ class RecipeProvider extends ChangeNotifier {
         print("점심 or 저녁 시간 때 식사 요리 다운로드 완료");
       });
     }
-
-    else if(DateTime.now().hour >= 7 && DateTime.now().hour <= 11) {
-      FirebaseAuth.instance.userChanges().listen((user) {
-        FirebaseFirestore.instance
-            .collection('forUana')
-            .where('kategorie', arrayContains: '아침')
-            .snapshots()
-            .listen((snapshot) {
-          _weatherRecipes = [];
-          for(final document in snapshot.docs) {
-            _weatherRecipes.add(
-              RecipeInfo(
-                detailUrl: document.data()['detailUrl'] as String,
-                docId: document.data()['docId'] as String,
-                etcMaterial: document.data()['etcMaterial'] as String,
-                foodName: document.data()['foodName'] as String,
-                ingredient: document.data()['ingredient'] as List<dynamic>,
-                kategorie: document.data()['kategorie'] as List<dynamic>,
-                like: document.data()['like'] as int,
-                likeusers: document.data()['likeusers'] as List<dynamic>,
-                name: document.data()['name'] as String,
-                path: document.data()['path'] as String,
-                processDescription: document.data()['processDescription'] as Map<String, dynamic>,
-                processUrl: document.data()['processUrl'] as Map<String, dynamic>,
-                timedate: document.data()['timedate'] as String,
-                timestamp: document.data()['timestamp'] as int,
-                userId: document.data()['userId'] as String,
-              ),
-            );
-          }
-        });
-        print("이른 시각 아침 요리 다운로드 완료");
-      });
-    }
-
-    else if(weather!.weatherDescription!.toLowerCase() == "rain") {
-      FirebaseAuth.instance.userChanges().listen((user) {
-        FirebaseFirestore.instance
-            .collection('forUana')
-            .where('kategorie', arrayContains: '튀김, 전')
-            .snapshots()
-            .listen((snapshot) {
-          _weatherRecipes = [];
-          for(final document in snapshot.docs) {
-            _weatherRecipes.add(
-              RecipeInfo(
-                detailUrl: document.data()['detailUrl'] as String,
-                docId: document.data()['docId'] as String,
-                etcMaterial: document.data()['etcMaterial'] as String,
-                foodName: document.data()['foodName'] as String,
-                ingredient: document.data()['ingredient'] as List<dynamic>,
-                kategorie: document.data()['kategorie'] as List<dynamic>,
-                like: document.data()['like'] as int,
-                likeusers: document.data()['likeusers'] as List<dynamic>,
-                name: document.data()['name'] as String,
-                path: document.data()['path'] as String,
-                processDescription: document.data()['processDescription'] as Map<String, dynamic>,
-                processUrl: document.data()['processUrl'] as Map<String, dynamic>,
-                timedate: document.data()['timedate'] as String,
-                timestamp: document.data()['timestamp'] as int,
-                userId: document.data()['userId'] as String,
-              ),
-            );
-          }
-        });
-        print("비오는 날 튀김, 전 요리 다운로드 완료");
-      });
-    }
-    else if(weather.tempFeelsLike!.celsius! <= 6.0) {
-      FirebaseAuth.instance.userChanges().listen((user) {
-        FirebaseFirestore.instance
-            .collection('forUana')
-            .where('kategorie', arrayContains: '국물')
-            .snapshots()
-            .listen((snapshot) {
-          _weatherRecipes = [];
-          for(final document in snapshot.docs) {
-            _weatherRecipes.add(
-              RecipeInfo(
-                detailUrl: document.data()['detailUrl'] as String,
-                docId: document.data()['docId'] as String,
-                etcMaterial: document.data()['etcMaterial'] as String,
-                foodName: document.data()['foodName'] as String,
-                ingredient: document.data()['ingredient'] as List<dynamic>,
-                kategorie: document.data()['kategorie'] as List<dynamic>,
-                like: document.data()['like'] as int,
-                likeusers: document.data()['likeusers'] as List<dynamic>,
-                name: document.data()['name'] as String,
-                path: document.data()['path'] as String,
-                processDescription: document.data()['processDescription'] as Map<String, dynamic>,
-                processUrl: document.data()['processUrl'] as Map<String, dynamic>,
-                timedate: document.data()['timedate'] as String,
-                timestamp: document.data()['timestamp'] as int,
-                userId: document.data()['userId'] as String,
-              ),
-            );
-          }
-        });
-        print("추운 날씨 국물 요리 다운로드 완료");
-      });
-    }
-
-    else if(weather.tempFeelsLike!.celsius! >= 27.0) {
-      FirebaseAuth.instance.userChanges().listen((user) {
-        FirebaseFirestore.instance
-            .collection('forUana')
-            .where('kategorie', arrayContains: '매운 음식')
-            .snapshots()
-            .listen((snapshot) {
-          _weatherRecipes = [];
-          for(final document in snapshot.docs) {
-            _weatherRecipes.add(
-              RecipeInfo(
-                detailUrl: document.data()['detailUrl'] as String,
-                docId: document.data()['docId'] as String,
-                etcMaterial: document.data()['etcMaterial'] as String,
-                foodName: document.data()['foodName'] as String,
-                ingredient: document.data()['ingredient'] as List<dynamic>,
-                kategorie: document.data()['kategorie'] as List<dynamic>,
-                like: document.data()['like'] as int,
-                likeusers: document.data()['likeusers'] as List<dynamic>,
-                name: document.data()['name'] as String,
-                path: document.data()['path'] as String,
-                processDescription: document.data()['processDescription'] as Map<String, dynamic>,
-                processUrl: document.data()['processUrl'] as Map<String, dynamic>,
-                timedate: document.data()['timedate'] as String,
-                timestamp: document.data()['timestamp'] as int,
-                userId: document.data()['userId'] as String,
-              ),
-            );
-          }
-        });
-        print("더운 날씨 매운 요리 다운로드 완료");
-      });
-    }
     notifyListeners();
   }
+
+
+
+
 
   Future<void> sortRecipesByLike() async { // 인기 레시피 정렬
     _popularRecipes = _recipeInformation;

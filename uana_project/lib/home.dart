@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -121,7 +123,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () async {
                   await recipeProvider
                       .loadWeatherRecipes(weatherProvider.weather);
-                  await Navigator.pushNamed(context, '/weather_recipe');
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    Navigator.pushNamed(context, '/weather_recipe');
+                  });
                 },
               ),
               Positioned(

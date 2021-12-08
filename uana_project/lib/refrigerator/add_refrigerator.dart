@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -54,6 +56,12 @@ class _AddRefrigeratorPageState extends State<AddRefrigeratorPage> {
                         fontSize: 15,
                     ),
                   ),
+/*
+                  style: ElevatedButton.styleFrom(
+                    primary: Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(0.9),
+                  ),
+
+ */
                 ),
               );
             }).toList(),

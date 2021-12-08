@@ -50,6 +50,7 @@ class WeatherProvider extends ChangeNotifier {
 
   }
 
+
   Position? _currentPosition;
   Position? get currentPosition => _currentPosition;
 
