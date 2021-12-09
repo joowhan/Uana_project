@@ -185,10 +185,13 @@ class RecipeCreateExState extends State<RecipeCreate> {
                     _processimage3,
                     _processimage4,
                     _processimage5);
+                Future.delayed(const Duration(milliseconds: 1000), () {
+                  recipeProvider.loadRecipes();
+                  Navigator.pop(context);
+                });
 
-                Navigator.pop(context);
               }
-              recipeProvider.loadRecipes();
+
 
             },
           ),

@@ -205,7 +205,11 @@ class _RecipePageState extends State<RecipeDetailPage> {
             ),
             onPressed: () async{
               _delete(widget.recipe);
-              Navigator.pop(context);
+              Future.delayed(const Duration(milliseconds: 1000), () {
+                recipeProvider.loadRecipes();
+                Navigator.pop(context);
+              });
+
             },
             color: Color.fromRGBO(0, 179, 134, 1.0),
           ),
