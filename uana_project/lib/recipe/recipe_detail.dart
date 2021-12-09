@@ -191,7 +191,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
       Navigator.pop(context);
       recipeProvider.loadRecipes();
     }
-    
+
     _onAlertButtonsPressed(context) {
       Alert(
         context: context,
@@ -287,44 +287,30 @@ class _RecipePageState extends State<RecipeDetailPage> {
                           margin: EdgeInsets.fromLTRB(5.0, 10.0, 20, 0),
                           child: Column(
                             // crossAxisAlignment: CrossAxisAlignment.st,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const SizedBox(
-                                height: 25.0,
+                                height: 20.0,
                               ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '${widget.recipe.foodName}\n',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30,
+                              Text(
+                                '${widget.recipe.foodName}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                ),
+                              ),
+                              FlatButton.icon(
+                                icon: Icon(Icons.play_circle_filled, color: Colors.red),
+                                label: Text("Watch Recipe"),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Player(
+                                          widget.recipe.detailUrl, widget.recipe.foodName),
                                     ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      FlatButton.icon(
-                                        icon: Icon(Icons.play_circle_filled, color: Colors.red),
-                                        label: Text("Watch Recipe"),
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Player(
-                                                  widget.recipe.detailUrl, widget.recipe.foodName),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                      SizedBox(
-                                        height: 45,
-                                      )
-                                    ],
-                                  ),
-
-                                ],
+                                  );
+                                },
                               ),
 
 
