@@ -20,83 +20,91 @@ class RecipeProvider extends ChangeNotifier {
   Future<void> init() async {
     await Firebase.initializeApp();
     loadRecipes();
-
   }
 
-  Future<void> loadRecipes() async { // 전체 레시피 받아옴 (받아오는데 시간 걸려서 Search Page 클릭 후 다른 데 갔다가 오면 다 받아지더라)
+  Future<void> loadRecipes() async {
+    // 전체 레시피 받아옴 (받아오는데 시간 걸려서 Search Page 클릭 후 다른 데 갔다가 오면 다 받아지더라)
     FirebaseAuth.instance.userChanges().listen((user) {
       FirebaseFirestore.instance
           .collection('forUana')
           .orderBy('foodName', descending: false)
           .snapshots()
           .listen((snapshot) {
-            _recipeInformation = [];
-            _favoriteRecipes = [];
-            _myRecipes = [];
-            for(final document in snapshot.docs) {
-              _recipeInformation.add(
-                RecipeInfo(
-                  detailUrl: document.data()['detailUrl'] as String,
-                  docId: document.data()['docId'] as String,
-                  etcMaterial: document.data()['etcMaterial'] as String,
-                  foodName: document.data()['foodName'] as String,
-                  ingredient: document.data()['ingredient'] as List<dynamic>,
-                  kategorie: document.data()['kategorie'] as List<dynamic>,
-                  like: document.data()['like'] as int,
-                  likeusers: document.data()['likeusers'] as List<dynamic>,
-                  name: document.data()['name'] as String,
-                  path: document.data()['path'] as String,
-                  processDescription: document.data()['processDescription'] as Map<String, dynamic>,
-                  processUrl: document.data()['processUrl'] as Map<String, dynamic>,
-                  timedate: document.data()['timedate'] as String,
-                  timestamp: document.data()['timestamp'] as int,
-                  userId: document.data()['userId'] as String,
-                ),
-              );
-              if(document.data()['userId'] as String == FirebaseAuth.instance.currentUser!.uid) {
-                _myRecipes.add(
-                  RecipeInfo(
-                    detailUrl: document.data()['detailUrl'] as String,
-                    docId: document.data()['docId'] as String,
-                    etcMaterial: document.data()['etcMaterial'] as String,
-                    foodName: document.data()['foodName'] as String,
-                    ingredient: document.data()['ingredient'] as List<dynamic>,
-                    kategorie: document.data()['kategorie'] as List<dynamic>,
-                    like: document.data()['like'] as int,
-                    likeusers: document.data()['likeusers'] as List<dynamic>,
-                    name: document.data()['name'] as String,
-                    path: document.data()['path'] as String,
-                    processDescription: document.data()['processDescription'] as Map<String, dynamic>,
-                    processUrl: document.data()['processUrl'] as Map<String, dynamic>,
-                    timedate: document.data()['timedate'] as String,
-                    timestamp: document.data()['timestamp'] as int,
-                    userId: document.data()['userId'] as String,
-                  ),
-                );
-              }
+        _recipeInformation = [];
+        _favoriteRecipes = [];
+        _myRecipes = [];
+        for (final document in snapshot.docs) {
+          _recipeInformation.add(
+            RecipeInfo(
+              detailUrl: document.data()['detailUrl'] as String,
+              docId: document.data()['docId'] as String,
+              etcMaterial: document.data()['etcMaterial'] as String,
+              foodName: document.data()['foodName'] as String,
+              ingredient: document.data()['ingredient'] as List<dynamic>,
+              kategorie: document.data()['kategorie'] as List<dynamic>,
+              like: document.data()['like'] as int,
+              likeusers: document.data()['likeusers'] as List<dynamic>,
+              name: document.data()['name'] as String,
+              path: document.data()['path'] as String,
+              processDescription:
+                  document.data()['processDescription'] as Map<String, dynamic>,
+              processUrl: document.data()['processUrl'] as Map<String, dynamic>,
+              timedate: document.data()['timedate'] as String,
+              timestamp: document.data()['timestamp'] as int,
+              userId: document.data()['userId'] as String,
+            ),
+          );
+          if (document.data()['userId'] as String ==
+              FirebaseAuth.instance.currentUser!.uid) {
+            _myRecipes.add(
+              RecipeInfo(
+                detailUrl: document.data()['detailUrl'] as String,
+                docId: document.data()['docId'] as String,
+                etcMaterial: document.data()['etcMaterial'] as String,
+                foodName: document.data()['foodName'] as String,
+                ingredient: document.data()['ingredient'] as List<dynamic>,
+                kategorie: document.data()['kategorie'] as List<dynamic>,
+                like: document.data()['like'] as int,
+                likeusers: document.data()['likeusers'] as List<dynamic>,
+                name: document.data()['name'] as String,
+                path: document.data()['path'] as String,
+                processDescription: document.data()['processDescription']
+                    as Map<String, dynamic>,
+                processUrl:
+                    document.data()['processUrl'] as Map<String, dynamic>,
+                timedate: document.data()['timedate'] as String,
+                timestamp: document.data()['timestamp'] as int,
+                userId: document.data()['userId'] as String,
+              ),
+            );
+          }
 
-              if(document.data()['likeusers'].contains(FirebaseAuth.instance.currentUser!.uid)) {
-                _favoriteRecipes.add(
-                  RecipeInfo(
-                    detailUrl: document.data()['detailUrl'] as String,
-                    docId: document.data()['docId'] as String,
-                    etcMaterial: document.data()['etcMaterial'] as String,
-                    foodName: document.data()['foodName'] as String,
-                    ingredient: document.data()['ingredient'] as List<dynamic>,
-                    kategorie: document.data()['kategorie'] as List<dynamic>,
-                    like: document.data()['like'] as int,
-                    likeusers: document.data()['likeusers'] as List<dynamic>,
-                    name: document.data()['name'] as String,
-                    path: document.data()['path'] as String,
-                    processDescription: document.data()['processDescription'] as Map<String, dynamic>,
-                    processUrl: document.data()['processUrl'] as Map<String, dynamic>,
-                    timedate: document.data()['timedate'] as String,
-                    timestamp: document.data()['timestamp'] as int,
-                    userId: document.data()['userId'] as String,
-                  ),
-                );
-              }
-            }
+          if (document
+              .data()['likeusers']
+              .contains(FirebaseAuth.instance.currentUser!.uid)) {
+            _favoriteRecipes.add(
+              RecipeInfo(
+                detailUrl: document.data()['detailUrl'] as String,
+                docId: document.data()['docId'] as String,
+                etcMaterial: document.data()['etcMaterial'] as String,
+                foodName: document.data()['foodName'] as String,
+                ingredient: document.data()['ingredient'] as List<dynamic>,
+                kategorie: document.data()['kategorie'] as List<dynamic>,
+                like: document.data()['like'] as int,
+                likeusers: document.data()['likeusers'] as List<dynamic>,
+                name: document.data()['name'] as String,
+                path: document.data()['path'] as String,
+                processDescription: document.data()['processDescription']
+                    as Map<String, dynamic>,
+                processUrl:
+                    document.data()['processUrl'] as Map<String, dynamic>,
+                timedate: document.data()['timedate'] as String,
+                timestamp: document.data()['timestamp'] as int,
+                userId: document.data()['userId'] as String,
+              ),
+            );
+          }
+        }
       });
       print("레시피 받아오기 완료!");
 
@@ -104,6 +112,7 @@ class RecipeProvider extends ChangeNotifier {
     });
     notifyListeners();
   }
+
 /*
   Future<void> loadFavoriteRecipes() async { // favorite 레시피 받아옴
     _favoriteRecipes = [];
@@ -119,25 +128,21 @@ class RecipeProvider extends ChangeNotifier {
 
 
  */
-  Future<void> updateLike(String docId, int like, bool updating) async { // 좋아요 or 좋아요 취소
-    if(updating == true) {
-      await FirebaseFirestore.instance.collection('forUana')
-          .doc(docId)
-          .update({
-        'like': like+ 1,
-        'likeusers': FieldValue.arrayUnion(
-            [FirebaseAuth.instance.currentUser!.uid])
+  Future<void> updateLike(String docId, int like, bool updating) async {
+    // 좋아요 or 좋아요 취소
+    if (updating == true) {
+      await FirebaseFirestore.instance.collection('forUana').doc(docId).update({
+        'like': like + 1,
+        'likeusers':
+            FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.uid])
       });
       loadRecipes();
       print('좋아요+1');
-    }
-    else {
-      await FirebaseFirestore.instance.collection('forUana')
-          .doc(docId)
-          .update({
+    } else {
+      await FirebaseFirestore.instance.collection('forUana').doc(docId).update({
         'like': like - 1,
-        'likeusers': FieldValue.arrayRemove(
-            [FirebaseAuth.instance.currentUser!.uid])
+        'likeusers':
+            FieldValue.arrayRemove([FirebaseAuth.instance.currentUser!.uid])
       });
       loadRecipes();
       print('좋아요-1');
@@ -170,10 +175,10 @@ class RecipeProvider extends ChangeNotifier {
                 likeusers: document.data()['likeusers'] as List<dynamic>,
                 name: document.data()['name'] as String,
                 path: document.data()['path'] as String,
-                processDescription: document
-                    .data()['processDescription'] as Map<String, dynamic>,
-                processUrl: document.data()['processUrl'] as Map<String,
-                    dynamic>,
+                processDescription: document.data()['processDescription']
+                    as Map<String, dynamic>,
+                processUrl:
+                    document.data()['processUrl'] as Map<String, dynamic>,
                 timedate: document.data()['timedate'] as String,
                 timestamp: document.data()['timestamp'] as int,
                 userId: document.data()['userId'] as String,
@@ -206,10 +211,10 @@ class RecipeProvider extends ChangeNotifier {
                 likeusers: document.data()['likeusers'] as List<dynamic>,
                 name: document.data()['name'] as String,
                 path: document.data()['path'] as String,
-                processDescription: document
-                    .data()['processDescription'] as Map<String, dynamic>,
-                processUrl: document.data()['processUrl'] as Map<String,
-                    dynamic>,
+                processDescription: document.data()['processDescription']
+                    as Map<String, dynamic>,
+                processUrl:
+                    document.data()['processUrl'] as Map<String, dynamic>,
                 timedate: document.data()['timedate'] as String,
                 timestamp: document.data()['timestamp'] as int,
                 userId: document.data()['userId'] as String,
@@ -243,11 +248,10 @@ class RecipeProvider extends ChangeNotifier {
                   likeusers: document.data()['likeusers'] as List<dynamic>,
                   name: document.data()['name'] as String,
                   path: document.data()['path'] as String,
-                  processDescription: document
-                      .data()['processDescription'] as Map<String, dynamic>,
-                  processUrl: document.data()['processUrl'] as Map<
-                      String,
-                      dynamic>,
+                  processDescription: document.data()['processDescription']
+                      as Map<String, dynamic>,
+                  processUrl:
+                      document.data()['processUrl'] as Map<String, dynamic>,
                   timedate: document.data()['timedate'] as String,
                   timestamp: document.data()['timestamp'] as int,
                   userId: document.data()['userId'] as String,
@@ -258,7 +262,6 @@ class RecipeProvider extends ChangeNotifier {
           print("비오는 날 튀김, 전 요리 다운로드 완료");
         });
       }
-
       else if (weather.tempFeelsLike!.celsius! <= 6.0) {
         FirebaseAuth.instance.userChanges().listen((user) {
           FirebaseFirestore.instance
@@ -280,11 +283,10 @@ class RecipeProvider extends ChangeNotifier {
                   likeusers: document.data()['likeusers'] as List<dynamic>,
                   name: document.data()['name'] as String,
                   path: document.data()['path'] as String,
-                  processDescription: document
-                      .data()['processDescription'] as Map<String, dynamic>,
-                  processUrl: document.data()['processUrl'] as Map<
-                      String,
-                      dynamic>,
+                  processDescription: document.data()['processDescription']
+                      as Map<String, dynamic>,
+                  processUrl:
+                      document.data()['processUrl'] as Map<String, dynamic>,
                   timedate: document.data()['timedate'] as String,
                   timestamp: document.data()['timestamp'] as int,
                   userId: document.data()['userId'] as String,
@@ -295,7 +297,6 @@ class RecipeProvider extends ChangeNotifier {
           print("추운 날씨 국물 요리 다운로드 완료");
         });
       }
-
       else if (weather.tempFeelsLike!.celsius! >= 27.0) {
         FirebaseAuth.instance.userChanges().listen((user) {
           FirebaseFirestore.instance
@@ -317,11 +318,10 @@ class RecipeProvider extends ChangeNotifier {
                   likeusers: document.data()['likeusers'] as List<dynamic>,
                   name: document.data()['name'] as String,
                   path: document.data()['path'] as String,
-                  processDescription: document
-                      .data()['processDescription'] as Map<String, dynamic>,
-                  processUrl: document.data()['processUrl'] as Map<
-                      String,
-                      dynamic>,
+                  processDescription: document.data()['processDescription']
+                      as Map<String, dynamic>,
+                  processUrl:
+                      document.data()['processUrl'] as Map<String, dynamic>,
                   timedate: document.data()['timedate'] as String,
                   timestamp: document.data()['timestamp'] as int,
                   userId: document.data()['userId'] as String,
@@ -332,49 +332,48 @@ class RecipeProvider extends ChangeNotifier {
           print("더운 날씨 매운 요리 다운로드 완료");
         });
       }
-    }
 
-    else {
-      FirebaseAuth.instance.userChanges().listen((user) {
-        FirebaseFirestore.instance
-            .collection('forUana')
-            .where('kategorie', arrayContains: '식사')
-            .snapshots()
-            .listen((snapshot) {
-          _weatherRecipes = [];
-          for(final document in snapshot.docs) {
-            _weatherRecipes.add(
-              RecipeInfo(
-                detailUrl: document.data()['detailUrl'] as String,
-                docId: document.data()['docId'] as String,
-                etcMaterial: document.data()['etcMaterial'] as String,
-                foodName: document.data()['foodName'] as String,
-                ingredient: document.data()['ingredient'] as List<dynamic>,
-                kategorie: document.data()['kategorie'] as List<dynamic>,
-                like: document.data()['like'] as int,
-                likeusers: document.data()['likeusers'] as List<dynamic>,
-                name: document.data()['name'] as String,
-                path: document.data()['path'] as String,
-                processDescription: document.data()['processDescription'] as Map<String, dynamic>,
-                processUrl: document.data()['processUrl'] as Map<String, dynamic>,
-                timedate: document.data()['timedate'] as String,
-                timestamp: document.data()['timestamp'] as int,
-                userId: document.data()['userId'] as String,
-              ),
-            );
-          }
+      else {
+        FirebaseAuth.instance.userChanges().listen((user) {
+          FirebaseFirestore.instance
+              .collection('forUana')
+              .where('kategorie', arrayContains: '식사')
+              .snapshots()
+              .listen((snapshot) {
+            _weatherRecipes = [];
+            for (final document in snapshot.docs) {
+              _weatherRecipes.add(
+                RecipeInfo(
+                  detailUrl: document.data()['detailUrl'] as String,
+                  docId: document.data()['docId'] as String,
+                  etcMaterial: document.data()['etcMaterial'] as String,
+                  foodName: document.data()['foodName'] as String,
+                  ingredient: document.data()['ingredient'] as List<dynamic>,
+                  kategorie: document.data()['kategorie'] as List<dynamic>,
+                  like: document.data()['like'] as int,
+                  likeusers: document.data()['likeusers'] as List<dynamic>,
+                  name: document.data()['name'] as String,
+                  path: document.data()['path'] as String,
+                  processDescription: document.data()['processDescription']
+                  as Map<String, dynamic>,
+                  processUrl:
+                  document.data()['processUrl'] as Map<String, dynamic>,
+                  timedate: document.data()['timedate'] as String,
+                  timestamp: document.data()['timestamp'] as int,
+                  userId: document.data()['userId'] as String,
+                ),
+              );
+            }
+          });
+          print("점심 or 저녁 시간 때 식사 요리 다운로드 완료");
         });
-        print("점심 or 저녁 시간 때 식사 요리 다운로드 완료");
-      });
+      }
     }
     notifyListeners();
   }
 
-
-
-
-
-  Future<void> sortRecipesByLike() async { // 인기 레시피 정렬
+  Future<void> sortRecipesByLike() async {
+    // 인기 레시피 정렬
     _popularRecipes = _recipeInformation;
     _popularRecipes.sort((a, b) => b.like.compareTo(a.like)); // 내림차순 정렬
     print('인기 레시피 정렬 완료!');
@@ -397,11 +396,24 @@ class RecipeProvider extends ChangeNotifier {
   List<RecipeInfo> get popularRecipes => _popularRecipes;
 }
 
-class RecipeInfo { // 레시피 정보를 담는 구조체
-  RecipeInfo({required this.detailUrl, required this.docId, required this.etcMaterial, required this.foodName,
-              required this.ingredient, required this.kategorie, required this.like, required this.likeusers,
-              required this.name, required this.path, required this.processDescription, required this.processUrl,
-              required this.timedate, required this.timestamp, required this.userId});
+class RecipeInfo {
+  // 레시피 정보를 담는 구조체
+  RecipeInfo(
+      {required this.detailUrl,
+      required this.docId,
+      required this.etcMaterial,
+      required this.foodName,
+      required this.ingredient,
+      required this.kategorie,
+      required this.like,
+      required this.likeusers,
+      required this.name,
+      required this.path,
+      required this.processDescription,
+      required this.processUrl,
+      required this.timedate,
+      required this.timestamp,
+      required this.userId});
 
   final String detailUrl;
   final String docId;
@@ -418,5 +430,4 @@ class RecipeInfo { // 레시피 정보를 담는 구조체
   final String timedate;
   final int timestamp;
   final String userId;
-
 }
