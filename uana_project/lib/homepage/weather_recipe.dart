@@ -106,7 +106,7 @@ class _WeatherRecipePageState extends State<WeatherRecipePage> {
     if (DateTime.now().hour >= 21 && DateTime.now().hour <= 24 ||
         DateTime.now().hour >= 0 && DateTime.now().hour <= 3) {
       weatherDescription = "야심한 밤 야식 어떠세요?";
-    } else if (DateTime.now().hour >= 11 && DateTime.now().hour <= 14) {
+    } else if (DateTime.now().hour >= 11 && DateTime.now().hour <= 16) {
       weatherDescription = "벌써 점심시간이네요! 밥 먹고 일합시다!";
     } else if (DateTime.now().hour >= 17 && DateTime.now().hour <= 20) {
       weatherDescription = "오늘 하루도 고생했어요! 맛있는 저녁 식사 어떠세요?";
@@ -119,9 +119,12 @@ class _WeatherRecipePageState extends State<WeatherRecipePage> {
     } else if (weather.tempFeelsLike!.celsius! >= 27.0) {
       weatherDescription = "날이 참 덥네요 스트레스를 확 풀어줄 매운 음식 어떠세요?";
     }
+    else {
+      weatherDescription = "오늘의 추천요리입니다.";
+    }
 
     return Text(
-      weatherDescription!,
+      weatherDescription,
       maxLines: 3,
       style: const TextStyle(
         fontSize: 20.0,

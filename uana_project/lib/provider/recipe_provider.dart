@@ -221,7 +221,7 @@ class RecipeProvider extends ChangeNotifier {
       });
     }
 
-    else if (DateTime.now().hour >= 11 && DateTime.now().hour <= 16 || DateTime.now().hour >= 17 && DateTime.now().hour <= 20) {
+    else if (DateTime.now().hour >= 11 && DateTime.now().hour <= 20) {
       if (weather!.weatherDescription!.toLowerCase() == "rain") {
         FirebaseAuth.instance.userChanges().listen((user) {
           FirebaseFirestore.instance
