@@ -339,7 +339,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
                                                         .collection("forUana")
                                                         .doc(widget.recipe.docId)
                                                         .update({
-                                                      'like': widget.recipe.like-1,
+                                                      'like': _counter.value,
                                                       'likeusers': FieldValue.arrayRemove(
                                                           [FirebaseAuth.instance.currentUser!.uid])
                                                     });
@@ -358,7 +358,7 @@ class _RecipePageState extends State<RecipeDetailPage> {
                                                         .collection("forUana")
                                                         .doc(widget.recipe.docId)
                                                         .update({
-                                                      'like': widget.recipe.like+1,
+                                                      'like': _counter.value,
                                                       'likeusers': FieldValue.arrayUnion(
                                                           [FirebaseAuth.instance.currentUser!.uid])
                                                     });
